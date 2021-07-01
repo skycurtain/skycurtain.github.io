@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+    <meta charset="utf-8">
+
+    
+
+    <!-- 渲染优化 -->
+    <meta name="renderer" content="webkit">
+    <meta name="force-rendering" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="HandheldFriendly" content="True" >
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!--icon-->
+
+    
+        <link rel="shortcut icon" href="/favicon%5Cfavicon.ico">
+    
+    
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon%5Cfavicon-16x16.png">
+    
+    
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon%5Cfavicon-32x32.png">
+    
+    
+        <link rel="apple-touch-icon" sizes="180x180" href="/favicon%5Capple-touch-icon.png">
+    
+    
+        <link rel="mask-icon" href="/favicon%5Csafari-pinned-tab.svg">
+    
+
+
+    <!-- meta -->
+
+
+<title>我是如何创建并部署我的hexo blog到gitee | Skycurtain.Dreamland</title>
+
+
+    <meta name="keywords" content="Blog相关">
+
+
+
+
+    <!-- OpenGraph -->
+
+
+    
+<link rel="stylesheet" href="/css/style/main.css">
+ 
+
+
+    
+<link rel="stylesheet" href="/css/style/dark.css">
+
+    
+<script src="/js/darkmode.js"></script>
+
+
+
+    
+    
+        <link rel="stylesheet" id="hl-default-theme" href="/css/highlight/default.css" media="none" onload="if(getComputedStyle(document.documentElement).getPropertyValue('--color-mode').indexOf('dark')===-1)this.media='all'">
+        
+            <link rel="stylesheet" id="hl-dark-theme" href="/css/highlight/dark.css" media="none" onload="if(getComputedStyle(document.documentElement).getPropertyValue('--color-mode').indexOf('dark')!==-1)this.media='all'">
+        
+    
+
+    
+    
+
+     
+
+    <!-- custom head -->
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+    <body>
+        <div id="app">
+            <header class="header">
+    <div class="header__left">
+        <a href="/" class="button">
+            <span class="logo__text">Skycurtain</span>
+        </a>
+    </div>
+    <div class="header__right">
+        
+            <div class="navbar__menus">
+                
+                    <a href="/" class="navbar-menu button">首页</a>
+                
+                    <a href="/archives/" class="navbar-menu button">归档</a>
+                
+                    <a href="/categories/" class="navbar-menu button">分类</a>
+                
+                    <a href="/tags/" class="navbar-menu button">标签</a>
+                
+                    <a href="/friends/" class="navbar-menu button">友链</a>
+                
+            </div>
+        
+        
+        
+    <a href="/search/" id="btn-search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="32"><path d="M192 448c0-141.152 114.848-256 256-256s256 114.848 256 256-114.848 256-256 256-256-114.848-256-256z m710.624 409.376l-206.88-206.88A318.784 318.784 0 0 0 768 448c0-176.736-143.264-320-320-320S128 271.264 128 448s143.264 320 320 320a318.784 318.784 0 0 0 202.496-72.256l206.88 206.88 45.248-45.248z"></path></svg>
+    </a>
+
+
+        
+        
+    <a href="javaScript:void(0);" id="btn-toggle-dark">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+    </a>
+
+
+        
+
+        
+            <a class="dropdown-icon button" id="btn-dropdown" tabindex="0"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='24' height='24' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"><path fill="currentColor" d="M3.314,4.8h13.372c0.41,0,0.743-0.333,0.743-0.743c0-0.41-0.333-0.743-0.743-0.743H3.314c-0.41,0-0.743,0.333-0.743,0.743C2.571,4.467,2.904,4.8,3.314,4.8z M16.686,15.2H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,15.2,16.686,15.2z M16.686,9.257H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,9.257,16.686,9.257z"></path></svg></a>
+            <div class="dropdown-menus" id="dropdown-menus">
+                
+                    <a href="/" class="dropdown-menu button">首页</a>
+                
+                    <a href="/archives/" class="dropdown-menu button">归档</a>
+                
+                    <a href="/categories/" class="dropdown-menu button">分类</a>
+                
+                    <a href="/tags/" class="dropdown-menu button">标签</a>
+                
+                    <a href="/friends/" class="dropdown-menu button">友链</a>
+                
+            </div>
+        
+    </div>
+</header>
+
+
+            <main class="main">
+    
+
+<div class="post-title">
+    <h1 class="post-title__text">
+        我是如何创建并部署我的hexo blog到gitee
+    </h1>
+    <div class="post-title__meta">
+        <a href="/archives/2020/08/" class="post-meta__date button">2020-08-09</a>
+        
+    <span class="separate-dot"></span><a href="/categories/%E6%8A%80%E6%9C%AF/" class="button">技术</a>
+
+ 
+        
+    
+    
+
+
+ 
+
+ 
+    </div>
+</div>
+
+
+
+<article class="post content-card">
+    <div class="post__header">
+    <div class="post__expire" id="post-expired-notify">
+        <p>
+            本文最后更新于 &lt;span id=&#34;expire-date&#34;&gt;&lt;/span&gt; 天前，文中部分描述可能已经过时。
+        </p>
+    </div>
+    <script>
+        (() => {
+            var update = Date.parse("2021-01-25"),
+                date = new Date(),
+                now = date.getTime(),
+                expire = now - update,
+                expire_days = Math.floor(expire/(24*3600*1000));
+            if (expire_days >= 120) {
+                document.querySelectorAll('#expire-date')[0].innerHTML = expire_days;
+                document.querySelectorAll('#post-expired-notify')[0].style.display = 'block';
+            }
+        })();
+    </script>
+</div>
+    <div class="post__content">
+        <p>Blog初开，作为第一篇文章，我想记录一下自己从创建到部署它的全过程，也算是几天试验成果的一个总结。</p>
+<span id="more"></span>
+
+<p>一开始因为听说<code>Hugo</code>框架简单得离谱，于是作为一个菜鸡，我就愉快地按照B站找来的教程成功搭建了一个，随后在想为安装的主题添加更多自定义内容时，发现<code>Hugo</code>主题的文档都不够全面，更像是这些开发者做出来展示自己的，而且主题也都不太符合我的审美，遂弃之。</p>
+<p>当晚决定用<code>hexo</code>来完成这件事情。吃一堑长一智，这次先去<code>github</code>上找了一大堆主题，其中发现一个名为<code>fluid</code>的由国内开发者开发的主题，外观很不错，文档也很全面完整，就决定是它了！</p>
+<hr>
+<h2 id="安装所需环境（Windows-）"><a href="#安装所需环境（Windows-）" class="headerlink" title="安装所需环境（Windows ）"></a>安装所需环境（Windows ）</h2><h3 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装<code>Node.js</code></h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://nodejs.org/zh-cn</span><br></pre></td></tr></table></figure>
+
+<h3 id="安装Git"><a href="#安装Git" class="headerlink" title="安装Git"></a>安装<code>Git</code></h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://git-scm.com/download/win</span><br></pre></td></tr></table></figure>
+
+<h3 id="打开Powershell，安装hexo-cli工具包"><a href="#打开Powershell，安装hexo-cli工具包" class="headerlink" title="打开Powershell，安装hexo-cli工具包"></a>打开<code>Powershell</code>，安装<code>hexo-cli</code>工具包</h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install <span class="literal">-g</span> hexo<span class="literal">-cli</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="建立本地博客站点"><a href="#建立本地博客站点" class="headerlink" title="建立本地博客站点"></a>建立本地博客站点</h2><h3 id="我想把博客项目文件夹放在桌面"><a href="#我想把博客项目文件夹放在桌面" class="headerlink" title="我想把博客项目文件夹放在桌面"></a>我想把博客项目文件夹放在桌面</h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> desktop/</span><br></pre></td></tr></table></figure>
+
+<h3 id="建立本地站点，我将其命名为myblog"><a href="#建立本地站点，我将其命名为myblog" class="headerlink" title="建立本地站点，我将其命名为myblog"></a>建立本地站点，我将其命名为<code>myblog</code></h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo init myblog</span><br><span class="line"><span class="built_in">cd</span> myblog</span><br></pre></td></tr></table></figure>
+
+<h3 id="启动博客查看初始化情况"><a href="#启动博客查看初始化情况" class="headerlink" title="启动博客查看初始化情况"></a>启动博客查看初始化情况</h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo server</span><br></pre></td></tr></table></figure>
+
+<h3 id="至此，可以看到提示"><a href="#至此，可以看到提示" class="headerlink" title="至此，可以看到提示"></a>至此，可以看到提示</h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INFO  Hexo is running at http://localhost:<span class="number">4000</span> . Press Ctrl+C to stop.</span><br></pre></td></tr></table></figure>
+
+<p>浏览器打开<code>http://localhost:4000</code>，可以看到<code>hexo</code>建站的同时有一个默认主题。</p>
+<hr>
+<h2 id="更改-amp-配置hexo主题"><a href="#更改-amp-配置hexo主题" class="headerlink" title="更改&amp;配置hexo主题"></a>更改&amp;配置<code>hexo</code>主题</h2><h3 id="检查是否在myblog目录下"><a href="#检查是否在myblog目录下" class="headerlink" title="检查是否在myblog目录下"></a>检查是否在<code>myblog</code>目录下</h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">pwd</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="下载-最新-release-版本，解压到themes目录下并重命名为fluid。"><a href="#下载-最新-release-版本，解压到themes目录下并重命名为fluid。" class="headerlink" title="下载 最新 release 版本，解压到themes目录下并重命名为fluid。"></a>下载 <a target="_blank" rel="noopener" href="https://github.com/fluid-dev/hexo-theme-fluid/releases">最新 release 版本</a>，解压到<code>themes</code>目录下并重命名为<code>fluid</code>。</h3><h3 id="修改博客目录下的-config-yml："><a href="#修改博客目录下的-config-yml：" class="headerlink" title="修改博客目录下的 _config.yml："></a>修改博客目录下的 <code>_config.yml</code>：</h3><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">title:</span> <span class="string">Skycurtain&#x27;s</span> <span class="string">Blog</span></span><br><span class="line"><span class="attr">author:</span> <span class="string">Skycurtain</span></span><br><span class="line"><span class="attr">language:</span> <span class="string">zh-CN</span></span><br><span class="line"></span><br><span class="line"><span class="attr">theme:</span> <span class="string">fluid</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="添加关于页"><a href="#添加关于页" class="headerlink" title="添加关于页"></a>添加关于页</h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new page about</span><br></pre></td></tr></table></figure>
+
+<h3 id="修改-source-about-index-md，在头部添加-layout-属性"><a href="#修改-source-about-index-md，在头部添加-layout-属性" class="headerlink" title="修改 /source/about/index.md，在头部添加 layout 属性"></a>修改 <code>/source/about/index.md</code>，在头部添加 <code>layout</code> 属性</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">layout:</span> <span class="string">about</span></span><br></pre></td></tr></table></figure>
+
+<p>暂时就做这些处理，更多文档详见：<a target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/docs/guide/">https://hexo.fluid-dev.com/docs/guide/</a></p>
+<hr>
+<h2 id="撰写第一篇文章"><a href="#撰写第一篇文章" class="headerlink" title="撰写第一篇文章"></a>撰写第一篇文章</h2><h3 id="新建一篇post"><a href="#新建一篇post" class="headerlink" title="新建一篇post"></a>新建一篇post</h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new post <span class="string">&quot;我是如何创建并部署我的hexo blog到gitee&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>这样在source/_post/下会新建“我是如何创建并部署我的hexo blog到gitee”的md文件</p>
+<hr>
+<h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><p>首先需要在<code>gitee</code>新建仓库</p>
+<h3 id="修改-config-yml配置"><a href="#修改-config-yml配置" class="headerlink" title="修改_config.yml配置"></a>修改<code>_config.yml</code>配置</h3><p>选择<code>gitee</code>的原因是<code>Github Pages</code>的访问速度并不理想，而且暂时也没有考虑各种加速手段，所以尽管<code>gitee</code>有各种不足，但它仍然成为了我的选择。</p>
+<p>鉴于<code>Github Pages</code>的后端采用<code>Jekyll</code>，或许以后等我的博客成熟了会考虑迁移到<code>Jekyll</code>并部署到<code>Github Pages</code>。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Deployment</span></span><br><span class="line"><span class="comment">## Docs: https://hexo.io/docs/deployment.html</span></span><br><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repo:</span> <span class="string">https://gitee.com/skycurtain/skycurtain</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Git配置"><a href="#Git配置" class="headerlink" title="Git配置"></a>Git配置</h3><p>用<code>VS Code</code>打开博客项目并开启终端（确保操作目录是<code>myblog/</code>）</p>
+<p>配置git信息</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config -<span class="literal">-global</span> user.name <span class="string">&quot;Skycurtain&quot;</span></span><br><span class="line">git config -<span class="literal">-global</span> user.email skycurtain@<span class="number">163</span>.com</span><br></pre></td></tr></table></figure>
+
+<p>建立git仓库</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure>
+
+<h3 id="安装hexo-deployer-git"><a href="#安装hexo-deployer-git" class="headerlink" title="安装hexo-deployer-git"></a>安装<code>hexo-deployer-git</code></h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo<span class="literal">-deployer</span><span class="literal">-git</span> -<span class="literal">-save</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="生成静态文件"><a href="#生成静态文件" class="headerlink" title="生成静态文件"></a>生成静态文件</h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo generate</span><br></pre></td></tr></table></figure>
+
+<h3 id="一键部署"><a href="#一键部署" class="headerlink" title="一键部署"></a>一键部署</h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>以上两步操作可以简化为</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo generate -<span class="literal">-deploy</span></span><br></pre></td></tr></table></figure>
+
+<p>或</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo g <span class="literal">-d</span></span><br></pre></td></tr></table></figure>
+
+<p>最后在<code>gitee</code>仓库的服务中选择<code>Gitee Pages</code>，选择<code>启动</code>/<code>更新</code></p>
+
+    </div>
+    
+    <div class="post__license">
+        <p>
+            <strong>本文作者：</strong>Skycurtain
+        </p>
+        <p>
+            <strong>
+                本文链接：
+            </strong>
+            <a href="https://skycurtain.gitee.io/2020/08/09/how-I-build-my-hexo-to-gitee/">https://skycurtain.gitee.io/2020/08/09/how-I-build-my-hexo-to-gitee/</a>
+        </p>
+        
+    </div>
+ 
+    <div class="post-footer__meta"><p>更新于 2021-01-25</p></div> 
+    <div class="post-meta__cats"><a href="/categories/%E6%8A%80%E6%9C%AF/" class="post-cats__link button">技术</a><a href="/tags/Blog%E7%9B%B8%E5%85%B3/" class="post-tags__link button"># Blog相关</a></div> 
+</article>
+
+
+    <div class="nav">
+        <div class="nav__prev">
+            
+                <a href="/2020/08/12/after-xiaomi-10-year-release-conference/" class="nav__link">
+                    <div>
+                        <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="M589.088 790.624L310.464 512l278.624-278.624 45.248 45.248L400.96 512l233.376 233.376z" fill="#808080"></path></svg>
+                    </div>
+                    <div>
+                        <div class="nav__label">
+                            Previous Post
+                        </div>
+                        <div class="nav__title">
+                            写在看完小米十周年发布会后
+                        </div>
+                    </div>
+                </a>
+            
+        </div>
+        <div class="nav__next">
+            
+        </div>
+    </div>
+
+
+
+
+
+</main>
+
+            <footer class="footer">
+    
+
+
+    
+     
+ 
+
+ 
+    
+        
+        <p class="footer-copyright">
+            Copyright © 2021 <a href="/">Skycurtain.Dreamland</a>
+        </p>
+    
+    
+    <p>Powered by <a href="https://hexo.io" target="_blank">Hexo</a> | Theme - <a href="https://github.com/ChrAlpha/hexo-theme-cards" target="_blank">Cards</a></p>
+</footer>
+
+        </div>
+         
+
+ 
+
+ 
+
+ 
+
+  
+
+
+
+ 
+
+
+    
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+
+
+
+    </body>
+</html>
