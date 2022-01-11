@@ -186,7 +186,7 @@
     </div>
     <script>
         (() => {
-            var update = Date.parse("2022-01-10"),
+            var update = Date.parse("2022-01-11"),
                 date = new Date(),
                 now = date.getTime(),
                 expire = now - update,
@@ -212,7 +212,9 @@
 
 <p>但是现在不一样，现在有数据库，每当前端传来用户名和密码，都需要通过用户名和密码向数据库查询是否存在该用户，同时考虑到用户离职，但是不能够简单地将其从数据库中删除，这样会影响到后续的的数据统计，因此需要另设置用户的“在职”识别码，说白了就是个<code>boolean</code>变量，进而通过判断该用户是否在职来确定是否允许该登录请求通过。而且通常情况下咱们登录一个网站后，这个登录状态其实是有期限的，过期后就需要重新登录，这说明我们需要一个地方来保存下每个登录用户的登录状态，这个登录状态包含了用户的非敏感的登录信息，并且这个登录状态必须是唯一的，以此来保证这个登录状态不会被重复利用。</p>
 <p>这种场景有一个专门的名字：<strong>跨域身份验证</strong>。其中比较主流的方式是<code>JWT</code>，即<code>JSON Web Token</code>：在前端发起登录请求后，服务端会通过登录信息来构建一串<code>token</code>作为该用户本次登陆的唯一凭证，这个<code>token</code>会被前端保存下来，之后的每次请求中都会携带<code>token</code>，由服务端来校验<code>token</code>是否合法，进而决定是否要执行功能代码。而这个<code>token</code>会采用一定的认证算法将携带的信息载荷加密形成签名，一旦载荷被修改，签名则立即发生变化，这样服务端获取<code>token</code>后只需通过载荷与约定的认证方式来计算出签名进行比对即可。</p>
-<h2 id="城门卫士：拦截器"><a href="#城门卫士：拦截器" class="headerlink" title="城门卫士：拦截器"></a>城门卫士：拦截器</h2><h2 id="和而不同：跨域"><a href="#和而不同：跨域" class="headerlink" title="和而不同：跨域"></a>和而不同：跨域</h2><h2 id="天下太平：统一异常处理"><a href="#天下太平：统一异常处理" class="headerlink" title="天下太平：统一异常处理"></a>天下太平：统一异常处理</h2><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2>
+<p>具体到<code>JWT</code>的实现上，虽然自己从头写一个工具类不算困难，但事实上有许多细节是需要考虑的，而且，所以本着<code>非必要不造轮子</code>的原则，比较著名的<code>JJWT</code>和<code>Java-JWT</code>包都是不错的选择。在使用了<code>JJWT</code>后，我个人还是比较推荐<code>Java-JWT</code>，感觉它的限制会少一些，可以将<code>token</code>验证流程控制得更加精细。</p>
+<h2 id="城门卫士：拦截器"><a href="#城门卫士：拦截器" class="headerlink" title="城门卫士：拦截器"></a>城门卫士：拦截器</h2><p>所谓拦截器，在这个小项目中最主要的作用是拦截所有登录之外的请求，只有用户登录情况正确后才能执行相应的功能</p>
+<h2 id="和而不同：跨域"><a href="#和而不同：跨域" class="headerlink" title="和而不同：跨域"></a>和而不同：跨域</h2><h2 id="天下太平：统一异常处理"><a href="#天下太平：统一异常处理" class="headerlink" title="天下太平：统一异常处理"></a>天下太平：统一异常处理</h2><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2>
     </div>
     
     <div class="post__license">
@@ -228,7 +230,7 @@
         
     </div>
  
-    <div class="post-footer__meta"><p>更新于 2022-01-10</p></div> 
+    <div class="post-footer__meta"><p>更新于 2022-01-11</p></div> 
     <div class="post-meta__cats"><a href="/categories/%E6%8A%80%E6%9C%AF/" class="post-cats__link button">技术</a><a href="/tags/Spring-Boot/" class="post-tags__link button"># Spring Boot</a></div> 
 </article>
 
