@@ -114,7 +114,13 @@
     </a>
 
 
-        
+         
+    <a href="#" class="button" id="b2t" aria-label="回到顶部" title="回到顶部">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="32" height="32">
+            <path d="M233.376 722.752L278.624 768 512 534.624 745.376 768l45.248-45.248L512 444.128zM192 352h640V288H192z" fill="currentColor"></path>
+        </svg>
+    </a>
+
 
         
             <a class="dropdown-icon button" id="btn-dropdown" tabindex="0"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='24' height='24' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"><path fill="currentColor" d="M3.314,4.8h13.372c0.41,0,0.743-0.333,0.743-0.743c0-0.41-0.333-0.743-0.743-0.743H3.314c-0.41,0-0.743,0.333-0.743,0.743C2.571,4.467,2.904,4.8,3.314,4.8z M16.686,15.2H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,15.2,16.686,15.2z M16.686,9.257H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,9.257,16.686,9.257z"></path></svg></a>
@@ -201,7 +207,6 @@
     <div class="post__content">
         <p>旧岁即去，年关将至，对于一个<del>新来的</del>博客人来说，总觉得要写点什么来让这一年在自己的脑海中留下一些印象。</p>
 <span id="more"></span>
-
 <h2 id="0x00"><a href="#0x00" class="headerlink" title="0x00"></a>0x00</h2><p>因为在去年暑假期间才稍稍规划了一下，决定开始逐步构建博客的内容。而做出这个决定时已经到了下半年，于是随着下半年的顺利开学，整个博客也因为学业繁忙而不能再更新，就连使用的框架都已经更迭了很多个版本。如今放假没几天，重装了系统的我基本安装好了需要的环境，生活也逐渐有了节奏，于是思考着将博客整体翻修一遍吧，翻修的过程其实比较枯燥，无非就是跟着文档一点一点改图标、背景、文字、标识，没什么好写的，而真正的重点在于——我觉得现在应该写点什么。因为别的日程还需要一两天来规划，而无论从期末还是年末的角度来说，这都是一个有意义的时间段。我想，既然别的大佬们都会在每年末做一个年终总结，那我也来“装模作样”地总结一下属于我的2020。</p>
 <h2 id="0x01"><a href="#0x01" class="headerlink" title="0x01"></a>0x01</h2><p>焦虑。</p>
 <p>整个2020上半年，可以说我都是有些焦虑的。这种焦虑比较特别，不是说我在焦虑什么，而是我不知道在焦虑什么，疫情的蔓延会让我焦虑，有些无厘头的课会让我焦虑，催命般的每日上报体温会让我焦虑……虽说都不是什么严重的大事，但每天都要一个接一个地遇到这些事儿就是会很不爽，比每天满课更感压抑，尤其是许多非专业相关的课，又不想上，又不敢不签到，真是糟心。</p>
@@ -326,5 +331,20 @@
 
 
 
-    </body>
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
 </html>

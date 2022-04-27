@@ -114,7 +114,13 @@
     </a>
 
 
-        
+         
+    <a href="#" class="button" id="b2t" aria-label="回到顶部" title="回到顶部">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="32" height="32">
+            <path d="M233.376 722.752L278.624 768 512 534.624 745.376 768l45.248-45.248L512 444.128zM192 352h640V288H192z" fill="currentColor"></path>
+        </svg>
+    </a>
+
 
         
             <a class="dropdown-icon button" id="btn-dropdown" tabindex="0"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='24' height='24' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"><path fill="currentColor" d="M3.314,4.8h13.372c0.41,0,0.743-0.333,0.743-0.743c0-0.41-0.333-0.743-0.743-0.743H3.314c-0.41,0-0.743,0.333-0.743,0.743C2.571,4.467,2.904,4.8,3.314,4.8z M16.686,15.2H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,15.2,16.686,15.2z M16.686,9.257H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,9.257,16.686,9.257z"></path></svg></a>
@@ -207,20 +213,17 @@
 <h2 id="万物起源：登陆"><a href="#万物起源：登陆" class="headerlink" title="万物起源：登陆"></a>万物起源：登陆</h2><p>对所有的信息管理系统来说，登录功能几乎是这类软件功能的基石，所有的用户角色、权限，所有的实体功能都要建立在用户一登录的基础上。如果没有一套较为完整的登录流程，整个系统便无从运行。</p>
 <p>在前几个学期，我做过一个要求不高的课设，那时候还没有要求设计<code>UI</code>，也没有任何数据库，只是简简单单地通过C++标准库的<code>fstream</code>把信息写进文件，想实现登录只需要做一个判断即可。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(username == input_name &amp;&amp; password == input_password)<span class="comment">// 判断用户名和密码是否匹配</span></span><br></pre></td></tr></table></figure>
-
 <p>但是现在不一样，现在有数据库，每当前端传来用户名和密码，都需要通过用户名和密码向数据库查询是否存在该用户，同时考虑到用户离职，但是不能够简单地将其从数据库中删除，这样会影响到后续的的数据统计，因此需要另设置用户的“在职”识别码，说白了就是个<code>boolean</code>变量，进而通过判断该用户是否在职来确定是否允许该登录请求通过。而且通常情况下咱们登录一个网站后，这个登录状态其实是有期限的，过期后就需要重新登录，这说明我们需要一个地方来保存下每个登录用户的登录状态，这个登录状态包含了用户的非敏感的登录信息，并且这个登录状态必须是唯一的，以此来保证这个登录状态不会被重复利用。</p>
 <p>这种场景有一个专门的名字：<strong>跨域身份验证</strong>。其中比较主流的方式是<code>JWT</code>，即<code>JSON Web Token</code>：在前端发起登录请求后，服务端会通过登录信息来构建一串<code>token</code>作为该用户本次登陆的唯一凭证，这个<code>token</code>会被前端保存下来，之后的每次请求中都会携带<code>token</code>，由服务端来校验<code>token</code>是否合法，进而决定是否要执行功能代码。而这个<code>token</code>会采用一定的认证算法将携带的信息载荷加密形成签名，一旦载荷被修改，签名则立即发生变化，这样服务端获取<code>token</code>后只需通过载荷与约定的认证方式来计算出签名进行比对即可。</p>
 <p>具体到<code>JWT</code>的实现上，虽然自己从头写一个工具类不算困难，但事实上有许多细节是需要考虑的，而且一个成熟的工具类需要后续不间断的维护和更新，所以本着<code>非必要不造轮子</code>的原则，比较著名的<code>JJWT</code>和<code>Java-JWT</code>包都是不错的选择。在使用了<code>JJWT</code>后，我个人还是比较推荐<code>Java-JWT</code>，感觉它的限制会少一些，可以将<code>token</code>验证流程控制得更加精细。</p>
 <h2 id="城门卫士：拦截器"><a href="#城门卫士：拦截器" class="headerlink" title="城门卫士：拦截器"></a>城门卫士：拦截器</h2><p>所谓拦截器，在这个小项目中最主要的作用是拦截所有登录之外的请求，只有用户登录情况正确后才能执行相应的功能。在<code>Spring Boot</code>中，<code>SpringMVC</code>已经为我们提供了拦截器，称为<code>HandlerInterceptor</code>，其下有三个方法声明，分别为<code>preHandle</code>、<code>postHandle</code>、<code>afterCompletion</code>，分别用于在<code>Controller</code>方法执行前、<code>Controller</code>方法执行后而<code>ModelView</code>渲染前、<code>ModelView</code>渲染后。由于项目中只用到了<code>preHandle</code>，因此先简单介绍一下这个方法。</p>
 <p>方法包含3个参数：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HttpServletRequest request, HttpServletResponse response, Object handler</span><br></pre></td></tr></table></figure>
-
 <p><code>request</code>是当前服务端收到的请求</p>
 <p><code>response</code>是当前的响应</p>
 <p><code>handler</code>可以认为是<code>Controller</code>方法的整个方法签名</p>
 <p>接着描述一下拦截的逻辑：首先我们需要实现<code>HandlerInterceptor</code>类并重写<code>preHandle</code>方法，在方法体中，首先获取token：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String token = request.getHeader(<span class="string">&quot;Authorization&quot;</span>);</span><br></pre></td></tr></table></figure>
-
 <p>去具体判断何时应当认为token是符合约定的，即什么条件下允许服务端执行用户请求的功能。</p>
 <p>随后，需要针对新增的拦截器添加配置，这一点通过Spring Boot的配置类来实现，我们需要做的有：</p>
 <ol>
@@ -229,7 +232,8 @@
 <li><p>重写<code>addInterceptors</code>方法</p>
 </li>
 <li><p>方法中添加配置代码：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addInterceptors</span><span class="params">(InterceptorRegistry registry)</span> </span>&#123;</span><br><span class="line">   registry.addInterceptor(loginInterceptor)</span><br><span class="line">         .addPathPatterns(<span class="string">&quot;/**&quot;</span>) <span class="comment">// 拦截路径</span></span><br><span class="line">         .excludePathPatterns(<span class="string">&quot;/login&quot;</span>); <span class="comment">// 排除路径</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addInterceptors</span><span class="params">(InterceptorRegistry registry)</span> </span>&#123;</span><br><span class="line">   registry.addInterceptor(loginInterceptor)</span><br><span class="line">         .addPathPatterns(<span class="string">&quot;/**&quot;</span>) <span class="comment">// 拦截路径</span></span><br><span class="line">         .excludePathPatterns(<span class="string">&quot;/login&quot;</span>); <span class="comment">// 排除路径</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
 </ol>
 <p>这样，拦截器便可以根据路径启用对应的拦截。</p>
 <h2 id="和而不同：跨域"><a href="#和而不同：跨域" class="headerlink" title="和而不同：跨域"></a>和而不同：跨域</h2><p>什么是跨域？当一个请求<code>url</code>的<strong>协议、域名、端口</strong>三者之间任意一个与当前页面<code>url</code>不同即为跨域。而在我们的课设项目中，前端与后端的端口分别为<code>8080</code>和<code>8888</code>，因此当前端发出一个请求时，请求的<code>url</code>端口号是<code>8888</code>，而当前页面<code>url</code>的端口号则是<code>8080</code>，这就形成了跨域。</p>
@@ -245,32 +249,27 @@
 <li><p>重写<code>addCorsMappings</code>方法</p>
 </li>
 <li><p>在方法中添加配置代码</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">registry.addMapping(<span class="string">&quot;/**&quot;</span>)</span><br><span class="line">		.allowedOriginPatterns(<span class="string">&quot;*&quot;</span>)</span><br><span class="line">		.allowCredentials(<span class="keyword">true</span>)</span><br><span class="line">		.allowedMethods(<span class="string">&quot;*&quot;</span>)</span><br><span class="line">		.allowedHeaders(<span class="string">&quot;*&quot;</span>)</span><br><span class="line">		.maxAge(<span class="number">3600</span>);</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">registry.addMapping(<span class="string">&quot;/**&quot;</span>)</span><br><span class="line">		.allowedOriginPatterns(<span class="string">&quot;*&quot;</span>)</span><br><span class="line">		.allowCredentials(<span class="keyword">true</span>)</span><br><span class="line">		.allowedMethods(<span class="string">&quot;*&quot;</span>)</span><br><span class="line">		.allowedHeaders(<span class="string">&quot;*&quot;</span>)</span><br><span class="line">		.maxAge(<span class="number">3600</span>);</span><br></pre></td></tr></table></figure>
+</li>
 </ol>
 <h3 id="小插曲"><a href="#小插曲" class="headerlink" title="小插曲"></a>小插曲</h3><p><strong>但是</strong>事实上，当我做完这一切以为只剩下前端负责的工作时，功能测试立马就出了问题：由于我没有前端来做真实测试，只好通过<code>Postman</code>来做请求测试后端功能，全无问题，然而但前端完成渲染后开始测试时却出现了接连不断的<code>500 error</code>，大家伙儿对着浏览器<code>F12</code>瞪了半天没看出来究竟是哪里的问题。很无奈，只能在百度上瞎猫碰上死耗子一般地搜索关键词，想不到还真能碰上记录了相同问题的文章，在这里感谢文章<a target="_blank" rel="noopener" href="https://www.cnblogs.com/penghq/p/13163779.html">springboot拦截器导致@CrossOrigin失效</a>。</p>
 <p>其<strong>原因</strong>在于：CORS复杂请求时会首先发送一个OPTIONS请求做嗅探，来测试服务器是否支持本次请求，请求成功后才会发送真实的请求；而OPTIONS请求不会携带数据，导致这个请求被拦截了，直接返回了状态码，响应头中没携带解决跨域问题的头部信息，出现了跨域问题。</p>
 <p>知道了原因，那么<strong>解决方法</strong>其实在非常简单，只需要在拦截器中首先检查请求的方法是否为OPTIONS即可：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//由于配置了跨域，如果拦截的是预检的OPTIONS请求，则放行</span></span><br><span class="line"><span class="keyword">if</span> (request.getMethod().equalsIgnoreCase(<span class="string">&quot;OPTIONS&quot;</span>))</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">true</span>;</span><br></pre></td></tr></table></figure>
-
 <h2 id="天下太平：统一异常处理"><a href="#天下太平：统一异常处理" class="headerlink" title="天下太平：统一异常处理"></a>天下太平：统一异常处理</h2><p>在前后端分类的项目中，前后端的通信就都是依靠请求和响应报文来实现，因为关于计算机网络底层的那些通信协议由操作系统和框架帮助我们搭好了脚手架，所以站在业务开发的角度，我们只需要考虑以怎样的统一格式来规范请求和响应报文。</p>
 <p>在我们的项目中，对于请求体而言，由于<code>Spring Boot</code>提供的<code>@RequestBody</code>注解能够将<code>JSON</code>字符串封装为定义好的类，因此只需要针对一个或多个功能请求设计一个对应的实体请求类：</p>
 <p>例如对于登录功能而言，请求体中必然包含<code>userID</code>以及<code>password</code>字段，因此就可以定义<code>LoginRequest</code>类：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@AllArgsConstructor</span></span><br><span class="line"><span class="meta">@NoArgsConstructor</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LoginRequest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> String userID;</span><br><span class="line">	<span class="keyword">private</span> String password;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>在<code>Controller</code>响应的方法参数中获取这个类即可：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PostMapping(&quot;/login&quot;)</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> ResponseResult&lt;Object&gt; <span class="title">login</span><span class="params">(<span class="meta">@RequestBody</span> LoginRequest loginRequest)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// 从loginRequest中获取信息执行登录操作</span></span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
-
 <p>而响应体则不像请求体那么多变，响应体可以抽象为具有统一格式的实体类，由<strong>响应码</strong>、<strong>消息</strong>、<strong>数据</strong>三部分组成：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@JsonInclude(JsonInclude.Include.NON_NULL)</span></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@AllArgsConstructor</span></span><br><span class="line"><span class="meta">@NoArgsConstructor</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ResponseResult</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> Integer code; <span class="comment">// 响应码，类似与HTTP code，但能够传递更加明确的信息。</span></span><br><span class="line">	<span class="keyword">private</span> String msg; <span class="comment">// 响应码代表的消息，前端可以通过响应码和提示消息共同判定用户请求是否存在异常，</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> T data; <span class="comment">// 由于要传输的数据类型会根据需要的不同而变化，因此采用泛型。</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">/* 包含部分参数的构造方法 */</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>说了这么多，其实都是在为<strong>统一异常处理</strong>设下铺垫。我们时长能看到有时候网页提示各种错误，比如<code>404</code>、<code>500</code>、<code>502</code>……当然这些基本上都是后端的服务器本身出了问题，但是在实际的场景中，服务端代码抛出的异常并非都由系统异常引起，相反，大部分异常都是由<strong>不合理的请求</strong>或者<strong>错误的代码逻辑</strong>引起的，而这些异常如果直接返回给前端甚至用户，用户并不知道究竟是什么地方出了问题，本着<strong>自己的锅自己背</strong>的原则，统一异常处理就体现得很有必要而且格外优雅了。</p>
 <p>在<code>Spring Boot</code>中，存在专门的异常处理机制，通过在类上添加<code>@ControllerAdvice</code>注解告诉<code>Spring</code>这是一个异常处理类，可以捕获项目中抛出的所有异常，在异常处理方法中，可以通过添加<code>@ExceptionHandler</code>注解来声明该方法用于处理哪种异常。</p>
 <p>具体到课设项目，在拦截器中，如果<code>token</code>验证不通过，则会直接抛出异常：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">&quot;Invalid Token&quot;</span>);</span><br></pre></td></tr></table></figure>
-
 <p>在异常处理流程中，通过判断<strong>异常所携带的信息</strong>是否与<strong>所期望的信息</strong>相同来决定向前端返回怎样的信息：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ControllerAdvice</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LoginControllerAdvice</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@ResponseBody</span></span><br><span class="line">	<span class="meta">@ExceptionHandler(RuntimeException.class)</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> ResponseResult&lt;Object&gt; <span class="title">loginControllerAdvice</span><span class="params">(RuntimeException e)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// 获取异常信息，如果与约定的异常信息相等则认为是登录异常，返回响应体，否则直接返回异常信息</span></span><br><span class="line">		String message = e.getMessage();</span><br><span class="line">		<span class="keyword">if</span> (message.equals(<span class="string">&quot;Invalid Token&quot;</span>))</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">new</span> ResponseResult&lt;&gt;(<span class="number">10401</span>, <span class="string">&quot;Invalid Token&quot;</span>);</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> ResponseResult&lt;&gt;(message);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <h2 id="交流共享：接口文档"><a href="#交流共享：接口文档" class="headerlink" title="交流共享：接口文档"></a>交流共享：接口文档</h2><p>写到这里，技术上想说的大部分都说完了，接口文档主要是为了方便前端开发，将所有接口的<code>JSON</code>规范以实例的形式展现出来，这样前端则只需要根据<code>JSON</code>格式来构造请求和渲染视图，而在测试出现问题时，前后端联调也更容易定位到<code>bug</code>所在的接口。在这一点上，开发过程中我是深有体会的，而事实上我写的接口数量要比实际上前端用到的要多，因此这份文档甚至在些报告的时候也帮助我确定了哪些接口没有用过，即不需要在报告中体现的部分。</p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>以上便是<code>Spring Boot</code>给我留下的第一印象了，不愧是<code>Java Web</code>领域的头把交椅，更新的速度也是飞快。</p>
 <p>当然，我这种“跳级”的学习方式是绝对不推荐的，要不是为了能够不用每次课设都挖新坑，我肯定更愿意去了解一下计算机语言本身的魅力，毕竟人们都说程序员的三大浪漫是<strong>编译原理、图形学和操作系统</strong>，这一学期算是一次性摸遍了这三个领域，操作系统对我而言没有太多感触，可能是因为我学得不认真吧，图形学用的是古老的<code>GLUT</code>图形库，说实话就是——没什么好说的，而编译器的魅力则是吸引我很久了，只是手造语法分析总是让我感觉不得要领。好了说回来，<code>Java Web</code>的学习路线还是有些坡度的，对于想走这<code>Java Web</code>这条路的初学者，我从一个同为初学者角度来说还是建议从<code>HTTP</code>、<code>Servlet</code>等基础开始学习，毕竟根基不牢易遭反噬不是吗？</p>
@@ -387,5 +386,20 @@
 
 
 
-    </body>
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
 </html>

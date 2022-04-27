@@ -114,7 +114,13 @@
     </a>
 
 
-        
+         
+    <a href="#" class="button" id="b2t" aria-label="回到顶部" title="回到顶部">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="32" height="32">
+            <path d="M233.376 722.752L278.624 768 512 534.624 745.376 768l45.248-45.248L512 444.128zM192 352h640V288H192z" fill="currentColor"></path>
+        </svg>
+    </a>
+
 
         
             <a class="dropdown-icon button" id="btn-dropdown" tabindex="0"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='24' height='24' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"><path fill="currentColor" d="M3.314,4.8h13.372c0.41,0,0.743-0.333,0.743-0.743c0-0.41-0.333-0.743-0.743-0.743H3.314c-0.41,0-0.743,0.333-0.743,0.743C2.571,4.467,2.904,4.8,3.314,4.8z M16.686,15.2H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,15.2,16.686,15.2z M16.686,9.257H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,9.257,16.686,9.257z"></path></svg></a>
@@ -202,7 +208,6 @@
         <p>今年的春节来得比去年更早一些……</p>
 <p>去年的跨年，我在浴室里诗意兴起，敲下一首小诗，现在看来倒是有几分艺术，因为<del>我也看不太明白了</del>。</p>
 <span id="more"></span>
-
 <p>一月已经悄悄走过了10来天，其实到现在再来回想整个2021，除了家里有一些意外让我几乎白活了一个暑假之外，别的地方都还好，那些不痛快的事情就选择性忘记它们吧。</p>
 <p>这一年依然感到没有太多时间去认真学一学自己感兴趣的技术，专业选修课也不那么有意思，就是说理论基础没觉得有什么加强，代码能力也没什么提升，也就剩下<em>和成员们用 <code>Spring Boot</code> 完成了课设<strong>小</strong>项目</em>是一段挺好的经历，说它<strong>小</strong>是因为把项目架构和需求理过一遍后发现它确实不庞大，期间遇到的困难其实都是需求建模不完整的问题，这大概主要源于大家都没有项目开发的经验吧，哪怕自己接触过需求，对需求的认知也没有那么清晰，而真正技术上的问题其实都可以在网络上找到解决方案。经过了这一次课设，我也算是对一种计算机语言与其编写的框架之间的关系有了了解，知道了如何站在巨人的肩膀上眺望远方。</p>
 <p>开始的开始，我是对<strong>写出怎样的程序会输出怎样的结果</strong>感兴趣，但随着时间的推移，我开始好奇<strong>写出的程序如何被转化为输出的结果</strong>，也就是所谓的编译过程，什么<code>gcc</code>、<code>clang</code>、<code>javac</code>、<code>cpython</code>/<code>jpython</code>、<code>Chrome V8</code>……我尝试搜索每一种编程语言，在百科中寻找它的编译器是用哪一种语言实现的，这给我一种非常奇妙的感觉，好像编译器/解释器就是软件工程的<strong>终极奥义</strong>，因为有了编译器，你仿佛可以创造整个<code>Cyber</code>世界。</p>
@@ -324,5 +329,20 @@
 
 
 
-    </body>
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
 </html>
