@@ -186,7 +186,7 @@
     </div>
     <script>
         (() => {
-            var update = Date.parse("2022-01-13"),
+            var update = Date.parse("2022-04-26"),
                 date = new Date(),
                 now = date.getTime(),
                 expire = now - update,
@@ -200,8 +200,6 @@
 </div>
     <div class="post__content">
         <p>这学期的数据库课程设计，在我一通安利之后，我们小组接受了使用前后端分离的架构模式。</p>
-<span id="more"></span>
-
 <p>对我来说，这是我从<code>Java</code>基础之后直接转向<code>Web</code>开发的一次体验，说来惭愧，大学生涯过半，这才是我第一次开发一个完整的项目，也是第一次将流行的现代化开发技术运用到实际的项目中。</p>
 <p>其实按照<code>Java Web</code>技术栈的学习路径来说，我这种“不胫而走”的学习过程实在过于跳跃了，但是好在我有幸找到了还算不错的资料，这种“一步登天”并没有让我遇到很大的阻碍，在功能的需求确定之后，整个后端的搭建与开发过程还是比较顺利的，期间也新学了一些多方面的技术与工具的使用。</p>
 <p>接下来我想叙述一下自己从创建新项目开始到最终写完接口文档过程中的几个<strong>关键点</strong>，以便给未来要构建新项目的自己一个参考与总结。</p>
@@ -254,15 +252,13 @@
 <p>知道了原因，那么<strong>解决方法</strong>其实在非常简单，只需要在拦截器中首先检查请求的方法是否为OPTIONS即可：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//由于配置了跨域，如果拦截的是预检的OPTIONS请求，则放行</span></span><br><span class="line"><span class="keyword">if</span> (request.getMethod().equalsIgnoreCase(<span class="string">&quot;OPTIONS&quot;</span>))</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">true</span>;</span><br></pre></td></tr></table></figure>
 
-
-
 <h2 id="天下太平：统一异常处理"><a href="#天下太平：统一异常处理" class="headerlink" title="天下太平：统一异常处理"></a>天下太平：统一异常处理</h2><p>在前后端分类的项目中，前后端的通信就都是依靠请求和响应报文来实现，因为关于计算机网络底层的那些通信协议由操作系统和框架帮助我们搭好了脚手架，所以站在业务开发的角度，我们只需要考虑以怎样的统一格式来规范请求和响应报文。</p>
 <p>在我们的项目中，对于请求体而言，由于<code>Spring Boot</code>提供的<code>@RequestBody</code>注解能够将<code>JSON</code>字符串封装为定义好的类，因此只需要针对一个或多个功能请求设计一个对应的实体请求类：</p>
 <p>例如对于登录功能而言，请求体中必然包含<code>userID</code>以及<code>password</code>字段，因此就可以定义<code>LoginRequest</code>类：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@AllArgsConstructor</span></span><br><span class="line"><span class="meta">@NoArgsConstructor</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LoginRequest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> String userID;</span><br><span class="line">	<span class="keyword">private</span> String password;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>在<code>Controller</code>响应的方法参数中获取这个类即可：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@PostMapping(&quot;/login&quot;)</span><br><span class="line">	public ResponseResult&lt;Object&gt; login(@RequestBody LoginRequest loginRequest) &#123;</span><br><span class="line">		// 从loginRequest中获取信息执行登录操作</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PostMapping(&quot;/login&quot;)</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> ResponseResult&lt;Object&gt; <span class="title">login</span><span class="params">(<span class="meta">@RequestBody</span> LoginRequest loginRequest)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// 从loginRequest中获取信息执行登录操作</span></span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
 
 <p>而响应体则不像请求体那么多变，响应体可以抽象为具有统一格式的实体类，由<strong>响应码</strong>、<strong>消息</strong>、<strong>数据</strong>三部分组成：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@JsonInclude(JsonInclude.Include.NON_NULL)</span></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@AllArgsConstructor</span></span><br><span class="line"><span class="meta">@NoArgsConstructor</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ResponseResult</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> Integer code; <span class="comment">// 响应码，类似与HTTP code，但能够传递更加明确的信息。</span></span><br><span class="line">	<span class="keyword">private</span> String msg; <span class="comment">// 响应码代表的消息，前端可以通过响应码和提示消息共同判定用户请求是否存在异常，</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> T data; <span class="comment">// 由于要传输的数据类型会根据需要的不同而变化，因此采用泛型。</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">/* 包含部分参数的构造方法 */</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -274,8 +270,6 @@
 
 <p>在异常处理流程中，通过判断<strong>异常所携带的信息</strong>是否与<strong>所期望的信息</strong>相同来决定向前端返回怎样的信息：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ControllerAdvice</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LoginControllerAdvice</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@ResponseBody</span></span><br><span class="line">	<span class="meta">@ExceptionHandler(RuntimeException.class)</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> ResponseResult&lt;Object&gt; <span class="title">loginControllerAdvice</span><span class="params">(RuntimeException e)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// 获取异常信息，如果与约定的异常信息相等则认为是登录异常，返回响应体，否则直接返回异常信息</span></span><br><span class="line">		String message = e.getMessage();</span><br><span class="line">		<span class="keyword">if</span> (message.equals(<span class="string">&quot;Invalid Token&quot;</span>))</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">new</span> ResponseResult&lt;&gt;(<span class="number">10401</span>, <span class="string">&quot;Invalid Token&quot;</span>);</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> ResponseResult&lt;&gt;(message);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
 
 <h2 id="交流共享：接口文档"><a href="#交流共享：接口文档" class="headerlink" title="交流共享：接口文档"></a>交流共享：接口文档</h2><p>写到这里，技术上想说的大部分都说完了，接口文档主要是为了方便前端开发，将所有接口的<code>JSON</code>规范以实例的形式展现出来，这样前端则只需要根据<code>JSON</code>格式来构造请求和渲染视图，而在测试出现问题时，前后端联调也更容易定位到<code>bug</code>所在的接口。在这一点上，开发过程中我是深有体会的，而事实上我写的接口数量要比实际上前端用到的要多，因此这份文档甚至在些报告的时候也帮助我确定了哪些接口没有用过，即不需要在报告中体现的部分。</p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>以上便是<code>Spring Boot</code>给我留下的第一印象了，不愧是<code>Java Web</code>领域的头把交椅，更新的速度也是飞快。</p>
@@ -296,7 +290,7 @@
         
     </div>
  
-    <div class="post-footer__meta"><p>更新于 2022-01-13</p></div> 
+    <div class="post-footer__meta"><p>更新于 2022-04-26</p></div> 
     <div class="post-meta__cats"><a href="/categories/%E6%8A%80%E6%9C%AF/" class="post-cats__link button">技术</a><a href="/tags/Spring-Boot/" class="post-tags__link button"># Spring Boot</a></div> 
 </article>
 
