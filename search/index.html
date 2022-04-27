@@ -44,13 +44,27 @@
 
 
     <!-- OpenGraph -->
+ 
+    <meta property="og:type" content="website">
+<meta property="og:title" content="search">
+<meta property="og:url" content="https://skycurtain.gitee.io/search/index.html">
+<meta property="og:site_name" content="Skycurtain.Dreamland">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-07-01T11:16:05.000Z">
+<meta property="article:modified_time" content="2021-07-01T11:16:18.380Z">
+<meta property="article:author" content="Skycurtain">
+<meta name="twitter:card" content="summary_large_image">
 
 
     
 <link rel="stylesheet" href="/css/style/main.css">
  
 
+    
+    
+    
 
+    
     
 <link rel="stylesheet" href="/css/style/dark.css">
 
@@ -58,10 +72,6 @@
 <script src="/js/darkmode.js"></script>
 
 
-
-    
-    
-    
 
      
 
@@ -99,23 +109,11 @@
         
         
         
-    <a href="/search/" id="btn-search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="32"><path d="M192 448c0-141.152 114.848-256 256-256s256 114.848 256 256-114.848 256-256 256-256-114.848-256-256z m710.624 409.376l-206.88-206.88A318.784 318.784 0 0 0 768 448c0-176.736-143.264-320-320-320S128 271.264 128 448s143.264 320 320 320a318.784 318.784 0 0 0 202.496-72.256l206.88 206.88 45.248-45.248z"></path></svg>
-    </a>
-
 
         
         
     <a href="javaScript:void(0);" id="btn-toggle-dark">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-    </a>
-
-
-         
-    <a href="#" class="button" id="b2t" aria-label="回到顶部" title="回到顶部">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="32" height="32">
-            <path d="M233.376 722.752L278.624 768 512 534.624 745.376 768l45.248-45.248L512 444.128zM192 352h640V288H192z" fill="currentColor"></path>
-        </svg>
     </a>
 
 
@@ -157,24 +155,33 @@
             
 <main class="main">
     <div class="content-card">
-        <h2>search</h2>
-        <div id="search-card">
-    <form class="search-form" autocomplete="off">
-        <div class="search-input">
-            <input maxlength="80" type="search" class="search-input" id="search-input" name="s" placeholder="请输入关键字..." required>
-        </div>
-        <div class="search-button">
-            <button class="search-button " type="submit">搜索</button>
-        </div>
-    </form>
+    <h2>
+        search
+    </h2>
+    <div id="search">
+        <form class="search-form" autocomplete="off">
+            <div class="search-input">
+                <input maxlength="80" type="search" class="search-input" id="search-input" name="s" placeholder="请输入关键字..." required>
+            </div>
+        </form>
+    </div>
 </div>
-<div id="search-result"></div>
+<div class="search-result" id="search-result">
+    <div class="search-result__notice" id="search-result__notice"></div>
+    <div class="content-card search-result__list" id="search-result__list"></div>
+</div>
 <script>var searchDataFile = "/search.json";</script>
 <script defer src="/js/local-search.js"></script>
-    </div>
 </main>
 
             <footer class="footer">
+     
+    <a href="#" class="button" id="b2t" aria-label="回到顶部" title="回到顶部">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="32" height="32">
+            <path d="M233.376 722.752L278.624 768 512 534.624 745.376 768l45.248-45.248L512 444.128zM192 352h640V288H192z" fill="currentColor"></path>
+        </svg>
+    </a>
+
     
 
 
@@ -202,7 +209,11 @@
 
  
 
-  
+ 
+
+
+
+ 
 
 
 
@@ -210,6 +221,8 @@
 
 
     
+ 
+
  
 
  
