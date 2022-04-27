@@ -74,7 +74,11 @@
 
     <!-- custom head -->
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head>
 
     <body>
         <div id="app">
@@ -206,7 +210,7 @@
 </div>
     <div class="post__content">
         <p>今年的春节来得比去年更早一些……</p>
-<p>去年的跨年，我在浴室里诗意兴起，敲下一首小诗，现在看来倒是有几分艺术，因为<del>我也看不太明白了</del>。</p>
+<p>去年的跨年，我在浴室里诗意兴起，敲下一首小诗，现在看来倒是有几分艺术，因为<s>我也看不太明白了</s>。</p>
 <span id="more"></span>
 <p>一月已经悄悄走过了10来天，其实到现在再来回想整个2021，除了家里有一些意外让我几乎白活了一个暑假之外，别的地方都还好，那些不痛快的事情就选择性忘记它们吧。</p>
 <p>这一年依然感到没有太多时间去认真学一学自己感兴趣的技术，专业选修课也不那么有意思，就是说理论基础没觉得有什么加强，代码能力也没什么提升，也就剩下<em>和成员们用 <code>Spring Boot</code> 完成了课设<strong>小</strong>项目</em>是一段挺好的经历，说它<strong>小</strong>是因为把项目架构和需求理过一遍后发现它确实不庞大，期间遇到的困难其实都是需求建模不完整的问题，这大概主要源于大家都没有项目开发的经验吧，哪怕自己接触过需求，对需求的认知也没有那么清晰，而真正技术上的问题其实都可以在网络上找到解决方案。经过了这一次课设，我也算是对一种计算机语言与其编写的框架之间的关系有了了解，知道了如何站在巨人的肩膀上眺望远方。</p>
@@ -329,20 +333,5 @@
 
 
 
-    <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-</body>
+    </body>
 </html>
