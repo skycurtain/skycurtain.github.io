@@ -74,11 +74,7 @@
 
     <!-- custom head -->
 
-<!-- hexo injector head_end start -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head>
+<meta name="generator" content="Hexo 5.4.2"></head>
 
     <body>
         <div id="app">
@@ -209,7 +205,7 @@
     </script>
 </div>
     <div class="post__content">
-        <p><s>操作系统</s>多线程编程课程设计完工后记</p>
+        <p><del>操作系统</del>多线程编程课程设计完工后记</p>
 <p>多线程确实是很浪漫的一个话题，不过在我还没有了解到更底层内容的现在，这种需要做性能分析的工作我还是不要尝试用Java这种高级抽象的语言吧吧吧吧吧吧。</p>
 <span id="more"></span>
 <p>我不得不吐槽一下这个所谓的操作系统课程设计，题目不是要求实现线程安全的数据结构就是要求实现多线程需求的性能分析，在我看来这完全就是应用层面的东西，完全跟底层实现没有一点关系。在去年我曾留意过操作系统课设的要求，那时候还是要求学生去模拟操作系统的某些调度算法，今年估计是要冲什么业绩，把大纲改得又红又专不说，题目被改成这个样子，指导老师也是一言难尽。但话说回来也没有什么办法，固然有些勇士是敢于等到之后再考虑修这门课，但我不太愿意将本不该有任何课程的学期添上一件本该可以半年前就搞定的破事，于是便开始了为期2周的多线程编程学习。</p>
@@ -219,21 +215,32 @@
 <p>因此，我的最终目标就是：比如说对于4×4规模的方阵，假设有7个线程并发计算矩阵乘法，每个线程计算的子任务如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Thread-<span class="number">0</span>: [<span class="number">0</span>][<span class="number">0</span>] [<span class="number">1</span>][<span class="number">3</span>] [<span class="number">3</span>][<span class="number">2</span>] </span><br><span class="line">Thread-<span class="number">1</span>: [<span class="number">0</span>][<span class="number">1</span>] [<span class="number">2</span>][<span class="number">0</span>] [<span class="number">3</span>][<span class="number">3</span>] </span><br><span class="line">Thread-<span class="number">2</span>: [<span class="number">0</span>][<span class="number">2</span>] [<span class="number">2</span>][<span class="number">1</span>] </span><br><span class="line">Thread-<span class="number">3</span>: [<span class="number">0</span>][<span class="number">3</span>] [<span class="number">2</span>][<span class="number">2</span>] </span><br><span class="line">Thread-<span class="number">4</span>: [<span class="number">1</span>][<span class="number">0</span>] [<span class="number">2</span>][<span class="number">3</span>] </span><br><span class="line">Thread-<span class="number">5</span>: [<span class="number">1</span>][<span class="number">1</span>] [<span class="number">3</span>][<span class="number">0</span>] </span><br><span class="line">Thread-<span class="number">6</span>: [<span class="number">1</span>][<span class="number">2</span>] [<span class="number">3</span>][<span class="number">1</span>] </span><br></pre></td></tr></table></figure>
 <p>这看起来真的很美妙，把所有的子任务都按列挨个儿分给所有线程，分完整列还剩下的就顺延到下一列，多么直观的逻辑，而它实现起来也是异常简单。</p>
-<p>首先我们先定义一个表，我擅自将它命名为任务分配表，aka英文名TAT(Tasks Assignment Table)，TAT能够表达上面这个例子的含义，但是通过另一种方式。</p>
-<p>光有这个表还不够，我们需要为所有的子任务编号，对于规模为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo>×</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">n×n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span>的矩阵，编号从1到<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>n</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">n^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span>，如果对于<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>4</mn><mo>×</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">4×4</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">4</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">4</span></span></span></span>规模的矩阵，编号就从1到16。</p>
+<p>首先我们先定义一个表，我擅自将它命名为任务分配表，aka英文名TAT(Tasks
+Assignment
+Table)，TAT能够表达上面这个例子的含义，但是通过另一种方式。</p>
+<p>光有这个表还不够，我们需要为所有的子任务编号，对于规模为<span
+class="math inline">\(n×n\)</span>的矩阵，编号从1到<span
+class="math inline">\(n^2\)</span>，如果对于<span
+class="math inline">\(4×4\)</span>规模的矩阵，编号就从1到16。</p>
 <p>准备工作就到此结束，接下来开始表演。</p>
-<p>首先需要确定TAT的规模，确保它能够保存所有的子任务序号，因此通过<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>n</mi><mn>2</mn></msup><mtext>  </mtext><mi mathvariant="normal">%</mi><mtext>  </mtext><mi mathvariant="normal">线</mi><mi mathvariant="normal">程</mi><mi mathvariant="normal">数</mi></mrow><annotation encoding="application/x-tex">n^2\;\%\;线程数</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8696679999999999em;vertical-align:-0.05556em;"></span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord">%</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord cjk_fallback">线</span><span class="mord cjk_fallback">程</span><span class="mord cjk_fallback">数</span></span></span></span>，即任务数对线程数取余得到余数，如果余数是0，说明能够正好均分，否则说明需要对TAT增加一列存放剩余的子任务。</p>
-<p>TAT的每一行的行号代表线程号，这一行代表本线程需要执行哪些任务，但是在一个整型的二维数据里很难表达出<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo stretchy="false">[</mo><mn>0</mn><mo stretchy="false">]</mo><mo stretchy="false">[</mo><mn>0</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[0][0]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">0</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord">0</span><span class="mclose">]</span></span></span></span>这样的含义，于是我们构建一个映射，我称之为【子任务序号——TAT映射】，顾名思义，这是把子任务序号映射在TAT上的过程，需要两个循环来实现，当然它们之间事实上是存在数学关系的，能够用一次循环来实现，但数学总是不简单的，因此这里我们怎么简单怎么来。第一步循环是对需要映射的位置进行标记，第二轮循环才是在响应位置上赋值，闲言少叙，直接看代码：</p>
+<p>首先需要确定TAT的规模，确保它能够保存所有的子任务序号，因此通过<span
+class="math inline">\(n^2\%nThreads\)</span>，即任务数对线程数取余得到余数，如果余数是0，说明能够正好均分，否则说明需要对TAT增加一列存放剩余的子任务。</p>
+<p>TAT的每一行的行号代表线程号，这一行代表本线程需要执行哪些任务，但是在一个整型的二维数据里很难表达出<span
+class="math inline">\([0][0]\)</span>这样的含义，于是我们构建一个映射，我称之为【子任务序号——TAT映射】，顾名思义，这是把子任务序号映射在TAT上的过程，需要两个循环来实现，当然它们之间事实上是存在数学关系的，能够用一次循环来实现，但数学总是不简单的，因此这里我们怎么简单怎么来。第一步循环是对需要映射的位置进行标记，第二轮循环才是在响应位置上赋值，闲言少叙，直接看代码：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">nTasks</span> <span class="operator">=</span> length * length;</span><br><span class="line"></span><br><span class="line"><span class="comment">// build tasksTable[][]</span></span><br><span class="line"><span class="type">int</span>[][] tasksTable;</span><br><span class="line"></span><br><span class="line"><span class="comment">// initialize tasksTable size</span></span><br><span class="line"><span class="keyword">if</span> (nTasks % nThreads == <span class="number">0</span>) &#123;</span><br><span class="line">	tasksTable = <span class="keyword">new</span> <span class="title class_">int</span>[nThreads][nTasks / nThreads];</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">	tasksTable = <span class="keyword">new</span> <span class="title class_">int</span>[nThreads][nTasks / nThreads + <span class="number">1</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// load all tasks to tasksTable[][]</span></span><br><span class="line"><span class="comment">// 将所有子任务序号映射到任务分配表</span></span><br><span class="line"><span class="type">int</span> <span class="variable">nTask</span> <span class="operator">=</span> <span class="number">1</span>; <span class="comment">// 设定子任务序号遍历初始值为1</span></span><br><span class="line"><span class="comment">// 按列遍历任务分配表中与子任务数量相同的元素数量</span></span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; tasksTable[<span class="number">0</span>].length; j++) &#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; tasksTable.length; i++) &#123;</span><br><span class="line">		<span class="comment">// 当子任务序号小于等于子任务数量时将当前元素置1</span></span><br><span class="line">		<span class="keyword">if</span> (nTask &lt;= nTasks) &#123;</span><br><span class="line">			tasksTable[i][j] = <span class="number">1</span>; <span class="comment">// 进行置1操作</span></span><br><span class="line">			nTask++; <span class="comment">// 子任务序号递增</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">nTask = <span class="number">1</span>; <span class="comment">// 重置子任务序号遍历初始值为1</span></span><br><span class="line"><span class="comment">// 按行遍历任务分配表，对其中所有置1的元素赋值子任务序号</span></span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; tasksTable[<span class="number">0</span>].length; j++) &#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; tasksTable.length; i++) &#123;</span><br><span class="line">		<span class="keyword">if</span> (tasksTable[i][j] == <span class="number">1</span>) &#123;</span><br><span class="line">			tasksTable[i][j] = nTask;</span><br><span class="line">			nTask++;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>为了方便理解任务分配的过程，使子任务竖着排队无疑是最直观的方案，但性能却不是最高的，要解释这个问题需要了解一些底层知识。</p>
 <p>首先，在编译器的眼中没有多维数组的概念，所有多维数组都被横向拉长成一行放在内存中，但由于数组元素可以通过下标直接访问，编译器会根据下标直接计算出数组元素的实际地址，因此访问数据元素的不同方式没有明显的性能差距。</p>
-<p>接下来需要了解一下局部性原理：在现代计算机的存储体系中，存在多个寄存器以及多级高速缓存，CPU访问存储器时，无论是存取指令还是存取数据，所访问的存储单元都趋于聚集在一个较小的连续区域中。这时候联系一下上一条可以发现，如果现在CPU读取的元素是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo stretchy="false">[</mo><mn>0</mn><mo stretchy="false">]</mo><mo stretchy="false">[</mo><mn>0</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[0][0]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">0</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord">0</span><span class="mclose">]</span></span></span></span>，寄存器中很有可能缓存了<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo stretchy="false">[</mo><mn>0</mn><mo stretchy="false">]</mo><mo stretchy="false">[</mo><mn>1</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[0][1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">0</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord">1</span><span class="mclose">]</span></span></span></span>而不太可能缓存了<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo stretchy="false">[</mo><mn>1</mn><mo stretchy="false">]</mo><mo stretchy="false">[</mo><mn>0</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[1][0]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">1</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord">0</span><span class="mclose">]</span></span></span></span>，因此，由于按列分配的模式会导致TAT的行元素之间相互割裂，局部性原理难以生效。</p>
+<p>接下来需要了解一下局部性原理：在现代计算机的存储体系中，存在多个寄存器以及多级高速缓存，CPU访问存储器时，无论是存取指令还是存取数据，所访问的存储单元都趋于聚集在一个较小的连续区域中。这时候联系一下上一条可以发现，如果现在CPU读取的元素是<span
+class="math inline">\([0][0]\)</span>，寄存器中很有可能缓存了<span
+class="math inline">\([0][1]\)</span>而不太可能缓存了<span
+class="math inline">\([1][0]\)</span>，因此，由于按列分配的模式会导致TAT的行元素之间相互割裂，局部性原理难以生效。</p>
 <p>但有意思的时，在代码上这种分配策略下，只需要互换17与18行就可以实现按行分配子任务了，像这样：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Thread-<span class="number">0</span>: [<span class="number">0</span>][<span class="number">0</span>] [<span class="number">0</span>][<span class="number">1</span>] [<span class="number">0</span>][<span class="number">2</span>] </span><br><span class="line">Thread-<span class="number">1</span>: [<span class="number">0</span>][<span class="number">3</span>] [<span class="number">1</span>][<span class="number">0</span>] [<span class="number">1</span>][<span class="number">1</span>] </span><br><span class="line">Thread-<span class="number">2</span>: [<span class="number">1</span>][<span class="number">2</span>] [<span class="number">1</span>][<span class="number">3</span>] </span><br><span class="line">Thread-<span class="number">3</span>: [<span class="number">2</span>][<span class="number">0</span>] [<span class="number">2</span>][<span class="number">1</span>] </span><br><span class="line">Thread-<span class="number">4</span>: [<span class="number">2</span>][<span class="number">2</span>] [<span class="number">2</span>][<span class="number">3</span>] </span><br><span class="line">Thread-<span class="number">5</span>: [<span class="number">3</span>][<span class="number">0</span>] [<span class="number">3</span>][<span class="number">1</span>] </span><br><span class="line">Thread-<span class="number">6</span>: [<span class="number">3</span>][<span class="number">2</span>] [<span class="number">3</span>][<span class="number">3</span>] </span><br></pre></td></tr></table></figure>
 <p>如果你已经明白了上述的简单策略，那么恭喜你，你已经有了多线程编程的思想钢印，只要了解一下你喜欢的语言中多线程的语法，就可以尝试慢慢搭建整个项目了。</p>
 <hr />
 <p>为了要求的UI界面，必须要展示更多信息，展示更多信息就要写更多代码，况且UI线程占用系统资源的能力并不逊于多线程编程自身，虽然相较于写后端逻辑我更喜欢前端的那种表现力，但是我也对为这玩意儿开发UI感到厌恶。即便我在学习多线程的时候发现自己对多线程还比较感兴趣，但明明是关于底层设计的课设被改成提升应用层不说，更甚的是UI的加入彻底地将其变成了一个独立的应用程序，把这个课设的核心完全移出操作系统这个范围了，根本就不属于操作系统的项目。</p>
-<p>我感兴趣的方向好像是两个极端，一是完全地与用户互动，二是彻底地与开发者交互。在我刚开始Hello World的时候，我首先想知道的就是怎么实现输入，因为实现了输入就意味着我可以控制程序运行的方向，这个程序的控制权在我的手中，慢慢地就不再仅仅乐于在命令行里折腾，想去实现真正的界面，那种灵动的布局、流畅的动效和严谨的适配，真是浪漫的美学与严肃的工程的完美结合，所以去做大前端，去用图形界面与屏幕前的你开展无声的交流，这是我能想到的代码与人类之间最友好的沟通方式。</p>
+<p>我感兴趣的方向好像是两个极端，一是完全地与用户互动，二是彻底地与开发者交互。在我刚开始Hello
+World的时候，我首先想知道的就是怎么实现输入，因为实现了输入就意味着我可以控制程序运行的方向，这个程序的控制权在我的手中，慢慢地就不再仅仅乐于在命令行里折腾，想去实现真正的界面，那种灵动的布局、流畅的动效和严谨的适配，真是浪漫的美学与严肃的工程的完美结合，所以去做大前端，去用图形界面与屏幕前的你开展无声的交流，这是我能想到的代码与人类之间最友好的沟通方式。</p>
 <p>对我来说，写多了代码很不幸地激发了我对“程序是怎样产生的”这样一个话题有了好奇，不过即便是在编译原理课上学习了词法分析&amp;语法分析&amp;一点点语义分析，没有写过一行相关代码的我也感受不到这就能把我写的代码变成一个<code>.o</code>、.<code>class</code>或者<code>.exe</code>，所以还是很好奇这个编译的过程。在无意间翻了几十篇网刊文章后算是找到了一些有关底层原理的系列文章，希望自己有时间去跟随这些牛人，在未来有这样的可能去为框架、工具链、编译器贡献一行自己的代码。</p>
 
     </div>
@@ -325,6 +332,56 @@
 
  
 
+
+    <script>
+        if (typeof MathJax === 'undefined') {
+            window.MathJax = {
+                loader: {
+                    source: {
+                        '[tex]/amsCd': '[tex]/amscd',
+                        '[tex]/AMScd': '[tex]/amscd'
+                    }
+                },
+                tex: {
+                    inlineMath: {'[+]': [['$', '$']]},
+                    tags: 'ams'
+                },
+                options: {
+                    renderActions: {
+                        findScript: [10, doc => {
+                            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                                const display = !!node.type.match(/; *mode=display/);
+                                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                                const text = document.createTextNode('');
+                                node.parentNode.replaceChild(text, node);
+                                math.start = {node: text, delim: '', n: 0};
+                                math.end = {node: text, delim: '', n: 0};
+                                doc.math.push(math);
+                            });
+                        }, '', false],
+                        insertedScript: [200, () => {
+                            document.querySelectorAll('mjx-container').forEach(node => {
+                                let target = node.parentNode;
+                                if (target.nodeName.toLowerCase() === 'li') {
+                                    target.parentNode.classList.add('has-jax');
+                                }
+                            });
+                        }, '', false]
+                    }
+                }
+            };
+            (function () {
+                var script = document.createElement('script');
+                script.src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.0.5/es5/tex-mml-chtml.js";
+                script.defer = true;
+                document.head.appendChild(script);
+            })();
+        } else {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+        }
+    </script>
  
 
  
