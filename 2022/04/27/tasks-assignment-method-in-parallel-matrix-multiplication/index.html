@@ -38,7 +38,7 @@
 <title>多线程编程起步：矩阵乘法的任务分配 | Skycurtain.Dreamland</title>
 
 
-    <meta name="keywords" content="多线程">
+    <meta name="keywords" content="多线程, Java">
 
 
 
@@ -53,9 +53,10 @@
 <meta property="og:description" content="操作系统多线程编程课程设计完工后记 多线程确实是很浪漫的一个话题，不过在我还没有了解到更底层内容的现在，这种需要做性能分析的工作我还是不要尝试用Java这种高级抽象的语言吧吧吧吧吧吧。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-04-26T17:07:47.000Z">
-<meta property="article:modified_time" content="2022-04-28T04:02:50.235Z">
+<meta property="article:modified_time" content="2022-05-21T03:53:11.870Z">
 <meta property="article:author" content="Skycurtain">
 <meta property="article:tag" content="多线程">
+<meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary_large_image">
 
 
@@ -197,7 +198,7 @@
     </div>
     <script>
         (() => {
-            var update = Date.parse("2022-04-28"),
+            var update = Date.parse("2022-05-21"),
                 date = new Date(),
                 now = date.getTime(),
                 expire = now - update,
@@ -234,10 +235,12 @@ class="math inline">\(n^2\;mod\;nThreads\)</span>，即任务数对线程数取�
 class="math inline">\([0][0]\)</span>这样的含义，于是我们构建一个映射，我称之为【子任务序号——TAT映射】，顾名思义，这是把子任务序号映射在TAT上的过程，需要两个循环来实现，当然它们之间事实上是存在数学关系的，能够用一次循环来实现，但数学总是不简单的，因此这里我们怎么简单怎么来。第一步循环是对需要映射的位置进行标记，第二轮循环才是在相应位置上赋值，闲言少叙，直接看代码：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">nTasks</span> <span class="operator">=</span> length * length;</span><br><span class="line"></span><br><span class="line"><span class="comment">// build tasksTable[][]</span></span><br><span class="line"><span class="type">int</span>[][] tasksTable;</span><br><span class="line"></span><br><span class="line"><span class="comment">// initialize tasksTable size</span></span><br><span class="line"><span class="keyword">if</span> (nTasks % nThreads == <span class="number">0</span>) &#123;</span><br><span class="line">    tasksTable = <span class="keyword">new</span> <span class="title class_">int</span>[nThreads][nTasks / nThreads];</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    tasksTable = <span class="keyword">new</span> <span class="title class_">int</span>[nThreads][nTasks / nThreads + <span class="number">1</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// load all tasks to tasksTable[][]</span></span><br><span class="line"><span class="comment">// 将所有子任务序号映射到任务分配表</span></span><br><span class="line"><span class="type">int</span> <span class="variable">nTask</span> <span class="operator">=</span> <span class="number">1</span>; <span class="comment">// 设定子任务序号遍历初始值为1</span></span><br><span class="line"><span class="comment">// 按列遍历任务分配表中与子任务数量相同的元素数量</span></span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; tasksTable[<span class="number">0</span>].length; j++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; tasksTable.length; i++) &#123;</span><br><span class="line">        <span class="comment">// 当子任务序号小于等于子任务数量时将当前元素置1</span></span><br><span class="line">        <span class="keyword">if</span> (nTask &lt;= nTasks) &#123;</span><br><span class="line">            tasksTable[i][j] = <span class="number">1</span>; <span class="comment">// 进行置1操作</span></span><br><span class="line">            nTask++; <span class="comment">// 子任务序号递增</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">nTask = <span class="number">1</span>; <span class="comment">// 重置子任务序号遍历初始值为1</span></span><br><span class="line"><span class="comment">// 按行遍历任务分配表，对其中所有置1的元素赋值子任务序号</span></span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; tasksTable[<span class="number">0</span>].length; j++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; tasksTable.length; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (tasksTable[i][j] == <span class="number">1</span>) &#123;</span><br><span class="line">            tasksTable[i][j] = nTask;</span><br><span class="line">            nTask++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>下一步操作是线程内部的运算过程。我们假设子任务的编号是按矩阵横向遍历顺序递增的，于是这个编号与矩阵的元素下标之间也是存在数学关系的，可以找出规律：</p>
-<p><span
-class="math display">\[i=\lfloor\frac{nTask-1}{matrix.length}\rfloor\]</span></p>
-<p><span
-class="math display">\[j=(nTask-1)\;mod\;matrix.length\]</span></p>
+<p><span class="math display">\[
+i=\lfloor\frac{nTask-1}{matrix.length}\rfloor
+\]</span></p>
+<p><span class="math display">\[
+j=(nTask-1)\;mod\;matrix.length
+\]</span></p>
 <p>这样就能根据编号<span
 class="math inline">\(nTask\)</span>计算出要求的元素下标<span
 class="math inline">\(matrix[i][j]\)</span>。</p>
@@ -272,12 +275,26 @@ World的时候，我首先想知道的就是怎么实现输入，因为实现了
     </div>
  
     <div class="post-footer__meta"><p>  </p></div> 
-    <div class="post-entry__tags"><a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" class="post-tags__link button"># 多线程</a></div> 
+    <div class="post-entry__tags"><a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" class="post-tags__link button"># 多线程</a><a href="/tags/Java/" class="post-tags__link button"># Java</a></div> 
 </article>
 
 
     <div class="nav">
         <div class="nav__prev">
+            
+                <a href="/2022/05/21/charm-of-endless-loop-in-multithreading/" class="nav__link">
+                    <div>
+                        <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="M589.088 790.624L310.464 512l278.624-278.624 45.248 45.248L400.96 512l233.376 233.376z" fill="#808080"></path></svg>
+                    </div>
+                    <div>
+                        <div class="nav__label">
+                            Previous Post
+                        </div>
+                        <div class="nav__title">
+                            自我感觉良好的死循环妙用：多线程协作
+                        </div>
+                    </div>
+                </a>
             
         </div>
         <div class="nav__next">
