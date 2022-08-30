@@ -43,7 +43,7 @@
 <meta property="og:description" content="操作系统多线程编程课程设计完工后记">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-04-26T17:07:47.000Z">
-<meta property="article:modified_time" content="2022-08-26T07:46:48.382Z">
+<meta property="article:modified_time" content="2022-08-29T10:16:54.458Z">
 <meta property="article:author" content="Skycurtain">
 <meta property="article:tag" content="多线程">
 <meta property="article:tag" content="Java">
@@ -192,7 +192,7 @@
     </div>
     <script>
         (() => {
-            var update = Date.parse("2022-08-26"),
+            var update = Date.parse("2022-08-29"),
                 date = new Date(),
                 now = date.getTime(),
                 expire = now - update,
@@ -207,6 +207,7 @@
     <div class="post__content">
         <p><del>操作系统</del>多线程编程课程设计完工后记</p>
 <span id="more"></span>
+<hr />
 <p>多线程确实是很浪漫的一个话题，不过在我还没有了解到更底层内容的现在，这种需要做性能分析的工作我还是不要尝试用Java这种高级抽象的语言吧吧吧吧吧吧。</p>
 <p>我不得不吐槽一下这个所谓的操作系统课程设计，题目不是要求实现线程安全的数据结构就是要求实现多线程需求的性能分析，在我看来这完全就是应用层面的东西，完全跟底层实现没有一点关系。在去年我曾留意过操作系统课设的要求，那时候还是要求学生去模拟操作系统的某些调度算法，今年估计是要冲什么业绩，把大纲改得又红又专不说，题目被改成这个样子，指导老师也是一言难尽。但话说回来也没有什么办法，固然有些勇士是敢于等到之后再考虑修这门课，但我不太愿意将本不该有任何课程的学期添上一件本该可以半年前就搞定的破事，于是便开始了为期2周的多线程编程学习。</p>
 <p>在学了个七七八八之后，我开始思考如何让这么多线程去合理地计算几百万个数据得到由100多万个元素组成的结果矩阵，摆在我面前的有两种方案，一是加锁，或许更符合指导老师的本意，二是无锁，追求更好的性能。</p>

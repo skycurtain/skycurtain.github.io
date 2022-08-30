@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+    <meta charset="utf-8">
+
+    
+
+    <!-- 渲染优化 -->
+    <meta name="renderer" content="webkit">
+    <meta name="force-rendering" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="HandheldFriendly" content="True" >
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!--icon-->
+
+    
+    
+    
+    
+    
+
+
+    <!-- meta -->
+
+
+<title>从反馈bug到想造轮子 | Skycurtain.Dreamland</title>
+
+
+    <meta name="keywords" content="漫谈">
+
+
+
+
+    <!-- OpenGraph -->
+ 
+    <meta name="description" content="开发者的自己的项目中，是否应该在第三方类库的引用上保持最大程度的洁癖呢？">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从反馈bug到想造轮子">
+<meta property="og:url" content="https://skycurtain.github.io/2022/08/29/from-reporting-bugs-to-wish-inventing-wheels/index.html">
+<meta property="og:site_name" content="Skycurtain.Dreamland">
+<meta property="og:description" content="开发者的自己的项目中，是否应该在第三方类库的引用上保持最大程度的洁癖呢？">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-08-29T04:51:30.000Z">
+<meta property="article:modified_time" content="2022-08-30T08:04:39.317Z">
+<meta property="article:author" content="Skycurtain">
+<meta property="article:tag" content="漫谈">
+<meta name="twitter:card" content="summary_large_image">
+
+
+    
+<link rel="stylesheet" href="/css/style/main.css">
+ 
+
+    
+    
+        <link rel="stylesheet" id="hl-default-theme" href="/css/highlight/default.css" media="none" >
+        
+            <link rel="stylesheet" id="hl-dark-theme" href="/css/highlight/dark.css" media="none">
+        
+    
+
+    
+    
+
+    
+    
+<link rel="stylesheet" href="/css/style/dark.css">
+
+    
+<script src="/js/darkmode.js"></script>
+
+
+
+     
+
+    <!-- custom head -->
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head>
+
+    <body>
+        <div id="app" tabindex="-1">
+            <header class="header">
+    <div class="header__left">
+        <a href="/" class="button">
+            <span class="logo__text">Skycurtain</span>
+        </a>
+    </div>
+    <div class="header__right">
+        
+            <div class="navbar__menus">
+                
+                    <a href="/" class="navbar-menu button">首页</a>
+                
+                    <a href="/archives/" class="navbar-menu button">归档</a>
+                
+                    <a href="/categories/" class="navbar-menu button">分类</a>
+                
+                    <a href="/tags/" class="navbar-menu button">标签</a>
+                
+                    <a href="/friends/" class="navbar-menu button">友链</a>
+                
+            </div>
+        
+        
+        
+    <a href="/search/" id="btn-search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="32"><path d="M192 448c0-141.152 114.848-256 256-256s256 114.848 256 256-114.848 256-256 256-256-114.848-256-256z m710.624 409.376l-206.88-206.88A318.784 318.784 0 0 0 768 448c0-176.736-143.264-320-320-320S128 271.264 128 448s143.264 320 320 320a318.784 318.784 0 0 0 202.496-72.256l206.88 206.88 45.248-45.248z"></path></svg>
+    </a>
+
+
+        
+        
+    <a href="javaScript:void(0);" id="btn-toggle-dark">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+    </a>
+
+
+        
+            <a class="dropdown-icon button" id="btn-dropdown" tabindex="0"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='24' height='24' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"><path fill="currentColor" d="M3.314,4.8h13.372c0.41,0,0.743-0.333,0.743-0.743c0-0.41-0.333-0.743-0.743-0.743H3.314c-0.41,0-0.743,0.333-0.743,0.743C2.571,4.467,2.904,4.8,3.314,4.8z M16.686,15.2H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,15.2,16.686,15.2z M16.686,9.257H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,9.257,16.686,9.257z"></path></svg></a>
+            <div class="dropdown-menus" id="dropdown-menus">
+                
+                    <a href="/" class="dropdown-menu button">首页</a>
+                
+                    <a href="/archives/" class="dropdown-menu button">归档</a>
+                
+                    <a href="/categories/" class="dropdown-menu button">分类</a>
+                
+                    <a href="/tags/" class="dropdown-menu button">标签</a>
+                
+                    <a href="/friends/" class="dropdown-menu button">友链</a>
+                
+            </div>
+        
+    </div>
+</header>
+
+
+            <main class="main">
+    
+
+<div class="post-title">
+    <h1 class="post-title__text">
+        从反馈bug到想造轮子
+    </h1>
+    <div class="post-title__meta">
+        <a href="/archives/2022/08/" class="post-meta__date button">2022-08-29</a>
+        
+    <span class="separate-dot"></span><a href="/categories/%E9%9A%8F%E6%83%B3/" class="button">随想</a>
+
+ 
+        
+    
+    
+
+
+ 
+
+ 
+    </div>
+</div>
+
+
+    <aside class="post-side">
+        <div class="post-side__toc">
+            
+        </div>
+    </aside>
+    <a class="btn-toc button" id="btn-toc" tabindex="0">
+        <svg viewBox="0 0 1024 1024" width="32" height="32" xmlns="http://www.w3.org/2000/svg">
+            <path d="M128 256h64V192H128zM320 256h576V192H320zM128 544h64v-64H128zM320 544h576v-64H320zM128 832h64v-64H128zM320 832h576v-64H320z" fill="currentColor"></path>
+        </svg>
+    </a>
+    <div class="toc-menus" id="toc-menus">
+        <div class="toc-title">文章目录</div>
+        
+    </div>
+
+
+<article class="post post__with-toc content-card">
+    <div class="post__header">
+    <div class="post__expire" id="post-expired-notify">
+        <p>
+            本文最后更新于 &lt;span id=&#34;expire-date&#34;&gt;&lt;/span&gt; 天前，文中部分描述可能已经过时。
+        </p>
+    </div>
+    <script>
+        (() => {
+            var update = Date.parse("2022-08-30"),
+                date = new Date(),
+                now = date.getTime(),
+                expire = now - update,
+                expire_days = Math.floor(expire/(24*3600*1000));
+            if (expire_days >= 120) {
+                document.querySelectorAll('#expire-date')[0].innerHTML = expire_days;
+                document.querySelectorAll('#post-expired-notify')[0].style.display = 'block';
+            }
+        })();
+    </script>
+</div>
+    <div class="post__content">
+        <p>开发者的自己的项目中，是否应该在第三方类库的引用上保持最大程度的洁癖呢？</p>
+<span id="more"></span>
+<hr />
+<p>自从<del>宇宙第一
+Markdown编辑器</del><strong>Typora</strong>宣布收费后，我始终没有下定决心购买正式版，一是由于付费后获得的能力解锁的功能并不是我必须的，二是因为我发现了不错的
+vscode插件，基本可以胜任我写内容的场景，并且Markdown对我来说目前的作用就是写博客，而在vscode中事实上能够更加一体化地管理博客。</p>
+<p>然而用了几个月我都没有发现这个插件居然不支持用于设置摘要的
+<code>&lt;!-- more --&gt;</code>，发现时是因为看到首页中所有文章的摘要都失效了。</p>
+<blockquote>
+<p>在文章中使用 <code>&lt;!-- more --&gt;</code>，那么
+<code>&lt;!-- more --&gt;</code>
+之前的文字将会被视为摘要。首页中将只出现这部分文字，同时这部分文字也会出现在正文之中。</p>
+</blockquote>
+<p>因为我习惯于为文章添加一句引子，也就是正文的第一句，不支持摘要的结果是引擎会截取尽可能多的字数作为摘要，虽无伤大雅，但总归不爽。不过我发现作者更新频率还是很高的，于是便打算等几天，但并没有发现更新了对Hexo摘要的支持，看来我这个社恐只能发邮件向作者反馈一下了，可是得到的回复是：</p>
+<blockquote>
+<p><strong>插件的原理是解析
+Markdown语法，因此一切非Markdown语法的内容都会被忽略</strong>。</p>
+</blockquote>
+<p>很可惜，看来作者的开发思路跟Typora有所不同，但这也怪不得开发者，毕竟是用爱发电的作品，作者必然是以满足自己的使用需求为第一要义，除非给钱让开发者定制，不然也很难去提什么主观的要求。</p>
+<p>虽然还在学习前端的我在开发vscode插件这方面没什么能力，但是此刻却萌生了想要开发一款Markdown编辑器的欲望。</p>
+<p>不过很幸运，我发现了另一款插件，同样能够满足我写博客的需求，然而在更新了一个版本之后出现了一些主题适配的问题，并且同样没有发现修复更新，很无奈我再一次发邮件向开发者反馈，这一次的反馈很顺利，作者也是邮箱高强度在线，讲清楚问题后20分钟就修复了bug并推送新版。</p>
+<p>很开心，但同时我也在思考，如果这位开发者没有排查出问题，甚至没有回复我，那么这些插件对我来说使用体验就会大打折扣了，所以我还是有想自己开发Markdown编辑器的欲望。</p>
+<hr />
+<p>这就是程序员们常说的“造轮子”了，而且是重复造轮子，因为已经有了功能相似甚至相同的产品出现。造轮子的初衷实际上是源于自己对现有产品的不满足，比如功能无法完整覆盖自己的需求，比如已经失去维护很长时间，甚至是业界并没有符合自己设想的项目……但是我时常在想，当在自己的项目中引入了这些开源的库之后，如果这些库出现了问题，就像fastjson频繁曝出安全漏洞，此时该自己从头实现一套专属当前场景的工具库还是继续另寻其他开源库呢？</p>
+<p>对我来说，我觉得自己是有一些代码洁癖的，对源码的好奇让我时常会思考某个功能在底层是如何实现的，有时还会尝试去实现标准库的某个函数，但是当我在前几个学期完成大作业的过程中，却对手写工具类有所排斥，果断地暂时将底层原理抛诸脑后，对现成的工具和类库，只要能实现需求，便只管拿来主义。事实上我是有些惭愧的，然而大作业是要实现需求的，需求只是一句话，是不会考虑业务逻辑的复杂度的，此时实现需求才是第一要义，调用的库存在什么关键细节并不需要考虑，因为类库就应该由它的开发者来维护。</p>
+<p>不过我总觉得这看来像是自己的项目中有一些关键内容被别人握在手里，虽然开源协议可以保护自己的软件不会遭到类库开发者的“制裁”，但调用别人写的代码总是感到不够安心，如果是一些嵌入项目比较深的组件，原作者进行了改动后很可能自己要跟着修改很多逻辑，这种被动想必不会那么自在。</p>
+<p>就我个人的感受来看，这是一种复杂的心理，当在完成一个任务的过程中，我通常是属于只看结果的那一类人，只要有可以实现需求的方案，那就可以拿来用，而不考虑是否有必要总结出一套代码库出来，在当下的网络世界，几乎所有在开发过程中遇到的问题都能够寻找到答案。</p>
+<p>而当我在酝酿自己的项目时，往往想要追求<strong>每一行代码都来自于自己的双手在键盘上的敲击</strong>，不论业界是否存在一些成熟的解决方案。自己的项目，我就希望所有的东西都是我自己手搓出来的，当然，即便一时半会为了发布开发进度而需要引入一些现成的库，在未来我也愿意重新实现项目中调用的函数，当项目中所有的代码都是我自己的劳动成果，我才踏实地感到这是我自己的产品，我是有完整的决定权和发言权的。</p>
+<hr />
+<p>我有不少次提到过自己有个人项目的点子，但需要一定开发经验的积累，以及各类开发工具的使用，还包含一些方面的底层原理，因为我想掺一脚的是一个必然冷门也必然缺少支持的方向：<strong>手机编程</strong>。</p>
+<p>作为一个有想法<del>没技术</del>(会有的)的入门级开发者，我一直很能<strong>理解非科班但也要学习编程而又不以此为职业</strong>的朋友们，学习编程语言的第一步不是写一个
+<code>Hello World!</code>，而是先要进行繁琐的环境配置，对于不是有志于学习一门编程语言的朋友们，这个过程就能够消磨灭一半的学习兴趣，更不用说还能否发现编程的乐趣了，甚至即便能够为学习生活工作带来效率的提升，也会本能地排斥。</p>
+<p>而作为 [半]
+个科班人，每一次重装系统或者学习新的开发技能时，也会因为搭建环境的繁复而恼火，如果是重装系统加上重新安装常用软件以及配置好所有的开发环境，基本上完整的一天时间就这么过去了，所以久而久之我的态度也转变为能忍则忍，能凑活用就不重装系统。</p>
+<p>所以早在属于我的
+<code>Hello World!</code>时代，我就在思考<strong>是否存在用手机编写和运行代码的可能性</strong>，让我意想不到的是居然真的有，当年有不少大佬都在探索手机编程的可行性，而基于Linux内核的Android系统也无疑是最有希望做到这一点的。当年也确实有很多人凭借这类APP入门了编程，但这始终是一个冷门的领域，冷嘲热讽的声音从未停止过，且必须承认的是手机编程也真的无法达到PC平台上各种IDE的高度，不论从硬件还是软件，移动设备的能力都难以与PC相提并论。年复一年中，很多APP都逐渐失去了维护，但也有新开发者关注到了这个又偏又怪的场景，所以这些年来手机编程一直保持着一种小众的状态。</p>
+<p>对我来说，我始终认为手机编程是有实用性的，因为相较于在PC上配置繁琐环境变量和进行复杂的设置，在移动设备上安装即用的体验对入门编程的人群来说是一个能够提高兴趣的好方法。而在当下，大屏设备也逐渐兴起，我相信在手机和平板上写代码会成为编程初学者的选择之一。</p>
+<p>尽管它必然的小众决定了它不可能成为生产力的主流，我更不可能靠它来养活自己，但我知道有很多人都曾遇到这个痛点，而这就足以让我坚信，这就是从我学习计算机以来最想造的轮子。</p>
+
+    </div>
+    
+    <div class="post__license">
+        <p>
+            <strong>本文作者：</strong>Skycurtain
+        </p>
+        <p>
+            <strong>
+                本文链接：
+            </strong>
+            <a href="https://skycurtain.github.io/2022/08/29/from-reporting-bugs-to-wish-inventing-wheels/">https://skycurtain.github.io/2022/08/29/from-reporting-bugs-to-wish-inventing-wheels/</a>
+        </p>
+        
+    </div>
+ 
+    <div class="post-footer__meta"><p>  </p></div> 
+    <div class="post-entry__tags"><a href="/tags/%E6%BC%AB%E8%B0%88/" class="post-tags__link button"># 漫谈</a></div> 
+</article>
+
+
+    <div class="nav">
+        <div class="nav__prev">
+            
+        </div>
+        <div class="nav__next">
+            
+                <a href="/2022/06/09/mourning-of-defense/" class="nav__link">
+                    <div>
+                        <div class="nav__label">
+                            下一篇
+                        </div>
+                        <div class="nav__title">
+                            答辩之殇
+                        </div>
+                    </div>
+                    <div>
+                        <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="M434.944 790.624l-45.248-45.248L623.04 512l-233.376-233.376 45.248-45.248L713.568 512z" fill="#808080"></path></svg>
+                    </div>
+                </a>
+            
+        </div>
+    </div>
+
+
+
+
+
+</main>
+
+            <footer class="footer">
+     
+    <a href="#" class="button" id="b2t" aria-label="回到顶部" title="回到顶部">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="32" height="32">
+            <path d="M233.376 722.752L278.624 768 512 534.624 745.376 768l45.248-45.248L512 444.128zM192 352h640V288H192z" fill="currentColor"></path>
+        </svg>
+    </a>
+
+    
+
+
+    
+     
+ 
+
+ 
+    
+        
+        <p class="footer-copyright">
+            Copyright © 2022 <a href="/">Skycurtain.Dreamland</a>
+        </p>
+    
+    
+    <p>Powered by <a href="https://hexo.io" target="_blank">Hexo</a> | Theme - <a href="https://github.com/ChrAlpha/hexo-theme-cards" target="_blank">Cards</a></p>
+</footer>
+
+        </div>
+         
+
+ 
+
+ 
+
+ 
+
+ 
+
+
+
+ 
+
+
+
+ 
+
+
+    
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+
+
+
+    </body>
+</html>
