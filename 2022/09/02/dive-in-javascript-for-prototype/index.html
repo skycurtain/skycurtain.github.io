@@ -209,7 +209,10 @@
 <span id="more"></span>
 <hr />
 <p>Java选手们很容易看出来，如果存在三个类<code>User</code>、<code>Admin</code>、<code>Guest</code>，这三个类之间可以存在继承关系。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">graph TB</span><br><span class="line">User[User]</span><br><span class="line">User --&gt; Admin</span><br><span class="line">User --&gt; Guest</span><br></pre></td></tr></table></figure>
+<pre class="mermaid">graph TB
+User[User]
+User --> Admin
+User --> Guest</pre>
 
     </div>
     
@@ -329,6 +332,11 @@
 
  
 
+
+    <script src='https://cdn.jsdelivr.net/npm/mermaid@8.10.2/dist/mermaid.min.js'></script>
+    <script>
+            mermaid.initialize(JSON.stringify(''));
+    </script>
  
 
  
