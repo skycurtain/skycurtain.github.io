@@ -43,7 +43,7 @@
 <meta property="og:description" content="争取一文搞清[[Prototype]]、__proto__、prototype的区别与联系。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-09-05T08:00:57.000Z">
-<meta property="article:modified_time" content="2022-09-06T17:11:16.866Z">
+<meta property="article:modified_time" content="2022-09-06T17:19:20.975Z">
 <meta property="article:author" content="Skycurtain">
 <meta property="article:tag" content="前端">
 <meta property="article:tag" content="JavaScript">
@@ -169,7 +169,7 @@
 
     <aside class="post-side">
         <div class="post-side__toc">
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#prototype"><span class="toc-number">1.</span> <span class="toc-text">[Prototype]</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#proto"><span class="toc-number">2.</span> <span class="toc-text">proto</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#prototype-1"><span class="toc-number">3.</span> <span class="toc-text">prototype</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%9F%E5%9E%8B%E4%B8%8E%E5%8E%9F%E5%9E%8B%E7%BB%A7%E6%89%BF"><span class="toc-number">4.</span> <span class="toc-text">原型与原型继承</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E4%B8%AA%E4%BE%8B%E5%AD%90"><span class="toc-number">5.</span> <span class="toc-text">一个例子</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#prototype"><span class="toc-number">1.</span> <span class="toc-text">[[Prototype]]</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#proto"><span class="toc-number">2.</span> <span class="toc-text">proto</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#prototype-1"><span class="toc-number">3.</span> <span class="toc-text">prototype</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%9F%E5%9E%8B%E4%B8%8E%E5%8E%9F%E5%9E%8B%E7%BB%A7%E6%89%BF"><span class="toc-number">4.</span> <span class="toc-text">原型与原型继承</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E4%B8%AA%E4%BE%8B%E5%AD%90"><span class="toc-number">5.</span> <span class="toc-text">一个例子</span></a></li></ol>
         </div>
     </aside>
     <a class="btn-toc button" id="btn-toc" tabindex="0">
@@ -179,7 +179,7 @@
     </a>
     <div class="toc-menus" id="toc-menus">
         <div class="toc-title">文章目录</div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#prototype"><span class="toc-number">1.</span> <span class="toc-text">[Prototype]</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#proto"><span class="toc-number">2.</span> <span class="toc-text">proto</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#prototype-1"><span class="toc-number">3.</span> <span class="toc-text">prototype</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%9F%E5%9E%8B%E4%B8%8E%E5%8E%9F%E5%9E%8B%E7%BB%A7%E6%89%BF"><span class="toc-number">4.</span> <span class="toc-text">原型与原型继承</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E4%B8%AA%E4%BE%8B%E5%AD%90"><span class="toc-number">5.</span> <span class="toc-text">一个例子</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#prototype"><span class="toc-number">1.</span> <span class="toc-text">[[Prototype]]</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#proto"><span class="toc-number">2.</span> <span class="toc-text">proto</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#prototype-1"><span class="toc-number">3.</span> <span class="toc-text">prototype</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%9F%E5%9E%8B%E4%B8%8E%E5%8E%9F%E5%9E%8B%E7%BB%A7%E6%89%BF"><span class="toc-number">4.</span> <span class="toc-text">原型与原型继承</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E4%B8%AA%E4%BE%8B%E5%AD%90"><span class="toc-number">5.</span> <span class="toc-text">一个例子</span></a></li></ol>
     </div>
 
 
@@ -209,7 +209,7 @@
 <span id="more"></span>
 <hr />
 <p>在学习JavaScript原型相关内容时，包含"proto"的属性着实不少，各自都有不同的含义。</p>
-<h2 id="prototype">[<a href="#prototype-1">Prototype</a>]</h2>
+<h2 id="prototype">[[Prototype]]</h2>
 <p><code>[[Prototype]]</code>是<strong>对象的隐藏属性</strong>，可以认为是一个<strong>概念</strong>，表示该对象的原型。</p>
 <h2 id="proto"><strong>proto</strong></h2>
 <p><code>__proto__</code>是<strong>JavaScript提供的访问对象原型的方式</strong>，通过<code>obj.__proto__</code>可以访问到<code>obj</code>的原型，只不过现代JavaScript更加推荐使用<code>Object.getPrototypeOf(obj)</code>和<code>Object.setPrototypeOf(obj, [descriptors])</code>来获取和设置对象<code>obj</code>的原型。</p>
