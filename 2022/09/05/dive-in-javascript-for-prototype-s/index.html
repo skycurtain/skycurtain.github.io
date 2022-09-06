@@ -43,7 +43,7 @@
 <meta property="og:description" content="争取一文搞清[[Prototype]]、__proto__、prototype的区别与联系。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-09-05T08:00:57.000Z">
-<meta property="article:modified_time" content="2022-09-05T13:28:52.231Z">
+<meta property="article:modified_time" content="2022-09-06T09:08:45.721Z">
 <meta property="article:author" content="Skycurtain">
 <meta property="article:tag" content="前端">
 <meta property="article:tag" content="JavaScript">
@@ -192,7 +192,7 @@
     </div>
     <script>
         (() => {
-            var update = Date.parse("2022-09-05"),
+            var update = Date.parse("2022-09-06"),
                 date = new Date(),
                 now = date.getTime(),
                 expire = now - update,
@@ -215,7 +215,7 @@
 <hr />
 <p><code>prototype</code>是针对函数而言的，只有函数才有这个属性。比如<code>F</code>是一个构造函数，对于<code>F.prototype</code>，<code>F.prototype = protoObj;</code>表示<strong>当创建了一个<code>new F</code>时，新对象的<code>[[Prototype]]</code>会被赋值为<code>protoObj</code>，也就是<code>F.prototype</code></strong>。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> protoObj = &#123;&#125;;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">F</span>(<span class="params"></span>) &#123;&#125;</span><br><span class="line">F.<span class="property"><span class="keyword">prototype</span></span> = protoObj;</span><br><span class="line"><span class="keyword">let</span> obj = <span class="keyword">new</span> <span class="title function_">F</span>(); <span class="comment">// obj.__proto__ === F.prototype</span></span><br></pre></td></tr></table></figure>
-<p>简单来说，<code>F.prototype</code>就是调用构造函数<code>F</code>时创建的对象的原型。</p>
+<p>简单来说，<code>F.prototype</code>就是调用构造函数<code>F</code>时创建的对象的原型，可以认为这个“原型”是一个<strong><em><u>模板</u></em></strong>。</p>
 
     </div>
     
