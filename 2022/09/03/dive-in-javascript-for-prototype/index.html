@@ -43,7 +43,7 @@
 <meta property="og:description" content="争取一文帮自己搞清楚JavaScript中的原型(链)。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-09-02T16:52:35.000Z">
-<meta property="article:modified_time" content="2022-09-05T02:43:37.688Z">
+<meta property="article:modified_time" content="2022-09-07T13:56:01.266Z">
 <meta property="article:author" content="Skycurtain">
 <meta property="article:tag" content="前端">
 <meta property="article:tag" content="JavaScript">
@@ -192,7 +192,7 @@
     </div>
     <script>
         (() => {
-            var update = Date.parse("2022-09-05"),
+            var update = Date.parse("2022-09-07"),
                 date = new Date(),
                 now = date.getTime(),
                 expire = now - update,
@@ -224,7 +224,7 @@ Guest --> User</pre>
 <p>不止访问属性，当访问对象中不存在的函数，JavaScript引擎也会从原型中寻找这个函数。</p>
 <p>如果存在这样一条原型链：</p>
 <pre class="mermaid">graph BT
-ShortHair --> cat --> Animal</pre>
+ShortHair --> Cat --> Animal</pre>
 <p>当我们从<code>ShortHair</code>中读取一些它不存在的内容，那么JavaScript会先从<code>cat</code>中查找，然后在<code>animal</code>中查找。</p>
 <p>原型链中存在两个限制：</p>
 <ol type="1">
