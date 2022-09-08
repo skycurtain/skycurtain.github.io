@@ -16,23 +16,24 @@
   <meta name="author" content="Skycurtain">
   <meta name="keywords" content="">
   
-    <meta name="description" content="争取一文帮自己搞清楚JavaScript中的类class。">
+    <meta name="description" content="争取一文帮自己搞清楚JavaScript中的构造器。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="（撰写中）JavaScript海底两万里：类">
-<meta property="og:url" content="https://skycurtain.github.io/2022/09/06/dive-in-javascript-for-class/index.html">
+<meta property="og:title" content="JavaScript海底两万里：构造器">
+<meta property="og:url" content="https://skycurtain.github.io/2022/09/01/javascript-drowning-in-constructor/index.html">
 <meta property="og:site_name" content="Skycurtain.Dreamland">
-<meta property="og:description" content="争取一文帮自己搞清楚JavaScript中的类class。">
+<meta property="og:description" content="争取一文帮自己搞清楚JavaScript中的构造器。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-09-06T09:15:37.000Z">
-<meta property="article:modified_time" content="2022-09-08T10:12:43.463Z">
+<meta property="article:published_time" content="2022-08-31T16:55:31.000Z">
+<meta property="article:modified_time" content="2022-09-08T16:05:04.668Z">
 <meta property="article:author" content="Skycurtain">
 <meta property="article:tag" content="前端">
 <meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="JavaScript海底两万里">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>（撰写中）JavaScript海底两万里：类 - Skycurtain.Dreamland</title>
+  <title>JavaScript海底两万里：构造器 - Skycurtain.Dreamland</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -213,7 +214,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle">（撰写中）JavaScript海底两万里：类</span>
+            <span id="subtitle">JavaScript海底两万里：构造器</span>
           
         </div>
 
@@ -224,8 +225,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-09-06 17:15" pubdate>
-          2022年9月6日 下午
+        <time datetime="2022-09-01 00:55" pubdate>
+          2022年9月1日 凌晨
         </time>
       </span>
     
@@ -236,7 +237,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.1k 字
+          1.4k 字
         
       </span>
     
@@ -247,7 +248,7 @@
         
         
         
-          18 分钟
+          12 分钟
         
       </span>
     
@@ -285,64 +286,35 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">（撰写中）JavaScript海底两万里：类</h1>
+            <h1 style="display: none">JavaScript海底两万里：构造器</h1>
             
             
               <div class="markdown-body">
                 
-                <p>争取一文帮自己搞清楚JavaScript中的类<code>class</code>。</p>
+                <p>争取一文帮自己搞清楚JavaScript中的构造器。</p>
 <span id="more"></span>
 
 <hr>
-<p>在ES6之前，JavaScript中并不存在<strong>类</strong>的概念，开发者们对于原型和继承可谓是绞尽脑汁，通过各种方式来实现基于原型链的继承。</p>
-<p>日常开发中我们经常需要创建许多相同类型的对象，在学习了构造器之后，我们可以想到通过<code>new Function()</code>的形式来实现这种需求。不过在现代JavaScript中引入了更高级的“<strong>类</strong>”的概念，它包含许多适用于面向对象的新功能。</p>
-<p>我作为一个半吊子Java开发者，一直在与面向对象编程打交道，而连名字都蹭Java热度的JavaScript，在面向对象这块的设计跟Java不能说一模一样，只能说是大差不差，除了没有显示的<code>public</code>和<code>private</code>字段之外，别的方面基本都是相通的。</p>
-<h2 id="class"><a href="#class" class="headerlink" title="class"></a>class</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyClass</span> &#123;<br>    &lt;prop&gt; = &lt;value&gt;;<br>    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) &#123;&#125;<br>    &lt;method1&gt;() &#123;&#125;<br>    &lt;method2&gt;() &#123;&#125;<br>    &lt;method3&gt;() &#123;&#125;<br>    <span class="hljs-comment">// ...</span><br>&#125;<br></code></pre></td></tr></table></figure>
-
-<p>这是声明一个类的例子，可以看到JavaScript采用显示的<code>constructor</code>关键字来声明构造方法，而不是像Java那样用与类名相同的方法。</p>
-<p>在JavaScript中，类的本质是函数，所以它不完全是语法层面的特性。JavaScript的类的底层实现事实上是构造器<code>constructor</code>和原型(链)<code>[[Prototype]]</code>。当我们<code>new</code>一个对象时，JavaScript会通过以类名命名的构造器来创建对象。</p>
-<p>但这并不意味着<code>class</code>就仅仅是一个语法糖，它们之间还是存在一定差异的：</p>
+<h2 id="构造器"><a href="#构造器" class="headerlink" title="构造器"></a>构造器</h2><p>在JavaScript中，我们通常使用<code>let obj = &#123;...&#125;;</code>的方式来创建一个对象，或者是通过<code>let obj = new Object();</code>的方式，前者属于字面量的方式，而后者就是本篇要聊的话题之一 —— 构造器<code>Constructor</code>。</p>
+<p>常规的<code>&#123;...&#125;</code>语法允许创建一个对象，然而有时候需要创建很多类似的对象，例如多个用户或者菜单项等等，这类需求可以通过构造函数与<code>&quot;new&quot;</code>操作符来实现。</p>
+<p>构造函数在技术上与常规函数相同，但是存在两个<strong>约定</strong>（不是规定）：</p>
 <ol>
-<li>通过<code>class</code>创建的函数内部包含<code>[[IsClassConstructor]]: true</code>属性标志，解释器会检查这个属性来判断是否存在语法错误。</li>
-<li>类方法不能枚举，当对一个对象调用<code>for..in</code>时不会出现类方法。</li>
-<li>类自动采用<code>&quot;use strict&quot;</code>模式。</li>
+<li>它们的命名以大写字母开头</li>
+<li>它们只能由<code>&quot;new&quot;</code>操作符来执行</li>
 </ol>
-<h2 id="类表达式"><a href="#类表达式" class="headerlink" title="类表达式"></a>类表达式</h2><p>与方法一样，类也可以在另一个表达式中被定义、赋值、传递、返回等。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 类名Hello将将仅在类内部可见</span><br><span class="hljs-keyword">let</span> hello = <span class="hljs-keyword">class</span> <span class="hljs-title class_">Hello</span> &#123;<br>    name = <span class="hljs-string">&#x27;&#x27;</span><br>    <span class="hljs-title function_">greet</span>(<span class="hljs-params"></span>) &#123;<br>        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;Hello!&#x27;</span>);<br>    &#125;<br>&#125;<br><br><span class="hljs-comment">// 返回一个类</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">returnClass</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">class</span> &#123;<br>        <span class="hljs-title function_">hello</span>(<span class="hljs-params"></span>) &#123;<br>            <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;Hello!&#x27;</span>);<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>一个例子可以像这样：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">User</span>(<span class="hljs-params">name</span>) &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span> = name;<br>&#125;<br><br><span class="hljs-keyword">let</span> user = <span class="hljs-keyword">new</span> <span class="hljs-title class_">User</span>(<span class="hljs-string">&quot;Jack&quot;</span>);<br></code></pre></td></tr></table></figure>
 
-<h2 id="类继承"><a href="#类继承" class="headerlink" title="类继承"></a>类继承</h2><p>之前说JavaScript中类的底层是基于构造器和原型(链)，类的继承就是通过原型链来实现的。</p>
-<p>还是那句话，跟Java很像，通过<code>extends</code>关键字可以实现继承，子类的构造方法也必须先调用父类<code>super</code>的构造方法。</p>
-<blockquote>
-<p>一个特殊情况是箭头函数，箭头函数不仅没有<code>this</code>，也没有<code>super</code>，如果在箭头函数中访问<code>this</code>或<code>super</code>，它会从外部函数获取，所以能够融入到就近的上下文中。</p>
-</blockquote>
-<p>在Java中我们经常继承标准库中的一些类，比如继承<code>Thread</code>来实现线程，在Android开发中也需要继承<code>Activity</code>来编写我们自己的逻辑，而JavaScript也不例外，它的内建类也可以被继承，但是需要注意的一点是内建类相互间不继承静态方法，因为继承关系并不存在于这些类之间，而是存在于它们的<code>prototype</code>之间，注意是<code>prototype</code>而不是<code>[[Prototype]]</code>。</p>
-<pre><code class=" mermaid">flowchart
-newDate[&quot;new Date()&quot;]
+<p>这跟Java的构造方法其实有几分相似之处。在Java中，我们通过<code>new</code>一个<code>class</code>的方式在创建一个对象，实际上Java会调用这个类的构造方法来创建对象。而在JavaScript中，我们不需要像Java那么规范地先写<code>class</code>再写构造方法，**JavaScript的构造函数能够在通过<code>new</code>操作符执行时候创建一个新的空对象并分配给<code>this</code>**，函数体中的内容会修改<code>this</code>的属性，最后返回<code>this</code>。</p>
+<p>技术上来说任何函数都可以作为构造器，但箭头函数除外，它没有自己的<code>this</code>。</p>
+<p>对于最后“返回<code>this</code>”的这个步骤，其实是解释器帮助我们完成的，因为我们不需要显式地写出<code>return</code>语句，但并非不允许在里面写<code>return</code>。<code>return</code>语句存在一条规则：如果<code>return</code>返回一个对象，那么就返回这个对象，其他情况都返回<code>this</code>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">User</span>(<span class="hljs-params">name</span>) &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span> = name;<br>    <span class="hljs-keyword">return</span> &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;Jack&#x27;</span> &#125;; <span class="hljs-comment">// 返回一个对象</span><br>&#125;<br><br><span class="hljs-keyword">let</span> newUser = <span class="hljs-keyword">new</span> <span class="hljs-title class_">User</span>(<span class="hljs-string">&#x27;John&#x27;</span>);<br><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(newUser); <span class="hljs-comment">// &#123; name: &#x27;Jack&#x27; &#125;</span><br></code></pre></td></tr></table></figure>
 
-subgraph 结构
-direction BT
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">User</span>(<span class="hljs-params">name</span>) &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span> = name;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>; <span class="hljs-comment">// 返回非对象</span><br>&#125;<br><br><span class="hljs-keyword">let</span> newUser = <span class="hljs-keyword">new</span> <span class="hljs-title class_">User</span>(<span class="hljs-string">&#x27;John&#x27;</span>);<br><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(newUser); <span class="hljs-comment">// User &#123; name: &#x27;John&#x27; &#125;</span><br></code></pre></td></tr></table></figure>
 
-subgraph 原型链
-direction BT
-newDate --&gt;|&quot;[[Prototype]]&quot;| Date.prototype
-Date.prototype --&gt;|&quot;[[Prototype]]&quot;| Object.prototype
-end
+<p>所以用构造函数来创建对象具有很大的灵活性，其实这跟Java还是比较类似的，可以暂时参考Java的类来理解JavaScript的构造函数，所以构造函数中不仅可以添加属性，也可以添加方法，像这样：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">User</span>(<span class="hljs-params">name</span>) &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span> = name;<br>    <br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">sayHi</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;<br>        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;Hi, my name is &#x27;</span> + <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span> + <span class="hljs-string">&#x27;.&#x27;</span>);<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">let</span> john = <span class="hljs-keyword">new</span> <span class="hljs-title class_">User</span>(<span class="hljs-string">&#x27;John&#x27;</span>);<br>john.<span class="hljs-title function_">sayHi</span>(); <span class="hljs-comment">// Hi, my name is John.</span><br></code></pre></td></tr></table></figure>
 
-subgraph 类
-direction BT
-Date ---|&quot;×&quot;| Object
-end
-
-end
-
-Date --&gt; Date.prototype
-Object --&gt; Object.prototype
-</code></pre>
-
-<h2 id="静态属性-amp-静态方法"><a href="#静态属性-amp-静态方法" class="headerlink" title="静态属性&amp;静态方法"></a>静态属性&amp;静态方法</h2><p>在属性或方法前添加<code>static</code>关键字，对Java用户来说无需多言。</p>
-<p>静态属性和方法也能够被继承。</p>
-<h2 id="怎么实现private属性和方法"><a href="#怎么实现private属性和方法" class="headerlink" title="怎么实现private属性和方法"></a>怎么实现<code>private</code>属性和方法</h2><p>在JavaScript中没有像<code>public</code>和<code>private</code>这样的关键字，开发者之间存在一个约定，私有的属性或方法的命名通常以下划线<code>_</code>开头。</p>
-<p>不过在新标准中，如果属性和方法的名字以井号<code>#</code>开头，它们将只能够在类内部可以被访问，这是语言级别的特性。</p>
 
                 
               </div>
@@ -380,6 +352,8 @@ Object --&gt; Object.prototype
       
         <a href="/tags/JavaScript/">#JavaScript</a>
       
+        <a href="/tags/JavaScript%E6%B5%B7%E5%BA%95%E4%B8%A4%E4%B8%87%E9%87%8C/">#JavaScript海底两万里</a>
+      
     </div>
   
 </div>
@@ -390,8 +364,8 @@ Object --&gt; Object.prototype
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>（撰写中）JavaScript海底两万里：类</div>
-      <div>https://skycurtain.github.io/2022/09/06/dive-in-javascript-for-class/</div>
+      <div>JavaScript海底两万里：构造器</div>
+      <div>https://skycurtain.github.io/2022/09/01/javascript-drowning-in-constructor/</div>
     </div>
     <div class="license-meta">
       
@@ -403,7 +377,7 @@ Object --&gt; Object.prototype
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年9月6日</div>
+          <div>2022年9月1日</div>
         </div>
       
       
@@ -433,12 +407,18 @@ Object --&gt; Object.prototype
                   <article class="post-prev col-6">
                     
                     
+                      <a href="/2022/09/03/javascript-drowning-in-prototype/" title="JavaScript海底两万里：原型(链)">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">JavaScript海底两万里：原型(链)</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/09/05/dive-in-javascript-for-prototype-s/" title="JavaScript海底两万里：[[Prototype]]、__proto__、prototype">
-                        <span class="hidden-mobile">JavaScript海底两万里：[[Prototype]]、__proto__、prototype</span>
+                      <a href="/2022/08/29/from-reporting-bugs-to-wish-inventing-wheels/" title="从反馈bug到想造轮子">
+                        <span class="hidden-mobile">从反馈bug到想造轮子</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
