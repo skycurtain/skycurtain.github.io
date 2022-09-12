@@ -16,15 +16,15 @@
   <meta name="author" content="Skycurtain">
   <meta name="keywords" content="">
   
-    <meta name="description" content="操作系统多线程编程课程设计完工后记">
+    <meta name="description" content="操作系统多线程编程课程设计完工后记 多线程确实是很浪漫的一个话题，不过在我还没有了解到更底层内容的现在，这种需要做性能分析的工作我还是不要尝试用Java这种高深莫测的虚拟机语言吧吧吧吧吧吧。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="多线程编程起步：矩阵乘法的任务分配">
 <meta property="og:url" content="https://skycurtain.github.io/2022/04/27/tasks-assignment-method-in-parallel-matrix-multiplication/index.html">
 <meta property="og:site_name" content="Skycurtain.Dreamland">
-<meta property="og:description" content="操作系统多线程编程课程设计完工后记">
+<meta property="og:description" content="操作系统多线程编程课程设计完工后记 多线程确实是很浪漫的一个话题，不过在我还没有了解到更底层内容的现在，这种需要做性能分析的工作我还是不要尝试用Java这种高深莫测的虚拟机语言吧吧吧吧吧吧。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-04-26T17:07:47.000Z">
-<meta property="article:modified_time" content="2022-09-07T17:56:23.142Z">
+<meta property="article:modified_time" content="2022-09-12T18:14:55.998Z">
 <meta property="article:author" content="Skycurtain">
 <meta property="article:tag" content="多线程">
 <meta property="article:tag" content="Java">
@@ -241,7 +241,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.6k 字
+          5.4k 字
         
       </span>
     
@@ -252,7 +252,7 @@
         
         
         
-          39 分钟
+          46 分钟
         
       </span>
     
@@ -296,11 +296,11 @@
               <div class="markdown-body">
                 
                 <p><del>操作系统</del>多线程编程课程设计完工后记</p>
+<p>多线程确实是很浪漫的一个话题，不过在我还没有了解到更底层内容的现在，这种需要做性能分析的工作我还是不要尝试用Java这种高深莫测的虚拟机语言吧吧吧吧吧吧。</p>
 <span id="more"></span>
 
 <hr>
-<p>多线程确实是很浪漫的一个话题，不过在我还没有了解到更底层内容的现在，这种需要做性能分析的工作我还是不要尝试用Java这种高级抽象的虚拟机语言吧吧吧吧吧吧。</p>
-<p>我不得不吐槽一下这个所谓的操作系统课程设计，题目不是要求实现线程安全的数据结构就是要求实现多线程需求的性能分析，在我看来这完全就是应用层面的东西，完全跟底层实现没有一点关系。在去年我曾留意过操作系统课设的要求，那时候还是要求学生去模拟操作系统的某些调度算法，今年估计是要冲什么业绩，把大纲改得又红又专不说，题目被改成这个样子，指导老师也是一言难尽。但话说回来也没有什么办法，固然有些勇士是敢于等到之后再考虑修这门课，但我不太愿意将本不该有任何课程的学期添上一件本该可以半年前就搞定的破事，于是便开始了为期2周的多线程编程学习。</p>
+<h2 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h2><p>我不得不吐槽一下这个所谓的操作系统课程设计，题目不是要求实现线程安全的数据结构就是要求实现多线程需求的性能分析，在我看来这完全就是应用层面的东西，完全跟底层实现没有一点关系。在去年我曾留意过操作系统课设的要求，那时候还是要求学生去模拟操作系统的某些调度算法，今年估计是要冲什么业绩，把大纲改得又红又专不说，题目被改成这个样子，指导老师也是一言难尽。但话说回来也没有什么办法，固然有些勇士是敢于等到之后再考虑修这门课，但我不太愿意将本不该有任何课程的学期添上一件本该可以半年前就搞定的破事，于是便开始了为期2周的多线程编程学习。</p>
 <p>考虑课设要求进行性能分析，所以权衡之下我选择了并行矩阵乘法，毕竟是学过的数学知识，相当于业务需求已经烂熟于心，只需要学好多线程就可以开工。</p>
 <blockquote>
 <p>矩阵乘法是一个非常好理解的模型，在我的设想中，由用户给出矩阵的规模$n$，接着由系统生成两个符合规模的方阵A和B，然后再由用户设置计算时的线程数，系统通过多线程计算将结果存入结果矩阵R，并记录每次计算的相关信息与耗时，且以合适的可视化方案反馈给用户。</p>
@@ -308,7 +308,7 @@
 <p>在学了个七七八八之后，我开始思考如何让这么多线程去合理地计算几百万个数据，从而得到由100多万个元素组成的结果矩阵，摆在我面前的有两种方案，一是加锁，或许更符合指导老师的本意；二是无锁，追求更好的性能。</p>
 <p>由于深受线程同步理念的<del>毒害</del>，我决定给并行矩阵乘法加锁，每个线程每次计算一个元素，多个线程通过抢占的方式共同完成所有的计算任务，通过设置一个共享的<strong>自增计数器</strong>来判断计算过程是否结束。这看起来非常合理，是一个好办法，非常典型的多线程程序模型对吧，但是我发现一个可能因为我没有深入研究而没有解决的问题：当我将这个计算过程包装在一个循环中以便探寻在不同并发数下的耗时情况时，除了第一次外，其余轮次计算的耗时全部被“优化”成了0ms，我确信我的代码逻辑没有问题，那会不会是循环中的整个计算过程并没有那么完整？于是我将读取数据的方法也添加到循环体中，这一次很幸运，每一次的耗时都是通过真实运行计算出来的，但是每次计算都要从！文！件！去读数据，这是一件很恐怖的事情，对于<strong>1024×1024</strong>规模的矩阵，还是2个，光是读数据就要耗费七八秒的时间，这为了得到测试数据就要花几天时间，对于期望赶紧速通这个课设的我来说是万万不行的。</p>
 <hr>
-<p>于是一夜回到解放前，我着手开始考虑无锁方案，一个非常关键的事情是，在【<strong>将计算结果的一个元素作为一个子任务</strong>】这个前提下，如何安排这一百多万个子任务。这是一个严肃的问题，因为子任务的安排模式将直接决定每个线程需要执行的子任务数量，而其中背负子任务最多的那个苦逼线程就直接决定了本次计算的耗时，因此这个安排模式必须尽力保证每个线程分配到的子任务数量是均匀的，这样就可以保证<strong>最累的线程和最轻松的线程所计算的子任务只相差1</strong>，换句话说，不管并发线程数怎么变化，各线程执行的最大子任务数只比最小子任务数多1，而对于这个时代的CPU，计算矩阵乘法的一个元素只区区一个小case罢了。</p>
+<h2 id="设计与实现"><a href="#设计与实现" class="headerlink" title="设计与实现"></a>设计与实现</h2><h3 id="线程任务分配"><a href="#线程任务分配" class="headerlink" title="线程任务分配"></a>线程任务分配</h3><p>于是一夜回到解放前，我着手开始考虑无锁方案，一个非常关键的事情是，在【<strong>将计算结果的一个元素作为一个子任务</strong>】这个前提下，如何安排这一百多万个子任务。这是一个严肃的问题，因为子任务的安排模式将直接决定每个线程需要执行的子任务数量，而其中背负子任务最多的那个苦逼线程就直接决定了本次计算的耗时，因此这个安排模式必须尽力保证每个线程分配到的子任务数量是均匀的，这样就可以保证<strong>最累的线程和最轻松的线程所计算的子任务只相差1</strong>，换句话说，不管并发线程数怎么变化，各线程执行的最大子任务数只比最小子任务数多1，而对于这个时代的CPU，计算矩阵乘法一个元素的耗时，相较于每个线程计算数万甚至数十万个元素的耗时，几乎可以忽略不计了，所以我们可以认为<strong>达到了平均分配任务的目的</strong>。</p>
 <p>因此，我的最终目标就是：比如说对于4×4规模的方阵，假设有7个线程并发计算矩阵乘法，那么每个线程计算的子任务如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java">Thread-<span class="hljs-number">0</span>: [<span class="hljs-number">0</span>][<span class="hljs-number">0</span>] [<span class="hljs-number">1</span>][<span class="hljs-number">3</span>] [<span class="hljs-number">3</span>][<span class="hljs-number">2</span>] <br>Thread-<span class="hljs-number">1</span>: [<span class="hljs-number">0</span>][<span class="hljs-number">1</span>] [<span class="hljs-number">2</span>][<span class="hljs-number">0</span>] [<span class="hljs-number">3</span>][<span class="hljs-number">3</span>] <br>Thread-<span class="hljs-number">2</span>: [<span class="hljs-number">0</span>][<span class="hljs-number">2</span>] [<span class="hljs-number">2</span>][<span class="hljs-number">1</span>] <br>Thread-<span class="hljs-number">3</span>: [<span class="hljs-number">0</span>][<span class="hljs-number">3</span>] [<span class="hljs-number">2</span>][<span class="hljs-number">2</span>] <br>Thread-<span class="hljs-number">4</span>: [<span class="hljs-number">1</span>][<span class="hljs-number">0</span>] [<span class="hljs-number">2</span>][<span class="hljs-number">3</span>] <br>Thread-<span class="hljs-number">5</span>: [<span class="hljs-number">1</span>][<span class="hljs-number">1</span>] [<span class="hljs-number">3</span>][<span class="hljs-number">0</span>] <br>Thread-<span class="hljs-number">6</span>: [<span class="hljs-number">1</span>][<span class="hljs-number">2</span>] [<span class="hljs-number">3</span>][<span class="hljs-number">1</span>] <br></code></pre></td></tr></table></figure>
 
@@ -322,8 +322,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">int</span> <span class="hljs-variable">nTasks</span> <span class="hljs-operator">=</span> length * length;<br><br><span class="hljs-comment">// build tasksTable[][]</span><br><span class="hljs-type">int</span>[][] tasksTable;<br><br><span class="hljs-comment">// initialize tasksTable size</span><br><span class="hljs-keyword">if</span> (nTasks % nThreads == <span class="hljs-number">0</span>) &#123;<br>    tasksTable = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[nThreads][nTasks / nThreads];<br>&#125; <span class="hljs-keyword">else</span> &#123;<br>    tasksTable = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[nThreads][nTasks / nThreads + <span class="hljs-number">1</span>];<br>&#125;<br><br><span class="hljs-comment">// load all tasks to tasksTable[][]</span><br><span class="hljs-comment">// 将所有子任务序号映射到任务分配表</span><br><span class="hljs-type">int</span> <span class="hljs-variable">nTask</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; <span class="hljs-comment">// 设定子任务序号遍历初始值为1</span><br><span class="hljs-comment">// 按列遍历任务分配表中与子任务数量相同的元素数量</span><br><span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">j</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; j &lt; tasksTable[<span class="hljs-number">0</span>].length; j++) &#123;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; tasksTable.length; i++) &#123;<br>        <span class="hljs-comment">// 当子任务序号小于等于子任务数量时将当前元素置1</span><br>        <span class="hljs-keyword">if</span> (nTask &lt;= nTasks) &#123;<br>            tasksTable[i][j] = <span class="hljs-number">1</span>; <span class="hljs-comment">// 进行置1操作</span><br>            nTask++; <span class="hljs-comment">// 子任务序号递增</span><br>        &#125;<br>    &#125;<br>&#125;<br>nTask = <span class="hljs-number">1</span>; <span class="hljs-comment">// 重置子任务序号遍历初始值为1</span><br><span class="hljs-comment">// 按行遍历任务分配表，对其中所有置1的元素赋值子任务序号</span><br><span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">j</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; j &lt; tasksTable[<span class="hljs-number">0</span>].length; j++) &#123;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; tasksTable.length; i++) &#123;<br>        <span class="hljs-keyword">if</span> (tasksTable[i][j] == <span class="hljs-number">1</span>) &#123;<br>            tasksTable[i][j] = nTask;<br>            nTask++;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <hr>
-<p>下一步操作是线程内部的运算过程。我们假设子任务的编号是按矩阵横向遍历顺序递增的，于是这个编号与矩阵的元素下标之间也是存在数学关系的，可以找出规律：</p>
-<p>$$<br>i&#x3D;\lfloor\frac{nTask-1}{matrix.length}\rfloor<br>$$</p>
+<h3 id="线程内部运算"><a href="#线程内部运算" class="headerlink" title="线程内部运算"></a>线程内部运算</h3><p>下一步操作是线程内部的运算过程。我们假设子任务的编号是按矩阵横向遍历顺序递增的，于是这个编号与矩阵的元素下标之间也是存在数学关系的，可以找出规律：<br>$$<br>i&#x3D;\lfloor\frac{nTask-1}{matrix.length}\rfloor<br>$$</p>
 <p>$$<br>j&#x3D;(nTask-1)\ mod\ matrix.length<br>$$</p>
 <p>这样就能根据编号$nTask$计算出要求的元素下标$matrix[i][j]$。</p>
 <p>为了方便理解任务分配的过程，使子任务竖着排队无疑是最直观的方案，但性能却不是最高的，要解释这个问题需要了解一些底层知识。</p>
@@ -334,9 +333,21 @@
 
 <p>如果你已经明白了上述的简单策略，那么恭喜你，你已经有了多线程编程的思想钢印，只要了解一下你喜欢的语言中多线程的语法，就可以尝试慢慢搭建整个项目了。</p>
 <hr>
-<p>为了要求的UI界面，必须要展示更多信息，展示更多信息就要写更多代码，况且UI线程占用系统资源的能力并不逊于多线程编程自身。虽然相较于写后端逻辑我更喜欢前端的那种表现力，但是我也对为这玩意儿开发UI感到厌恶。即便我在学习多线程的时候发现自己对多线程还比较感兴趣，但明明是关于底层设计的课设被改成提升应用层不说，更甚的是UI的加入彻底地将其变成了一个独立的应用程序，把这个课设的核心完全移出操作系统这个范围了，根本就不属于操作系统的项目。</p>
+<p>最后来回答一下开头我为什么说不要用Java可能会更好。</p>
+<p>主要是在做性能分析的时候，第一步自然是计算耗时 —— 就是在启动计算之前记录一下时间，计算完毕后再记录一下时间，二者相减就得到了计算耗时，当然也可以更细致地记录各线程的运行时间，只是当时我觉得没必要，而且也并没有因为这一点被要求改进或者影响成绩。</p>
+<blockquote>
+<p>事实上在中期答辩上看到了一些项目被要求记录各线程耗时，一方面我觉得这种要求很抽象，另一方面，记录下各线程耗时并不会对性能分析产生任何帮助，因为从任务分配策略上就做到了最大限度的均匀分配，不存在任务抢占，自然也就不存在线程获取的任务数量不均导致出现部分线程耗时极短或极长了，并且当时我的开发进度已经过半，正在设计UI及相关逻辑，而这样的改动也会对整个数据分析模块的设计产生很大的影响，所以还是勇了一把而没有去做。</p>
+</blockquote>
+<p>但是在测试过程中，发现数据的变化规律并不足够稳定，也就是说重复执行设计的测试方案，发现每次的耗时曲线都有些许差异，而且是在我已经禁用睿频的前提下，这意味着风扇几乎不会满载，电脑也几乎不会发热。</p>
+<p>我不禁有些诧异，思来想去认为是JVM —— 或者说别的VM可能也一样 —— 可能并没有直接与操作系统和CPU交互来得准确，因为我不可能真的把频率限制到1GHz的水平来更细致地观察，那样又会大大拉长测试的时间，最后我也只能是在测试出比较合理的曲线时及时采用。</p>
+<p>所以如果有朋友看到也想实现一下这个项目的话，建议用C&#x2F;C++&#x2F;Go&#x2F;Rust等等这类编译型语言来尝试一下，对于Windows平台也可以用C#来实现，Python、Java、JavaScript&#x2F;Node这类解释型语言在性能分析方面可能存在一些不准确的因素。</p>
+<hr>
+<h2 id="评价与感悟"><a href="#评价与感悟" class="headerlink" title="评价与感悟"></a>评价与感悟</h2><p>为了要求的UI界面，必须要展示更多信息，展示更多信息就要写更多代码，况且UI线程占用系统资源的能力并不逊于多线程编程自身。虽然相较于写后端逻辑我更喜欢前端的那种表现力，但是我也对为这玩意儿开发UI感到厌恶。即便我在学习多线程的时候发现自己对多线程还比较感兴趣，但明明是关于底层设计的课设被改成提升应用层不说，更甚的是UI的加入彻底地将其变成了一个独立的应用程序，把这个课设的核心完全移出操作系统这个范围了，根本就不属于操作系统的项目。</p>
 <p>我感兴趣的方向好像是两个极端，一是完全地与用户互动，二是彻底地与开发者交互。在我刚开始Hello World的时候，我首先想知道的就是怎么实现输入，因为实现了输入就意味着我可以控制程序运行的方向，这个程序的控制权在我的手中，慢慢地就不再仅仅乐于在命令行里折腾，想去实现真正的界面，那种灵动的布局、流畅的动效和严谨的适配，真是浪漫的美学与严肃的工程的完美结合，所以去做大前端，去用图形界面与屏幕前的你开展无声的交流，这是我能想到的代码与人类之间最友好的沟通方式。</p>
 <p>对我来说，写多了代码很不幸地激发了我对“程序是怎样产生的”这样一个话题有了好奇，不过即便是在编译原理课上学习了词法分析&amp;语法分析&amp;一点点语义分析，没有写过一行相关代码的我也感受不到这就能把我写的代码变成一个 <code>.o</code>、<code>.class</code>或者 <code>.exe</code>，所以还是很好奇这个编译的过程。在无意间翻了几十篇网刊文章后算是找到了一些有关底层原理的系列文章，希望自己有时间去跟随这些牛人，在未来有这样的可能去为框架、工具链、编译器贡献一行自己的代码。</p>
+<hr>
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>没有采用这么高级的算法，只是放在这里，也许未来有时间会研究。</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/cncyww/article/details/80727732">并行矩阵乘法——Cannon算法的原理实现以及性能评测</a></p>
 
                 
               </div>
