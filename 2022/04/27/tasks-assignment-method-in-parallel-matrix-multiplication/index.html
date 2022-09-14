@@ -24,7 +24,7 @@
 <meta property="og:description" content="操作系统多线程编程课程设计完工后记 多线程确实是很浪漫的一个话题，不过在我还没有了解到更底层内容的现在，这种需要做性能分析的工作我还是不要尝试用Java这种高深莫测的虚拟机语言吧吧吧吧吧吧。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-04-26T17:07:47.000Z">
-<meta property="article:modified_time" content="2022-09-13T03:43:46.200Z">
+<meta property="article:modified_time" content="2022-09-14T11:14:56.327Z">
 <meta property="article:author" content="Skycurtain">
 <meta property="article:tag" content="多线程">
 <meta property="article:tag" content="Java">
@@ -241,7 +241,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          6k 字
+          6.4k 字
         
       </span>
     
@@ -252,7 +252,7 @@
         
         
         
-          51 分钟
+          54 分钟
         
       </span>
     
@@ -351,6 +351,9 @@
 <h3 id="线程内部运算"><a href="#线程内部运算" class="headerlink" title="线程内部运算"></a>线程内部运算</h3><p>下一步操作是线程内部的运算过程。我们假设子任务的编号是按矩阵横向遍历顺序递增的，于是这个编号与矩阵的元素下标之间也是存在数学关系的，可以找出规律：<br>$$<br>i&#x3D;\lfloor\frac{nTask-1}{matrix.length}\rfloor<br>$$</p>
 <p>$$<br>j&#x3D;(nTask-1)\ mod\ matrix.length<br>$$</p>
 <p>这样就能根据编号$nTask$计算出要求的元素下标$matrix[i][j]$。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">multiplyAssignedElements</span><span class="hljs-params">(<span class="hljs-type">int</span>[] tasksGroup)</span> &#123;<br>        <span class="hljs-comment">// 遍历接收到的子任务组中所有元素</span><br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> nTask : tasksGroup) &#123;<br>            <span class="hljs-comment">// 由于子任务组中可能存在0，需要将其忽略</span><br>            <span class="hljs-keyword">if</span> (nTask != <span class="hljs-number">0</span>) &#123;<br>                <span class="hljs-comment">// 将子任务序号映射为结果矩阵的元素下标[i][j]</span><br>                <span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> (nTask - <span class="hljs-number">1</span>) / result.length;<br>                <span class="hljs-type">int</span> <span class="hljs-variable">j</span> <span class="hljs-operator">=</span> (nTask - <span class="hljs-number">1</span>) % result.length;<br>                <span class="hljs-comment">// 计算矩阵A的第i行与矩阵B的第j列进行矩阵乘法运算得到结果C[i][j]</span><br>                <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">k</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; k &lt; result.length; k++) &#123;<br>                    result[i][j] += matrixA[i][k] * matrixB[k][j];<br>                &#125;<br>            &#125;<br>        &#125;<br>    &#125;<br></code></pre></td></tr></table></figure>
+
+<hr>
 <p>为了方便理解任务分配的过程，使子任务竖着排队无疑是最直观的方案，但性能却不是最高的，要解释这个问题需要了解一些底层知识。</p>
 <p>首先，在编译器的眼中没有多维数组的概念，所有多维数组都被横向拉长成一行放在内存中，但由于数组元素可以通过下标直接访问，编译器会根据下标直接计算出数组元素的实际地址，因此访问数据元素的不同方式没有明显的性能差距。</p>
 <p>接下来需要了解一下局部性原理：在现代计算机的存储体系中，存在多个寄存器以及多级高速缓存，CPU访问存储器时，无论是存取指令还是存取数据，所访问的存储单元都趋于聚集在一个较小的连续区域中。这时候联系一下上一条可以发现，如果现在CPU读取的元素是$[0][0]$，寄存器中很有可能缓存了$[0][1]$而不太可能缓存了$[1][0]$，因此，由于按列分配的模式会导致TAT的行元素之间相互割裂，局部性原理难以发挥作用。</p>
