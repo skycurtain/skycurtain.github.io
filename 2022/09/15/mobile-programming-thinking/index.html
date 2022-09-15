@@ -16,23 +16,22 @@
   <meta name="author" content="Skycurtain">
   <meta name="keywords" content="">
   
-    <meta name="description" content="争取一文帮自己搞清楚JavaScript中的Array和String。">
+    <meta name="description" content="自从我学会了printf(&quot;Hello World!&quot;);时，就认为用来编程的设备可以不一定是电脑，因为我的第一行代码事实上就是在手机上写下的。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="（撰写中）JavaScript海底两万里：Array和String">
-<meta property="og:url" content="https://skycurtain.github.io/2022/09/14/javascript-drowning-in-array-and-string/index.html">
+<meta property="og:title" content="你的下一台开发设备，何必是电脑">
+<meta property="og:url" content="https://skycurtain.github.io/2022/09/15/mobile-programming-thinking/index.html">
 <meta property="og:site_name" content="Skycurtain.Dreamland">
-<meta property="og:description" content="争取一文帮自己搞清楚JavaScript中的Array和String。">
+<meta property="og:description" content="自从我学会了printf(&quot;Hello World!&quot;);时，就认为用来编程的设备可以不一定是电脑，因为我的第一行代码事实上就是在手机上写下的。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-09-14T08:26:42.000Z">
-<meta property="article:modified_time" content="2022-09-14T15:03:44.461Z">
+<meta property="article:published_time" content="2022-09-15T07:39:30.000Z">
+<meta property="article:modified_time" content="2022-09-15T08:49:50.411Z">
 <meta property="article:author" content="Skycurtain">
-<meta property="article:tag" content="前端">
-<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="漫谈">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>（撰写中）JavaScript海底两万里：Array和String - Skycurtain.Dreamland</title>
+  <title>你的下一台开发设备，何必是电脑 - Skycurtain.Dreamland</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -213,7 +212,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle">（撰写中）JavaScript海底两万里：Array和String</span>
+            <span id="subtitle">你的下一台开发设备，何必是电脑</span>
           
         </div>
 
@@ -229,8 +228,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-09-14 16:26" pubdate>
-          2022年9月14日 下午
+        <time datetime="2022-09-15 15:39" pubdate>
+          2022年9月15日 下午
         </time>
       </span>
     
@@ -241,7 +240,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          457 字
+          2.5k 字
         
       </span>
     
@@ -252,7 +251,7 @@
         
         
         
-          4 分钟
+          21 分钟
         
       </span>
     
@@ -290,30 +289,27 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">（撰写中）JavaScript海底两万里：Array和String</h1>
+            <h1 style="display: none">你的下一台开发设备，何必是电脑</h1>
             
             
               <div class="markdown-body">
                 
-                <p>争取一文帮自己搞清楚JavaScript中的Array和String。</p>
+                <p>自从我学会了<code>printf(&quot;Hello World!&quot;);</code>时，就认为用来编程的设备可以不一定是电脑，因为我的第一行代码事实上就是在手机上写下的。</p>
 <span id="more"></span>
 
 <hr>
-<p>在算法中，各种复杂的方案往往都基于数组；在业务中，各种复杂的逻辑往往都在加工字符串。</p>
-<h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><p>数组可以说是我们接触数据结构和算法时学习的第一种数据结构了，而在JavaScript中，数组作为一种对象，它的能力远超我们对数组朴素的认知。</p>
-<p>创建一个空数组有两种方式：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> arr = [];<br></code></pre></td></tr></table></figure>
+<p>今天看了关注的一个UP主的新视频<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1FP411G7p8">【亦】M1让iPad取代电脑？让子弹再飞一会儿！</a>，其中谈有关iPad产品定位的内容我并没有太多的感受，毕竟我并不是Apple产品用户，但是视频有大段篇幅在聊iPad作为一款介于手机和电脑之间的产品，你可以说它不如手机便携也不如电脑强大，而我也可以说它“比手机更能干，比电脑更亲切”。</p>
+<p>UP主自述上大学时第一次安装Visual Studio，打开后认为<strong>这根本不是一个未曾接触过编程的大一学生的心灵能够承受的东西</strong>。且不说VC++&#x2F;DevC++&#x2F;CodeBlocks这类活跃在过时的课堂和存在限制的算法竞赛中的开发环境，在集成开发环境(IDE)发展到了几年后的今天，被几大巨头垄断的主流市场也依然如此，各类功能强大的IDE都直接面向专业人士，致使初学者上手门槛较高。事实上IDE对我来说也只有一些常用的功能和快捷键是熟悉的，很多更加强大的功能却不是我常用的，在我决定学习前端后更是如此，VSCode配合强大的插件已经能够胜任几乎所有的前端开发要求，但即便作为一个基于代码编辑器的可扩展开发环境，VSCode依然有大量专业的设置项，我对它的使用依然不能称得上“熟悉”，所以事到如今，PC开发生态依然是专业向的，也正像视频中说的那样，在编程领域确实需要存在一个“比手机能干，比电脑亲切”的空间，而iPad的Swift Playgrounds就提供了这样一个空间，面向孩子或初学者，它把编程教学做成了小游戏，而面向开发者，虽然它比不上PC环境的专业性，但是能够让开发者快速实现小点子，并且能够迁移至Xcode进行更深入的开发。更让我感慨的是视频后段提到，在今年的移动应用创新赛中，超半数的参赛者都并不是开发者，这说明非专业人士也有涉足专业能力的机会和踏板，去实现他们脑海中那些站在科技与人文交叉点的想法。</p>
+<hr>
+<p>不过吧，对我个人来说，Apple的产品我并不十分热爱，一是因为个人的使用习惯，二是因为我对生态开放的偏执。众所周知Apple的生态闭环收获了用户的大量好评，但对我来说，我思考过未来如果成为一个App开发者，我首先需要一台Mac才能够进行开发，而且也必须上架到App Store，让我觉得不自由的也正是这一点，甚至，注册Apple开发者是要交钱认证的。相比之下，Android开发没有任何限制，我发送一个apk，对方的Android手机收到了就可以立即安装，虽说一旦我发送了恶意应用那对方安装了就会中招，不过我觉得这是安全教育应该要做的事情，其实即使是App Store中也存在不少不健康的应用，而我从一个开发者的角度，是比较偏爱这种开发者能够直接将App交到用户手中的模式的，而不需要一个应用商店这样的平台来控制我的行为。</p>
+<p>作为Android用户，看了这个视频后，我更觉得Android生态中也应该有这样的类似一个轻量级IDE的平台，为什么说“更”呢，因为<strong>一款运行于移动端平台的轻量级IDE</strong>也是我一直以来想开发的应用。不过很显然，家大业大的Google不太可能会专门开发一个像Swift Playgrounds的App，也正是因为官方没有推出这样的平台，我才对这种想法满是热情，只是说受限于我自己的技能树还没点满，还需要一段时间这个想法才有落地的可能。</p>
+<p>所以这个视频让我又一次好好思考了一直以来酝酿的小目标。</p>
+<hr>
+<p>作为一个有想法<del>没技术</del>(会有的)的入门级开发者，我一直很能<strong>理解非科班但也要学习编程而又不以此为职业</strong>的朋友们，学习编程语言的第一步不是写一个<code>Hello World!</code>，而是先要进行繁琐的环境配置，对于不是有志于学习一门编程语言的学生，这个过程就能够磨灭一半的学习兴趣，更不用说还能否发现编程的乐趣了，甚至即便能够为未来的学习生活工作效率带来提升，也会本能地排斥。</p>
+<p>而作为半个科班人，每一次重装系统或者学习新的技术栈时，也会因为搭建环境的繁复而恼火，如果是重装系统加上重新安装常用软件以及配置好所有的开发环境，基本上完整的一天时间就这么过去了，所以久而久之我的态度也转变为能忍则忍，能凑活用就不重装系统。</p>
+<p>所以早在属于我的<code>Hello World!</code>时代，我就在思考<strong>是否存在用手机编写和运行代码的可能性</strong>，因为相较于在PC上配置繁琐的环境变量和进行复杂的设置，在移动设备上<strong>安装即用的体验</strong>对入门编程的人群来说是一个能够保持住兴趣和好奇心的绝佳方式，也是进行轻量级开发的选择之一。而让我意想不到的是居然真的有，当年有不少开发者都在探索手机编程的可行性，而基于Linux内核的Android系统也是很有希望做到这一点的。尽管始终有人表示“小屏幕不方便”、“输入法打字效率低”、“编译运行速度慢” 、“类库支持太缺乏”等等，但这个领域始终在不温不火地发展着，如今也有团队和个人在开发着<u>移动平台的代码编辑器和开发环境</u><sup>[1]</sup>。而在看了这支视频后，我认识到存在一个全球一流的科技公司，正在这样一个小众的需求上不断发力。同时我也有理由相信，在Android平台，依靠开源开放的生态，我们能够实现<strong>既能兼顾便捷也能不失专业的移动端开发体验</strong>。</p>
+<p><strong>『在移动平台开发移动应用』</strong>，这就是Swift Playgrounds传递给我的一个最突出的理念。在程序语言中有一个概念叫“自举”，意思是一门编程语言的编译器或解释器也是用这门语言本身来实现的，这看似不可思议的操作实际上是对程序语言表现力的一种验证，而移动端的开发环境也颇有这种“自举”的意味，在手机或平板上能够开发出适配手机或平板的App，这就是我觉得很有意思的事情。视频中提到，如果开发AR应用，移动设备能够直接完成开发与测试的全过程，而不需要先在电脑上开发再将编译出来的安装包拷贝到手机&#x2F;平板上测试，这就是移动端编程的一个专业方向的应用。我想，“在移动平台开发移动应用”这个理念会是移动端IDE的一个机会，也许等到我这个想法能够落地的时候，可以有资格为这个领域添砖加瓦。</p>
 
-<p>或</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> arr = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Array</span>();<br></code></pre></td></tr></table></figure>
-
-<p>前一种称作字面量的声明方式，后一种则是通过构造方法来创建的。不过在实际应用中很少采用构造方法的形式来创建数组，因为以来不够简洁，二来参数中可以传入数字来创建一定长度的空数组，但每个元素都是<code>undefined</code>，这会带来不安全因素，所以更多还是通过字面量的方式来创建数组。</p>
-<p>在声明数组的同时可以在方括号中添加元素，由于JavaScript是动态类型的，这就赋予了JavaScript一个Java没有的能力，你甚至可以在数组中存任意类型：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> arr = [<span class="hljs-number">1</span>, <span class="hljs-string">&#x27;2&#x27;</span>, &#123;<span class="hljs-attr">count</span>: <span class="hljs-number">3</span>&#125;];<br></code></pre></td></tr></table></figure>
-
-
-
-<h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h2>
                 
               </div>
             
@@ -331,15 +327,8 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E6%8A%80%E6%9C%AF/" class="category-chain-item">技术</a>
+  <a href="/categories/%E9%9A%8F%E7%AC%94/" class="category-chain-item">随笔</a>
   
-  
-    <span>></span>
-    
-  <a href="/categories/%E6%8A%80%E6%9C%AF/JavaScript%E6%B5%B7%E5%BA%95%E4%B8%A4%E4%B8%87%E9%87%8C/" class="category-chain-item">JavaScript海底两万里</a>
-  
-  
-
   
 
       </span>
@@ -353,9 +342,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E5%89%8D%E7%AB%AF/">#前端</a>
-      
-        <a href="/tags/JavaScript/">#JavaScript</a>
+        <a href="/tags/%E6%BC%AB%E8%B0%88/">#漫谈</a>
       
     </div>
   
@@ -367,8 +354,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>（撰写中）JavaScript海底两万里：Array和String</div>
-      <div>https://skycurtain.github.io/2022/09/14/javascript-drowning-in-array-and-string/</div>
+      <div>你的下一台开发设备，何必是电脑</div>
+      <div>https://skycurtain.github.io/2022/09/15/mobile-programming-thinking/</div>
     </div>
     <div class="license-meta">
       
@@ -380,7 +367,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年9月14日</div>
+          <div>2022年9月15日</div>
         </div>
       
       
@@ -410,18 +397,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/09/15/mobile-programming-thinking/" title="你的下一台开发设备，何必是电脑">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">你的下一台开发设备，何必是电脑</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/09/09/javascript-drowning-in-asynchronous/" title="（撰写中）JavaScript海底两万里：异步">
-                        <span class="hidden-mobile">（撰写中）JavaScript海底两万里：异步</span>
+                      <a href="/2022/09/14/javascript-drowning-in-array-and-string/" title="（撰写中）JavaScript海底两万里：Array和String">
+                        <span class="hidden-mobile">（撰写中）JavaScript海底两万里：Array和String</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
