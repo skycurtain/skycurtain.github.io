@@ -24,7 +24,7 @@
 <meta property="og:description" content="还未曾想过死循环的条件break机制能在流程控制以外的场景中焕发光彩。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-05-21T03:02:59.000Z">
-<meta property="article:modified_time" content="2022-09-07T18:23:10.988Z">
+<meta property="article:modified_time" content="2022-09-19T16:37:43.516Z">
 <meta property="article:author" content="Skycurtain">
 <meta property="article:tag" content="多线程">
 <meta property="article:tag" content="Java">
@@ -241,7 +241,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.2k 字
+          2.3k 字
         
       </span>
     
@@ -252,7 +252,7 @@
         
         
         
-          19 分钟
+          20 分钟
         
       </span>
     
@@ -309,6 +309,36 @@
 <li>子线程计算完成时，主线程计算总和并跳出循环，此时子线程进入死循环，检测主线程是否计算完成。</li>
 <li>主线程计算完成后即结束运行，各个子线程输出总和。</li>
 </ol>
+</blockquote>
+<blockquote>
+<table>
+<thead>
+<tr>
+<th align="center">主线程</th>
+<th align="center">子线程</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">启动，初始化数据</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">循环等待子线程通知</td>
+<td align="center">启动，各子线程计算变量之和<br />循环等待<br />各子线程计算完毕后通知主线程<br />跳出循环</td>
+</tr>
+<tr>
+<td align="center">对子线程结果再次求和<br />通知子线程<br />跳出循环</td>
+<td align="center">循环等待主线程通知</td>
+</tr>
+<tr>
+<td align="center">结束</td>
+<td align="center">输出结果<br />跳出循环</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center">结束</td>
+</tr>
+</tbody></table>
 </blockquote>
 <p>两种检测都各需要一个flag作为判断条件，而且需要一个共享的空间用于保存子线程和主线程计算的结果，在需要取用时从中获取即可。</p>
 <h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// Main.java</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Main</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        Thread[] thread = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Thread</span>[<span class="hljs-number">4</span>];<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; i &lt;= thread.length; i++)<br>            thread[i - <span class="hljs-number">1</span>] = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Thread</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Task</span>(i, i, i));<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; i &lt;= thread.length; i++)<br>            thread[i - <span class="hljs-number">1</span>].start();<br>        <span class="hljs-keyword">while</span> (<span class="hljs-literal">true</span>) &#123;<br>            <span class="hljs-keyword">if</span> (Data.isSubFinished()) &#123;<br>                <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> sub : Data.getArrayList())<br>                    Data.setSum(Data.getSum() + sub);<br>                Data.finishSum();<br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
