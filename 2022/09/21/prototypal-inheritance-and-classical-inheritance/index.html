@@ -16,15 +16,15 @@
   <meta name="author" content="Skycurtain">
   <meta name="keywords" content="">
   
-    <meta name="description" content="在学习了Java后，我自认为对面向对象编程有所了解，但当我开始探索JavaScript，我领悟到全新的计算机艺术大师们的设计思想。">
+    <meta name="description" content="在学习了Java后，我自认为对面向对象编程有所了解，但当我开始探索JavaScript，我领悟到全新的『计算机艺术大师们的设计思想』。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="（撰写中）浅谈原型继承和类继承">
 <meta property="og:url" content="https://skycurtain.github.io/2022/09/21/prototypal-inheritance-and-classical-inheritance/index.html">
 <meta property="og:site_name" content="Skycurtain.Dreamland">
-<meta property="og:description" content="在学习了Java后，我自认为对面向对象编程有所了解，但当我开始探索JavaScript，我领悟到全新的计算机艺术大师们的设计思想。">
+<meta property="og:description" content="在学习了Java后，我自认为对面向对象编程有所了解，但当我开始探索JavaScript，我领悟到全新的『计算机艺术大师们的设计思想』。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-09-20T17:39:09.000Z">
-<meta property="article:modified_time" content="2022-09-20T17:46:59.639Z">
+<meta property="article:modified_time" content="2022-09-21T08:10:11.715Z">
 <meta property="article:author" content="Skycurtain">
 <meta property="article:tag" content="编程语言">
 <meta name="twitter:card" content="summary_large_image">
@@ -240,7 +240,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          67 字
+          1.6k 字
         
       </span>
     
@@ -251,7 +251,7 @@
         
         
         
-          1 分钟
+          14 分钟
         
       </span>
     
@@ -294,12 +294,22 @@
             
               <div class="markdown-body">
                 
-                <p>在学习了Java后，我自认为对面向对象编程有所了解，但当我开始探索JavaScript，我领悟到全新的计算机艺术大师们的设计思想。</p>
+                <p>在学习了Java后，我自认为对面向对象编程有所了解，但当我开始探索JavaScript，我领悟到全新的<strong>『计算机艺术大师们的设计思想』</strong>。</p>
 <span id="more"></span>
 
 <hr>
-<p>参考</p>
-<p><a href=""></a></p>
+<p><span style = "font-size: 1.5rem;"><strong>继承</strong></span>，这是面向对象编程(OOP)的三大核心思想之一，而将OOP思想严格而规范地体现在语法中的编程语言，在我为数不多有所接触的几门语言中，当属Java拔得头筹。这种<code>class entends class</code>的模式非常符合人们对生产生活需求的建模，尽管对于当时粗浅地学了一下C语言的我来说很难一下子去理解这种思想的优势，等到实际写过了不少代码后，接触到了一些需求，我才算是悟到了这种思想的精髓所在，以至于如今我看到一个需求时会下意识用Java的设计理念去思考，而从面向过程的角度来建模则觉得有些困难了。所以我在学习JavaScript的面向对象时，下意识地也将其与Java类比，但却不曾意识到JavaScript的所谓<strong>原型继承</strong>对我来说是一个全新的概念，与Java所代表的<strong>类继承</strong>共同打下了编程语言设计关于代码复用的一座江山（另一座是组合），是两派计算机科学家不同设计理念的杰作。</p>
+<h2 id="类继承"><a href="#类继承" class="headerlink" title="类继承"></a>类继承</h2><p>与地球生物数亿年来的演化相似，<strong>『类』</strong>这个概念也是编程语言几十年的发展过程中逐渐形成的。那些教程总是说“类是对象的模板，对象是类的实例”，到底什么是模板和实例呢？</p>
+<p>最初的编程语言，大概只提供一些基本的变量声明和赋值、流程控制、函数等等，很快人们发现很多数据其实存在内在的关联，比如一个长方形有它的宽高，所以后来程序语言有了<strong>结构体</strong>这种东西，可以将宽高定义到一个长方形结构体里。</p>
+<p>但人们逐渐发现一些函数也是与这个结构体有关的，比如可以对这个长方体求周长或面积，所以可以把这些函数与这个结构体封装在一起，结构体中包含了数据，函数描述了行为，这种数据和行为的封装被称为<strong>对象</strong>。</p>
+<p>而为了能够便于多次创建同一类对象，<strong>类</strong>被设计了出来，将对象内部的数据属性和行为抽离出来合到一起，这就成为了一个<strong>模板</strong>，由这个模板产生的对象就是<strong>实例</strong>。</p>
+<p>随着时间的推移，人们又发现一些不同的类之间也存在关系，并且是一种从属关系，比如说不管长方形三角形他们都是形状，不论是设计师还是程序员他们都是员工，老师和学生都是人，他们各有一些共性，如果把这些共性提取出来，就可以构成一些基础类，那就又可以提高复用能力了，事实上在不断的实践中人们也确实发现那些越是抽象和宽泛的类，其中的方法与有可能被复用，于是这种<strong>基于类的继承思想</strong>逐渐成型了。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Animal</span> &#123;<br>    <span class="hljs-keyword">private</span> String name;<br>    <span class="hljs-keyword">private</span> <span class="hljs-type">double</span> height;<br>    <span class="hljs-keyword">private</span> <span class="hljs-type">double</span> weight;<br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">Animal</span><span class="hljs-params">(String name, <span class="hljs-type">double</span> height, <span class="hljs-type">double</span> weight)</span> &#123;<br>        <span class="hljs-built_in">this</span>.name = name;<br>        <span class="hljs-built_in">this</span>.height = height;<br>        <span class="hljs-built_in">this</span>.weight = weight;<br>    &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">walk</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-comment">// walk</span><br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Dog</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Animal</span> &#123;<br>    <span class="hljs-comment">// ...</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">walk</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-comment">// dog walk</span><br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Cat</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Animal</span> &#123;<br>    <span class="hljs-comment">// ...</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">walk</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-comment">// cat walk</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<hr>
+<p>所以说类与对象之间的关系就好比产线与产品的关系，方法和数据的描述通常在类中定义，而数据的值则通常在实例中赋予，所以可以说<strong>基于类的继承实际上继承了数据的结构与模板的方法，而没有继承数据</strong>，但接下来要说的原型继承则能够连数据也一并继承。</p>
+<h2 id="原型继承"><a href="#原型继承" class="headerlink" title="原型继承"></a>原型继承</h2><p>我们把</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/1UDILezroK5wrcK-Z5bHOg">深入理解 JavaScript 原型</a></p>
 
                 
               </div>
