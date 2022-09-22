@@ -18,20 +18,20 @@
   
     <meta name="description" content="在学习了Java后，我自认为对面向对象编程有所了解，但当我开始探索JavaScript，我领悟到全新的『计算机艺术大师们的设计思想』。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="（撰写中）浅谈原型继承和类继承">
+<meta property="og:title" content="浅谈原型继承和类继承">
 <meta property="og:url" content="https://skycurtain.github.io/2022/09/21/prototypal-inheritance-and-classical-inheritance/index.html">
 <meta property="og:site_name" content="Skycurtain.Dreamland">
 <meta property="og:description" content="在学习了Java后，我自认为对面向对象编程有所了解，但当我开始探索JavaScript，我领悟到全新的『计算机艺术大师们的设计思想』。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-09-20T17:39:09.000Z">
-<meta property="article:modified_time" content="2022-09-21T17:54:08.620Z">
+<meta property="article:modified_time" content="2022-09-22T05:25:39.005Z">
 <meta property="article:author" content="Skycurtain">
 <meta property="article:tag" content="编程语言">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>（撰写中）浅谈原型继承和类继承 - Skycurtain.Dreamland</title>
+  <title>浅谈原型继承和类继承 - Skycurtain.Dreamland</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -212,7 +212,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle">（撰写中）浅谈原型继承和类继承</span>
+            <span id="subtitle">浅谈原型继承和类继承</span>
           
         </div>
 
@@ -240,7 +240,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.8k 字
+          2.7k 字
         
       </span>
     
@@ -251,7 +251,7 @@
         
         
         
-          15 分钟
+          23 分钟
         
       </span>
     
@@ -289,7 +289,7 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">（撰写中）浅谈原型继承和类继承</h1>
+            <h1 style="display: none">浅谈原型继承和类继承</h1>
             
             
               <div class="markdown-body">
@@ -307,9 +307,31 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Animal</span> &#123;<br>    <span class="hljs-keyword">private</span> String name;<br>    <span class="hljs-keyword">private</span> <span class="hljs-type">double</span> height;<br>    <span class="hljs-keyword">private</span> <span class="hljs-type">double</span> weight;<br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">Animal</span><span class="hljs-params">(String name, <span class="hljs-type">double</span> height, <span class="hljs-type">double</span> weight)</span> &#123;<br>        <span class="hljs-built_in">this</span>.name = name;<br>        <span class="hljs-built_in">this</span>.height = height;<br>        <span class="hljs-built_in">this</span>.weight = weight;<br>    &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">walk</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-comment">// walk</span><br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Dog</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Animal</span> &#123;<br>    <span class="hljs-comment">// ...</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">walk</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-comment">// dog walk</span><br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Cat</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Animal</span> &#123;<br>    <span class="hljs-comment">// ...</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">walk</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-comment">// cat walk</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <hr>
+<pre><code class=" mermaid">flowchart LR;
+class1[&quot;class&quot;] --&gt; class2[&quot;class&quot;];
+</code></pre>
+
+
+
 <p>所以说类与对象之间的关系就好比产线与产品的关系，方法和数据的描述通常在类中定义，而数据的值则通常在实例中赋予，所以可以说<strong>基于类的继承实际上继承了数据的结构与模板的方法，而没有继承数据</strong>，但接下来要说的原型继承则能够连数据也一并继承。</p>
-<h2 id="原型继承"><a href="#原型继承" class="headerlink" title="原型继承"></a>原型继承</h2><p>在类继承中，对象的模板是类，而在原型继承中，对象的模板是原型。其实我觉得在面向对象思想的术语中，<strong>“原型”</strong>这个名字相较于<strong>“类”</strong>更加直观，“原型”更加贴近模板的含义，像是原型车，原型机，代表一种范式，而由这种范式则可以衍生出各式各样的特例。</p>
-<h2 id="JavaScript中的继承"><a href="#JavaScript中的继承" class="headerlink" title="JavaScript中的继承"></a>JavaScript中的继承</h2><p> JavaScript正统采用的是原型继承的思想，类的概念是在ES2015被提供的。</p>
+<h2 id="原型继承"><a href="#原型继承" class="headerlink" title="原型继承"></a>原型继承</h2><p>在类继承中，对象的模板是类，而在原型继承中，对象的模板是原型。其实我觉得在面向对象思想的术语中，<strong>“原型”</strong>这个名字相较于<strong>“类”</strong>更加直观，原型更加贴近模板的含义，像是原型车、原型机，代表一种范式，而由这种范式则可以衍生出各式各样的特例。</p>
+<p>那么，<strong>原型</strong>是什么？</p>
+<p>首先，原型，也就是prototype，它的工作是<strong>给其他对象提供共享属性</strong>。</p>
+<p>对于函数而言，原型是一个属性。在JavaScript中，每个函数都有一个<code>prototype</code>属性，这个原型属性指向一个对象，这个对象称为<strong>原型对象</strong>。对于这个原型对象，不仅是函数的原型属性指向它，每个对象都有一个<code>[[Prototype]]</code>属性，这个属性也指向原型对象。</p>
+<blockquote>
+<p>但实际上很多时候我们并不严格区分原型、<code>prototype</code>、<code>[[Prototype]]</code>，原型属性、原型对象，而是统称为原型。</p>
+</blockquote>
+<p>当我们谈论的“原型”是原型对象时，事情离<strong>“继承”</strong>这个概念就近了一步。刚刚提到，每个对象都有一个<code>[[Prototype]]</code>属性，这个属性指向原型对象，而这个原型对象作为一个对象，它也有自己的原型对象，如此套娃就形成了一条<strong>原型链</strong>。</p>
+<pre><code class=" mermaid">flowchart LR;
+object1[&quot;object&quot;] --&gt; object2[&quot;object&quot;];
+</code></pre>
+
+
+
+<p>所以与类继承不同，原型继承中继承的并非类，而是对象，这就使原型继承拥有了<strong>继承数据</strong>的能力，所以有开发者认为能够继承对象的原型继承是比类继承更加面向对象的。</p>
+<p>同时这也解释了当通过构造函数来实现继承时为什么会写出<code>child.__proto__ = parentFunction.prototype</code>或<code>Object.setPrototypeOf(child, parentFunction.prototype)</code> —— 把父对象构造函数的<code>prototype</code>赋值给子对象的<code>[[Prototype]]</code>，因为对于构造函数而言，它的<code>prototype</code>属性指向它的原型对象，所以只有当子对象的原型属性指向这个对象时，这个原型继承链才完美形成。</p>
+<h2 id="JavaScript中的继承"><a href="#JavaScript中的继承" class="headerlink" title="JavaScript中的继承"></a>JavaScript中的继承</h2><p>现代JavaScript中也存在类的概念，不过JavaScript正统采用的是原型继承的思想，而类的概念是在ES2015实现的。</p>
+<p>但是JavaScript中的类底层也是通过原型来模拟的，甚至为了让类看起来更像样，原型继承数据的能力被无情屏蔽了，这就是作为Java开发者在学习原型链时感到不得要领而学习类时则轻车熟路的原因了，无论在类中还是在类的构造函数中声明数据，它们都一律会出现在<code>new</code>出来的实例对象上，而非原型对象。</p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/1UDILezroK5wrcK-Z5bHOg">深入理解 JavaScript 原型</a></p>
 
                 
@@ -356,7 +378,7 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>（撰写中）浅谈原型继承和类继承</div>
+      <div>浅谈原型继承和类继承</div>
       <div>https://skycurtain.github.io/2022/09/21/prototypal-inheritance-and-classical-inheritance/</div>
     </div>
     <div class="license-meta">
