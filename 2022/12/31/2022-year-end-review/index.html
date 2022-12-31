@@ -18,26 +18,22 @@
   <meta name="author" content="Skycurtain">
   <meta name="keywords" content="">
   
-    <meta name="description" content="不要心血来潮做硬件仿真，会变得不幸。">
+    <meta name="description" content="各用一句话来概括每个月，你想说些什么？">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Arduino仿真の痛">
-<meta property="og:url" content="https://skycurtain.github.io/2022/11/29/arduino-simulation-and-serial-port-communication/index.html">
+<meta property="og:title" content="2022年终总结">
+<meta property="og:url" content="https://skycurtain.github.io/2022/12/31/2022-year-end-review/index.html">
 <meta property="og:site_name" content="Skycurtain.Dreamland">
-<meta property="og:description" content="不要心血来潮做硬件仿真，会变得不幸。">
+<meta property="og:description" content="各用一句话来概括每个月，你想说些什么？">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://skycurtain.github.io/img/20221129/ArdSim.png">
-<meta property="og:image" content="https://skycurtain.github.io/img/20221129/RunResult.png">
-<meta property="article:published_time" content="2022-11-29T13:22:24.000Z">
-<meta property="article:modified_time" content="2022-12-02T15:55:02.528Z">
+<meta property="article:published_time" content="2022-12-31T03:49:36.000Z">
+<meta property="article:modified_time" content="2022-12-31T08:45:11.269Z">
 <meta property="article:author" content="Skycurtain">
-<meta property="article:tag" content="Node.js">
-<meta property="article:tag" content="硬件">
+<meta property="article:tag" content="年终总结">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://skycurtain.github.io/img/20221129/ArdSim.png">
   
   
   
-  <title>Arduino仿真の痛 - Skycurtain.Dreamland</title>
+  <title>2022年终总结 - Skycurtain.Dreamland</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -219,7 +215,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle">Arduino仿真の痛</span>
+            <span id="subtitle">2022年终总结</span>
           
         </div>
 
@@ -235,8 +231,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-11-29 21:22" pubdate>
-          2022年11月29日 晚上
+        <time datetime="2022-12-31 11:49" pubdate>
+          2022年12月31日 中午
         </time>
       </span>
     
@@ -247,7 +243,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.6k 字
+          266 字
         
       </span>
     
@@ -258,7 +254,7 @@
         
         
         
-          22 分钟
+          3 分钟
         
       </span>
     
@@ -300,50 +296,30 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Arduino仿真の痛</h1>
+            <h1 style="display: none">2022年终总结</h1>
             
             
               <div class="markdown-body">
                 
-                <p><del>不要心血来潮做硬件仿真，会变得不幸。</del></p>
+                <p>各用一句话来概括每个月，你想说些什么？</p>
 <span id="more"></span>
 
 <hr>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>如果你学的不是软工而是计算机，那么你的遇到大作业可以变得多种多样！</p>
-<p>我在开学前看这个硬件课设的大纲时，里面有一些软硬结合的项目，看上去都是以软件系统的形式作为最终呈现，所以我一个软件人早早地就看准了大纲中的一个偏软件的选题，但是新冠疫情完美诠释了什么叫做『天不遂人愿』——像上半年的操作系统课设一样——题目又被改了：4个Arduino编程，1个纯软件编码查看器，还有一个明确了不给高分的加法器模拟，直接把家里蹲的我从万事俱备整成不知所措，不过想到队友都在校，主动权必然是队友掌握，我也就不管选什么题了。</p>
-<p>不得不说队友真是非常amazing啊，过了几天领到Arduino UNO开发板直接开始研究，两天之后硬件功能已经实现了，我当然不好意思腆着脸坐等项目完成，想着能否参与一下软件功能的实现，想不到有个大坑正等着我。</p>
-<h2 id="仿真环境搭建"><a href="#仿真环境搭建" class="headerlink" title="仿真环境搭建"></a>仿真环境搭建</h2><ol>
-<li>我们需要下载安装Proteus和Arduino IDE。</li>
-<li>然后根据网上收集到的一些教程<sup>[1]</sup><sup>[2]</sup><sup>[3]</sup>逐步搭建仿真环境。</li>
-</ol>
-<p><img src="/./img/20221129/ArdSim.png" srcset="/img/loading.gif" lazyload></p>
-<p style = "font-size: 1.382rem; font-weight: bold;">坑：</p>
-
-<p>问题出在测试虚拟串口连接时，无论如何都搜不到两个串口，自然也无法看到串口助手中显示出信息了。</p>
-<p>一开始我还以为是代码的问题或者是配置的问题，但不管怎么尝试就是读不到串口，就差重启电脑了。</p>
-<p><strong>巧了。</strong></p>
-<p>搜到一个VMware的串口问题<sup>[4]</sup>，里面说虚拟机不支持热插拔，要<strong>重启电脑</strong>，事到如今也顾不得浏览器开着几十个窗口了，反正之后可以恢复，重启就重启吧。然后</p>
-<p><strong>好了。</strong></p>
-<p><strong>可以读到串口了。</strong></p>
-<p><strong>挺好。</strong></p>
-<p>随后根据课设的要求模拟了测试体温的程序：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;LiquidCrystal.h&gt;</span></span><br><br>LiquidCrystal <span class="hljs-title function_">lcd</span><span class="hljs-params">(<span class="hljs-number">13</span>, <span class="hljs-number">12</span>, <span class="hljs-number">11</span>, <span class="hljs-number">10</span>, <span class="hljs-number">9</span>, <span class="hljs-number">8</span>)</span>; <span class="hljs-comment">// 根据电路连接情况设置</span><br><br><span class="hljs-type">void</span> <span class="hljs-title function_">setup</span><span class="hljs-params">()</span> &#123;<br>  Serial.begin(<span class="hljs-number">9600</span>);<br>  lcd.begin(<span class="hljs-number">16</span>, <span class="hljs-number">2</span>);<br>&#125;<br><br><span class="hljs-type">void</span> <span class="hljs-title function_">loop</span><span class="hljs-params">()</span> &#123;<br>  <span class="hljs-type">long</span> rand = random(<span class="hljs-number">359</span>, <span class="hljs-number">420</span>);<br>  <span class="hljs-type">float</span> output = rand / <span class="hljs-number">10.0</span>;<br>  lcd.setCursor(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>);<br>  lcd.println(output);<br>  Serial.println(output);<br>  delay(<span class="hljs-number">1000</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
-
-
-
-<h2 id="软件与串口通信"><a href="#软件与串口通信" class="headerlink" title="软件与串口通信"></a>软件与串口通信</h2><p>秉持着『非必要不学新语言』的一贯原则，C#上位机必然不是我的首选，机缘巧合下发现了Node.js下有一个SerialPort<sup>[5]</sup>，加之我正好在学前端，遂大喜，这样就可以基于Node.js搭建一个简陋的前后端来提供友好的交互。</p>
-<p>SerialPort的文档写得其实一般，所以在借助另寻的文档<sup>[6]</sup>后比较顺利地写了一个能够读取串口数据并进行判断体温的逻辑：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// main.mjs</span><br><span class="hljs-keyword">import</span> &#123; <span class="hljs-title class_">SerialPort</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;serialport&#x27;</span>;<br><span class="hljs-keyword">import</span> &#123; log &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;console&#x27;</span>;<br><br><span class="hljs-keyword">const</span> <span class="hljs-variable constant_">SERIAL_PATH</span> = <span class="hljs-string">&#x27;COM2&#x27;</span>; <span class="hljs-comment">// 端口号</span><br><span class="hljs-keyword">const</span> <span class="hljs-variable constant_">TEMPERATURE_THRESHOLD</span> = <span class="hljs-number">37.3</span>; <span class="hljs-comment">// 体温阈值</span><br><br><span class="hljs-keyword">const</span> serialPort = <span class="hljs-keyword">new</span> <span class="hljs-title class_">SerialPort</span>(&#123;<br>    <span class="hljs-attr">path</span>: <span class="hljs-variable constant_">SERIAL_PATH</span>,<br>    <span class="hljs-attr">baudRate</span>: <span class="hljs-number">9600</span>, <span class="hljs-comment">// 波特率</span><br>    <span class="hljs-attr">autoOpen</span>: <span class="hljs-literal">true</span>,<br>&#125;);<br><br><span class="hljs-comment">// serialPort.write(&#x27;Hello Arduino!&#x27;);</span><br><br><span class="hljs-keyword">let</span> serialInputList = [];<br>serialPort.<span class="hljs-title function_">on</span>(<span class="hljs-string">&quot;readable&quot;</span>, <span class="hljs-function">() =&gt;</span> &#123;<br>    <span class="hljs-keyword">let</span> serialInput = serialPort.<span class="hljs-title function_">read</span>();<br><br>    <span class="hljs-keyword">if</span> (serialInput.<span class="hljs-title function_">toString</span>(<span class="hljs-string">&#x27;hex&#x27;</span>) !== <span class="hljs-string">&#x27;0a&#x27;</span>) &#123;<br>        <span class="hljs-keyword">if</span> (serialInput.<span class="hljs-title function_">toString</span>(<span class="hljs-string">&#x27;hex&#x27;</span>) !== <span class="hljs-string">&#x27;0d&#x27;</span>) &#123;<br>            serialInputList.<span class="hljs-title function_">push</span>(serialInput);<br>        &#125;<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-keyword">let</span> serialBuffer = <span class="hljs-title class_">Buffer</span>.<span class="hljs-title function_">concat</span>(serialInputList);<br>        <span class="hljs-keyword">let</span> temperature = <span class="hljs-built_in">parseFloat</span>(serialBuffer.<span class="hljs-title function_">toString</span>());<br><br>        <span class="hljs-keyword">if</span> (<span class="hljs-title function_">isTemperatureSafe</span>(temperature)) &#123;<br>            <span class="hljs-title function_">log</span>(temperature.<span class="hljs-title function_">toFixed</span>(<span class="hljs-number">1</span>), <span class="hljs-string">&#x27;°C&#x27;</span>);<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;\t\t&#x27;</span>, temperature.<span class="hljs-title function_">toFixed</span>(<span class="hljs-number">1</span>), <span class="hljs-string">&#x27;°C, WARNING!&#x27;</span>);<br>        &#125;<br><br>        serialInputList = [];<br>    &#125;<br>&#125;);<br><br><span class="hljs-comment">// =====================================================================</span><br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">isTemperatureSafe</span>(<span class="hljs-params">temperature</span>) &#123;<br>    <span class="hljs-keyword">if</span> (temperature &lt;= <span class="hljs-variable constant_">TEMPERATURE_THRESHOLD</span>) &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<p>串口发送来的数据被Node.js接收后实际上是十六进制的Buffer类型，而在每一行数据的的行尾也都包含了换行符“0A 0D”，所以在读取数据的过程中需要对Buffer收到的每一位数据都做好检查。</p>
-<p><img src="/./img/20221129/RunResult.png" srcset="/img/loading.gif" lazyload></p>
+<p>一月，为了期末考试连通俩宵；</p>
+<p>二月，刚开学就锁在校内，天天骂街；</p>
+<p>三月，感谢有朋友送我回家；</p>
+<p>四月，发不出声，只能做大作业；</p>
+<p>五月，灵魂中有一些拼搏的意志消解了；</p>
+<p>六月，自由了，但又失去了对自由的渴望；</p>
+<p>七月，有时治愈，常常帮助，总是安慰；</p>
+<p>八月，预测不了疫情走势，甚至没敢出远门；</p>
+<p>九月，在台风天里出门溜达；</p>
+<p>十月，稍微有心思干点正事；</p>
+<p>十一月，想不到这辈子还会碰单片机；</p>
+<p>十二月，短短半年政策漂移，在半阳不阳中跨年。</p>
 <hr>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>[1].<a target="_blank" rel="noopener" href="https://www.theengineeringprojects.com/2021/03/arduino-uno-library-for-proteus-v2.html">Arduino UNO Library for Proteus V2.0</a></p>
-<p>[2].<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/av840423815/">【教程】Proteus仿真Arduino，串口打印hello</a></p>
-<p>[3].<a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/news/163066">Arduino与Protues串口通信</a></p>
-<p>[4].<a target="_blank" rel="noopener" href="https://blog.csdn.net/readnap/article/details/116659657">vmware虚拟机检测不到vspd虚拟串口问题</a></p>
-<p>[5].<a target="_blank" rel="noopener" href="https://serialport.io/docs/guide-usage">SerialPort Usage</a></p>
-<p>[6].<a target="_blank" rel="noopener" href="https://www.v5w.com/js/js%e7%9f%a5%e8%af%86%e7%82%b9/429.html">JS知识点归纳 : serialport.js串口使用</a></p>
+<p>谁都知道春暖花开的日子终究会来临，而黯淡的时光会有多难，谁都无法预料。</p>
+<p>多说无益，祝大家新年牛逼！</p>
 
                 
               </div>
@@ -362,7 +338,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E6%8A%80%E6%9C%AF/" class="category-chain-item">技术</a>
+  <a href="/categories/%E9%9A%8F%E7%AC%94/" class="category-chain-item">随笔</a>
   
   
 
@@ -377,9 +353,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/Node-js/">#Node.js</a>
-      
-        <a href="/tags/%E7%A1%AC%E4%BB%B6/">#硬件</a>
+        <a href="/tags/%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/">#年终总结</a>
       
     </div>
   
@@ -391,8 +365,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Arduino仿真の痛</div>
-      <div>https://skycurtain.github.io/2022/11/29/arduino-simulation-and-serial-port-communication/</div>
+      <div>2022年终总结</div>
+      <div>https://skycurtain.github.io/2022/12/31/2022-year-end-review/</div>
     </div>
     <div class="license-meta">
       
@@ -404,7 +378,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年11月29日</div>
+          <div>2022年12月31日</div>
         </div>
       
       
@@ -436,18 +410,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/12/31/2022-year-end-review/" title="2022年终总结">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">2022年终总结</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/09/21/prototypal-inheritance-and-classical-inheritance/" title="浅谈原型继承和类继承">
-                        <span class="hidden-mobile">浅谈原型继承和类继承</span>
+                      <a href="/2022/11/29/arduino-simulation-and-serial-port-communication/" title="Arduino仿真の痛">
+                        <span class="hidden-mobile">Arduino仿真の痛</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
