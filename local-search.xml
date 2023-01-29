@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>用VSCode写C过程中遇到的几个小问题</title>
+    <link href="/2023/01/29/problems-and-solutions-found-when-programming-with-C-in-VSCode/"/>
+    <url>/2023/01/29/problems-and-solutions-found-when-programming-with-C-in-VSCode/</url>
+    
+    <content type="html"><![CDATA[<p>小小的编辑器通过插件化机制能够拥有如此强大的功能，总难免存在一些【有趣】的小问题。</p><span id="more"></span><p>近期毕设项目中需要C语言来实现一部分功能，尽管JetBrains家的IDE都非常高端，不过对我这样一个C语言白痴来说有些杀鸡用牛刀的感觉，况且JB家的软件吃起内存来可比Chrome还强得多，综合评估下我更加愿意选择VSCode配合相应的插件。C&#x2F;C++的环境配置就不用多说了，网上有大量的教程和视频，本文主要想来分享下自己发现的两个并不容易找到解决方案的小问题。</p><h4 id="1、命令行错误-指定的语言模式不兼容-C-C-1027"><a href="#1、命令行错误-指定的语言模式不兼容-C-C-1027" class="headerlink" title="1、命令行错误: 指定的语言模式不兼容 C/C++(1027)"></a>1、<code>命令行错误: 指定的语言模式不兼容 C/C++(1027)</code></h4><p>英文是<code>command-line error: language modes specified are incompatible c/c++(1027)</code>。</p><p>这个问题发生的原因，我至今都没有稳定复现过，目前也没有精力去排摸怎样的配置和操作会触发这个问题，只能确定问题出在VSCode的C&#x2F;C++插件和cmake插件配合得不太完美。</p><p>要不说程序员必须掌握一些科学上网的小技巧，从百度搜索到的方案基本都是治标不治本，不过针对这个问题来说，连Google搜索得到的相关词条数量也不超过3页，看来果然是一个非常有意思的问题。</p><p>在翻了几个链接之后，发现了一个<a href="https://qiita.com/koshi1971/items/cbf071925af21fd77716">霓虹国某平台的帖子</a>，看了解决方案后我大概也能知道了这个问题的成因：C&#x2F;C++插件与cmake插件的配合在某种情况下会被出错，C&#x2F;C++插件中的<code>configurationProvider</code>设置项会被改为<code>ms-vscode.cmake-tools</code>从而导致错误，那么为了从根本上避免这个问题，建议在VSCode设置中写死<code>&quot;C_Cpp.default.configurationProvider&quot;: &quot;ms-vscode.cpptools&quot;</code>。</p><h4 id="2、改变控制台尺寸导致控制台内容丢失"><a href="#2、改变控制台尺寸导致控制台内容丢失" class="headerlink" title="2、改变控制台尺寸导致控制台内容丢失"></a>2、改变控制台尺寸导致控制台内容丢失</h4><p>省流：<code>&quot;terminal.integrated.windowsEnableConpty&quot;: false</code></p><p>解决方案：<a href="https://blog.csdn.net/qq_18626053/article/details/127324535">vscode放大或缩小控制台导致文本丢失</a></p><p>问题描述详见：<a href="https://github.com/microsoft/vscode/issues/134448">Loses text when maximizing the integrated terminal #134448</a>。</p><p>从issue的发布日期可见这不是一个新问题了，往下翻还能发现这实际上不是VSCode自身的问题，而是一个Windows系统的问题，在JB家的软件中也存在这样的问题。</p><p>不过目前来看这个有关ConPTY接口的设置并没有影响VSCode使用，因此也就不去深究了。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>技术</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>VSCode</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>2022年终总结</title>
     <link href="/2022/12/31/2022-year-end-review/"/>
     <url>/2022/12/31/2022-year-end-review/</url>

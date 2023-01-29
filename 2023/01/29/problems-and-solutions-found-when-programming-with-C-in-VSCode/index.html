@@ -18,22 +18,22 @@
   <meta name="author" content="Skycurtain">
   <meta name="keywords" content="">
   
-    <meta name="description" content="希望用一些文字来记录下毕业设计的整个过程，而不是只留下一篇并不属于自己的毕业论文。">
+    <meta name="description" content="小小的编辑器通过插件化机制能够拥有如此强大的功能，总难免存在一些【有趣】的小问题。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="毕设日记（一）">
-<meta property="og:url" content="https://skycurtain.github.io/2022/12/05/capstone-project-diary-episode-1/index.html">
+<meta property="og:title" content="用VSCode写C过程中遇到的几个小问题">
+<meta property="og:url" content="https://skycurtain.github.io/2023/01/29/problems-and-solutions-found-when-programming-with-C-in-VSCode/index.html">
 <meta property="og:site_name" content="Skycurtain.Dreamland">
-<meta property="og:description" content="希望用一些文字来记录下毕业设计的整个过程，而不是只留下一篇并不属于自己的毕业论文。">
+<meta property="og:description" content="小小的编辑器通过插件化机制能够拥有如此强大的功能，总难免存在一些【有趣】的小问题。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-12-05T01:26:11.000Z">
-<meta property="article:modified_time" content="2023-01-29T11:32:53.108Z">
+<meta property="article:published_time" content="2023-01-29T08:33:58.000Z">
+<meta property="article:modified_time" content="2023-01-29T12:59:53.562Z">
 <meta property="article:author" content="Skycurtain">
-<meta property="article:tag" content="毕设日记">
+<meta property="article:tag" content="VSCode">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>毕设日记（一） - Skycurtain.Dreamland</title>
+  <title>用VSCode写C过程中遇到的几个小问题 - Skycurtain.Dreamland</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -215,7 +215,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle">毕设日记（一）</span>
+            <span id="subtitle">用VSCode写C过程中遇到的几个小问题</span>
           
         </div>
 
@@ -231,8 +231,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-12-05 09:26" pubdate>
-          2022年12月5日 上午
+        <time datetime="2023-01-29 16:33" pubdate>
+          2023年1月29日 下午
         </time>
       </span>
     
@@ -243,7 +243,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.4k 字
+          1.1k 字
         
       </span>
     
@@ -254,7 +254,7 @@
         
         
         
-          13 分钟
+          9 分钟
         
       </span>
     
@@ -296,29 +296,24 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">毕设日记（一）</h1>
+            <h1 style="display: none">用VSCode写C过程中遇到的几个小问题</h1>
             
             
               <div class="markdown-body">
                 
-                <p>希望用一些文字来记录下毕业设计的整个过程，而不是只留下一篇并不属于自己的毕业论文。</p>
+                <p>小小的编辑器通过插件化机制能够拥有如此强大的功能，总难免存在一些【有趣】的小问题。</p>
 <span id="more"></span>
 
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>不论处于高等教育的哪个阶段，毕业论文&#x2F;毕业设计都是必须要过的一道关，或许有些朋友并不把它看得很重要，只求能通过即可，不过作为一个对项目开发有一些执念的人，我希望能够做自己感兴趣的项目，并且做出一些成效，所以毕设在我的心中还是有份量的。</p>
-<p>那为什么我没有提前联系导师表达希望自拟题目的意愿呢，这其中是有一定自私的成分在“作祟”，因为像对于各种大作业学校都是要求将包括源代码在内的所有材料刻录进光盘与纸质的报告一起提交的，而我对自己酝酿的独立项目有一个主观的限制，就是我可以接受它被我主动开源，但不希望项目是被迫地交给别的单位作为支撑材料，所以也可以说是有些功利的成分，我希望项目的最终解释权还是在我手里。</p>
-<p>鉴于此，脑海中酝酿的点子便不再有很高的优先级，我也希望能够更加灵活地去规划和实现所有的设想，而在毕设这块，但愿能够在题目候选表中遇到我感兴趣的选题。</p>
-<h2 id="选题过程"><a href="#选题过程" class="headerlink" title="选题过程"></a>选题过程</h2><p>在选题范围这块，系里没什么限制，一共4个专业中所有的题目都可以选，双选制度，三轮填报，每轮三个志愿，也可以不填满。</p>
-<p>浏览了4张选题表，发现信管系统和机器学习项目是占比最大的两个类型。客观地来说，信管系统的重点在于对业务需求的精准把控和基础架构的构建，而不是各路导师都嗤之以鼻的所谓CRUD，恰恰相反，AI类题目才是最容易被认为是“缺乏新意”的，对大多数题目来说，其实都能够找到大量的论文，而那些方向非常新颖的项目通常难度也极高，所以导师们也很少会选择，因此想要做出创新是不小的困难。由于选题关系到后续的所有阶段，这样的现状让我很难提起对以上两类题目的兴趣。</p>
-<p>当然，排除这两类后其实也有得选，对于游戏开发，我看过游戏工作室的流程，也见过独立开发者的视频，我认为游戏开发是一个学习和开发周期都非常漫长的过程，毕业设计的三四个月时间并不能使游戏效果达到比较可观的程度；还有一些服务平台、信息平台、APP&#x2F;小程序开发，算法研究，也有小部分的系统开发，以及一些特色的行业研究等等，但总体来说依然可以给出与上述相同的评价，要么不容易做出特色，要么对精力和能力要求极高，而毕设不是生活的全部，我想找到一个尽量折中的选题。</p>
-<p>最终把目光锁定在两个方向：（目前一切还不够稳妥，后续再公开选题）</p>
-<ol>
-<li><a href="%E7%AE%97%E6%B3%95%E5%8F%AF%E8%A7%86%E5%8C%96"></a>▮▮▮▮▮</li>
-<li><a href="%E5%8C%BA%E5%9D%97%E9%93%BE%E5%92%8Cweb3%E9%A1%B9%E7%9B%AE"></a>▮▮▮▮▮▮▮▮</li>
-</ol>
-<p>之后也是按这个顺序填报了选题志愿，将<a href="%E7%AE%97%E6%B3%95%E5%8F%AF%E8%A7%86%E5%8C%96"></a>▮▮▮▮▮作为首选的原因很简单，一是它和我正在酝酿的点子都需要一个代码编辑器，二是它比较符合我的初衷：『希望开发一些能帮助开发者改善工作的产品和帮助新人降低编程学习门槛的产品』，所以我也并不在乎这个选题是导师的教学建设任务。</p>
-<p>后来比较戏剧性的是我差点以为自己没有被一志愿导师L老师选中，简而言之就是『导师选完之后并没有主动通知学生导致我一直以为自己要寄了，加上二志愿导师W老师因为看到选择L老师的学生太多而主动来找我，就在我们相得谈甚欢以至于我真的以为就要跟着他时，我得知我完美地被L老师写进了毕设组里』，比较离谱，权当是个小插曲吧。</p>
-<h2 id="准备开题"><a href="#准备开题" class="headerlink" title="准备开题"></a>准备开题</h2><p>在我的认知中我以为我的选题是没有太多可参考的，因为纵观我多年的网上冲浪经验，遇到的合适的参考项目极少，而事实上当我收集了一波文献之后……</p>
-<p>事态发展并没有改观，只是确有大牛真的找到了不少外国的古老的相关项目，可以用来写综述但不可能去参考它们的实现方案，所以我遇到的“极少”的可参考项目还是能够发挥作用的，<strong>这将是我人生中第一次从源码级别去了解一个项目的设计理念和实现方案</strong>……</p>
+<p>近期毕设项目中需要C语言来实现一部分功能，尽管JetBrains家的IDE都非常高端，不过对我这样一个C语言白痴来说有些杀鸡用牛刀的感觉，况且JB家的软件吃起内存来可比Chrome还强得多，综合评估下我更加愿意选择VSCode配合相应的插件。C&#x2F;C++的环境配置就不用多说了，网上有大量的教程和视频，本文主要想来分享下自己发现的两个并不容易找到解决方案的小问题。</p>
+<h4 id="1、命令行错误-指定的语言模式不兼容-C-C-1027"><a href="#1、命令行错误-指定的语言模式不兼容-C-C-1027" class="headerlink" title="1、命令行错误: 指定的语言模式不兼容 C/C++(1027)"></a>1、<code>命令行错误: 指定的语言模式不兼容 C/C++(1027)</code></h4><p>英文是<code>command-line error: language modes specified are incompatible c/c++(1027)</code>。</p>
+<p>这个问题发生的原因，我至今都没有稳定复现过，目前也没有精力去排摸怎样的配置和操作会触发这个问题，只能确定问题出在VSCode的C&#x2F;C++插件和cmake插件配合得不太完美。</p>
+<p>要不说程序员必须掌握一些科学上网的小技巧，从百度搜索到的方案基本都是治标不治本，不过针对这个问题来说，连Google搜索得到的相关词条数量也不超过3页，看来果然是一个非常有意思的问题。</p>
+<p>在翻了几个链接之后，发现了一个<a target="_blank" rel="noopener" href="https://qiita.com/koshi1971/items/cbf071925af21fd77716">霓虹国某平台的帖子</a>，看了解决方案后我大概也能知道了这个问题的成因：C&#x2F;C++插件与cmake插件的配合在某种情况下会被出错，C&#x2F;C++插件中的<code>configurationProvider</code>设置项会被改为<code>ms-vscode.cmake-tools</code>从而导致错误，那么为了从根本上避免这个问题，建议在VSCode设置中写死<code>&quot;C_Cpp.default.configurationProvider&quot;: &quot;ms-vscode.cpptools&quot;</code>。</p>
+<h4 id="2、改变控制台尺寸导致控制台内容丢失"><a href="#2、改变控制台尺寸导致控制台内容丢失" class="headerlink" title="2、改变控制台尺寸导致控制台内容丢失"></a>2、改变控制台尺寸导致控制台内容丢失</h4><p>省流：<code>&quot;terminal.integrated.windowsEnableConpty&quot;: false</code></p>
+<p>解决方案：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_18626053/article/details/127324535">vscode放大或缩小控制台导致文本丢失</a></p>
+<p>问题描述详见：<a target="_blank" rel="noopener" href="https://github.com/microsoft/vscode/issues/134448">Loses text when maximizing the integrated terminal #134448</a>。</p>
+<p>从issue的发布日期可见这不是一个新问题了，往下翻还能发现这实际上不是VSCode自身的问题，而是一个Windows系统的问题，在JB家的软件中也存在这样的问题。</p>
+<p>不过目前来看这个有关ConPTY接口的设置并没有影响VSCode使用，因此也就不去深究了。</p>
 
                 
               </div>
@@ -334,6 +329,16 @@
 <span class="category-chains">
   
   
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%8A%80%E6%9C%AF/" class="category-chain-item">技术</a>
+  
+  
+
+      </span>
+    
+  
 </span>
 
     </div>
@@ -342,7 +347,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E6%AF%95%E8%AE%BE%E6%97%A5%E8%AE%B0/">#毕设日记</a>
+        <a href="/tags/VSCode/">#VSCode</a>
       
     </div>
   
@@ -354,8 +359,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>毕设日记（一）</div>
-      <div>https://skycurtain.github.io/2022/12/05/capstone-project-diary-episode-1/</div>
+      <div>用VSCode写C过程中遇到的几个小问题</div>
+      <div>https://skycurtain.github.io/2023/01/29/problems-and-solutions-found-when-programming-with-C-in-VSCode/</div>
     </div>
     <div class="license-meta">
       
@@ -367,7 +372,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年12月5日</div>
+          <div>2023年1月29日</div>
         </div>
       
       
@@ -394,6 +399,23 @@
 
 
 
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/12/31/2022-year-end-review/" title="2022年终总结">
+                        <span class="hidden-mobile">2022年终总结</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
               
             </div>
 
