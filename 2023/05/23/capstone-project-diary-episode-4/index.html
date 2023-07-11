@@ -18,22 +18,22 @@
   <meta name="author" content="Skycurtain">
   <meta name="keywords" content="">
   
-    <meta name="description" content="里程碑时刻，正式地聊一聊。">
+    <meta name="description" content="尾声，也是新的开始。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="毕设日记（三）">
-<meta property="og:url" content="https://skycurtain.github.io/2023/02/17/capstone-project-diary-episode-3/index.html">
+<meta property="og:title" content="毕设日记（四）">
+<meta property="og:url" content="https://skycurtain.github.io/2023/05/23/capstone-project-diary-episode-4/index.html">
 <meta property="og:site_name" content="Skycurtain.Dreamland">
-<meta property="og:description" content="里程碑时刻，正式地聊一聊。">
+<meta property="og:description" content="尾声，也是新的开始。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-02-16T16:01:00.000Z">
-<meta property="article:modified_time" content="2023-02-17T17:49:54.833Z">
+<meta property="article:published_time" content="2023-05-23T06:07:17.000Z">
+<meta property="article:modified_time" content="2023-06-02T08:33:52.759Z">
 <meta property="article:author" content="Skycurtain">
 <meta property="article:tag" content="毕设日记">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>毕设日记（三） - Skycurtain.Dreamland</title>
+  <title>毕设日记（四） - Skycurtain.Dreamland</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -215,7 +215,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle">毕设日记（三）</span>
+            <span id="subtitle">毕设日记（四）</span>
           
         </div>
 
@@ -231,8 +231,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-02-17 00:01" pubdate>
-          2023年2月17日 凌晨
+        <time datetime="2023-05-23 14:07" pubdate>
+          2023年5月23日 下午
         </time>
       </span>
     
@@ -243,7 +243,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.3k 字
+          1.9k 字
         
       </span>
     
@@ -254,7 +254,7 @@
         
         
         
-          12 分钟
+          16 分钟
         
       </span>
     
@@ -296,24 +296,29 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">毕设日记（三）</h1>
+            <h1 style="display: none">毕设日记（四）</h1>
             
             
               <div class="markdown-body">
                 
-                <p>里程碑时刻，正式地聊一聊。</p>
+                <p>尾声，也是新的开始。</p>
 <span id="more"></span>
 
 <hr>
-<p>距离上一篇毕设日记已经过去的整整两个月，抛开那些由于众所周知的疾病而放下工作的日子，在这一个多月的时间里，磕磕绊绊地算是大体完成了整个规划中最重要的<strong>基础设施</strong>部分，这意味着从现在开始，项目进入了一个稳定开发的阶段，所以，我想现在我可以来聊一聊这个项目本身了，但在这里我不打算探讨一些技术细节，只是来聊聊做毕设和写论文过程中自己的想法和感受。</p>
-<h4 id="这个毕设在做什么？"><a href="#这个毕设在做什么？" class="headerlink" title="这个毕设在做什么？"></a>这个毕设在做什么？</h4><p>之前说过，在选题阶段我最终将范围确定在两个项目，一是<strong>数据结构算法可视化</strong>，二是web3下<strong>基于智能合约的投票系统</strong>。选择它们的理由其实也很直白，未来职业生涯的很多时间可能都是在做系统业务，所以现在我不想做那些信管系统，尤其是在对实际业务并不了解，也很难在不接触相关企业的运营流程情况下去做业务。而关于那些AI选题，纵使AI领域发展热火朝天，AI开发人员钱途一片大好，但眼下我对AI没那么感兴趣，而且导师们大都也有AI领域的研究经历，他们一定会重点关注诸如数据集、模型类别、算法细节等重点内容，但这其中凡存在一丁点儿问题，想通过毕设就不会太顺利了。此外我也看到一两个数据可视化项目，虽然我对可视化和UI交互很感兴趣，但由于接触的是系统层面的数据以及要求Python编程，这两块不是我熟悉的领域和技术，所以没有把它纳入选择范围。</p>
-<p>最后确定毕设的选题是<strong>算法可视化</strong>，算是正合我意。在我的设想中，这个项目应当属于web app，在网页中应当存在一个代码编辑器，用户可以自行输入代码，根据编程语言的不同，系统会调用不用的编译器或者解释器得到结果。然而单纯地编译算法代码最多只能算是实现了一个所谓的在线编译器罢了，最理想的效果是系统能够识别代码中涉及算法的代码，从中分析出相应数据结构的操作并将其转化为可视化效果，不过以我目前的认知来看，或许只有ChatGPT级别的AI模型才能够拥有这样的能力。于是退而求其次，存在两个方案：</p>
-<ol>
-<li>在前端与debugger之间建立通信机制，系统将根据用户的要求把特定变量的变化针对性地做可视化渲染。</li>
-<li>通过设计一套可视化API，在算法代码中插入API调用，这样通过编译器编译运行后就可以输出可视化指令，由前端对指令进行解析，进而渲染可视化效果。为达到这一点，只需要求API与算法代码所采用的编程语言相同，而如果想要扩展API支持的编程语言范围不难，可以进一步把API总结成一套协议，任何编程语言只要实现了基于这套协议的API，生成的可视化指令就能够被前端成功解析。</li>
-</ol>
-<p>经过考虑，事实上第一种方案无论在实现还是扩展上都是比较困难的：获取debugger监控的变量类型并不是容易的事情，很多编程语言有大量内置的高级类型，很难去确定要如何设计可视化实现，并且调试过程会带来巨大的性能开销，这对一个需要依靠服务器的网站来说不是什么好事。所以这个项目的最佳实践就是采用第二个方案，因此这套API的设计与实现是整个项目核心部分。</p>
-<h4 id="现在做了什么"><a href="#现在做了什么" class="headerlink" title="现在做了什么"></a>现在做了什么</h4><p>由于这套API是系统所有功能的基石，截至目前，它已经顺利度过了大范围迭代修改的阶段，进入一个稳定状态，这意味着其他的上层功能都可以开始逐步实现，对我来说这绝对是新年以来能够排上名次的好消息，接下来需要做的就是更多的学习与更多的实践了。</p>
+<p>其实这个标题已经很离谱了，虽然叫“日记”但是半年时间才写到第四篇，不过还好我没有弃坑的想法，于是也就有了今天的内容。</p>
+<p>从构思方案开始到几天前完全检查完论文，历经了半年的时间，写代码的时间大约占了一半，在这过程中其实想过要写一些东西，然而那段时间每天起床无非就是在好几个可视化库之间兜兜转转，挨个查文档再挨个做配置，一天下来其实没有真正实现什么功能，而确实耗费了很多精力。因为在规划中这个系列不是技术专题，只是记录下自己做毕设的过程，所以也没有产出文章。</p>
+<p>不过在答辩前夕，可能这是这个系列的终章了，中间又没有及时记录下一些里程碑时刻，所以在这里我想重新回顾一下这半年来的毕业设计全过程。</p>
+<hr>
+<p>在之前的视频中说过，我的毕设是一个数据结构算法可视化项目，这对想搞前端的我来说是一次机遇，也是一个能够写在简历上的难得的独特项目，同时我是一个对交互很感兴趣的人，这里的“交互”不是单独指操作系统或者app中点击或触摸的操作反馈，而是一种广义上的交互：面向普通的用户，网页、app中的操作逻辑是交互；而面向开发者，库、操作系统、编译器也是交互。交互可以很简单，也可以极其复杂，我希望未来我都可以有机会去接触它们。</p>
+<p>其实当时从几百个毕设选题中看到这个可视化项目时，我想到了一个非常值得参考的<a target="_blank" rel="noopener" href="https://algorithm-visualizer.org/">开源项目Algorithm-Visualizer</a>，而且最后的毕设成品也是模仿了它的UI。其实当时想得很肮脏，我以为万一自己遇到困难了还可以抄它，不过很快事实就给了我无情的回击，因为我跑不起来这个项目，虽然乍一看似乎是一些npm包需要python环境而我并没有安装过python所导致的，但自从上次我的不当操作致使Node.js在电脑里乱拉💩之后我就不再愿意装一些工作流中基本用不上的东西了。于是，在毕设上我也相当于没有了后路，其实现在想想，就算当时它的代码我能跑起来也没用，因为项目的作者那哥们儿是一行注释都没写，除开一些模板代码，大部分逻辑和算法我都不理解……</p>
+<p>而在后来与导师讨论需求时又接到了导师“惊人”的提议，尽管导师对这个项目的构想与Algorithm-Visualizer非常类似，但同时又表示希望能够对C语言的数据结构算法做可视化，这一下算是把我的前端梦击碎了一半，因为要支持JavaScript以外的语言就必然意味着需要一个后端把代码交给编译器去跑，再把一个结果返回给前端去渲染可视化效果。在这个问题上要特别感谢Algorithm-Visualizer项目，我也是在试图扒了源码之后才初步有了一个可行方案的构思，可以说整个项目的核心就是围绕着这个方案展开的。</p>
+<p>在这方面我查过一些文献，但算法可视化方向的论文本来就不多，其中提到实现方案的论文更少，其中能跑代码的实现方案则少之又少，甚至有文献提出直接搓一个针对可视化设计的编译器，编译器这种东西的工作量对任何人来说都不是半年内能够完成的，所以最终还是回到了Algorithm-Visualizer的方案。简单来说，它的方案是基于一套操作指令的，每一种指令都代表数据结构的不同操作，在目标语言侧，也就是C语言，需要设计一套API，在代码运行过程中通过调用API函数，就可以将代码中数据结构的操作过程记录下来，而在前端，则需要将指令形式的操作过程还原为各类数据结构的状态变化，这样就可以比较容易地把数据结构在某一时刻的状态进行可视化渲染。好了，更多技术方面的细节等我整理过后再细说吧，这里有一段<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV13a4y1u7pU/">简单的介绍视频</a>，基本上验证了系统的可视化能力。</p>
+<p>作为毕业设计来说，这个项目已然进入了收尾阶段，不过在答辩后，我希望对它进行一定的整理和重构，并作为我的第一个正经的开源项目来持续开发，而作为一个开源项目，我想这只是一个开始而已。</p>
+<hr>
+<p><strong>后记</strong></p>
+<p>其实这是导师的教学建设的内容，不过我倒没在意这是否代表着我的成果被白嫖了，相反，如果说未来的数据结构课堂上会采用我的项目来辅助教学，那我还是有点自豪的。从某种角度来说，我的项目侧重于提供一种代码层面的能力，而其实导师还有一个可视化项目分给了另一位同学，那个项目则更加侧重于直接通过交互来操作数据结构，因此从可视化效果上看，他能够将效果做得更加精美。</p>
+<p>如今答辩已经结束，但由于系统的可视化能力距离我的预期还有一些差距，因此我的构想是在年底前把整套API进行重新梳理和重构，争取再将它规范为一套协议，最后也发展为一个开源项目，如果明年有机会的话我还想自己去实现代码编辑器，为接入多语言的算法可视化做一些准备。</p>
+<p>之后在整理和重构的过程中会考虑输出一些技术内容。</p>
 
                 
               </div>
@@ -359,8 +364,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>毕设日记（三）</div>
-      <div>https://skycurtain.github.io/2023/02/17/capstone-project-diary-episode-3/</div>
+      <div>毕设日记（四）</div>
+      <div>https://skycurtain.github.io/2023/05/23/capstone-project-diary-episode-4/</div>
     </div>
     <div class="license-meta">
       
@@ -372,7 +377,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年2月17日</div>
+          <div>2023年5月23日</div>
         </div>
       
       
@@ -404,18 +409,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/05/23/capstone-project-diary-episode-4/" title="毕设日记（四）">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">毕设日记（四）</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/01/29/problems-and-solutions-found-when-programming-with-C-in-VSCode/" title="用VSCode写C过程中遇到的几个小问题">
-                        <span class="hidden-mobile">用VSCode写C过程中遇到的几个小问题</span>
+                      <a href="/2023/02/17/capstone-project-diary-episode-3/" title="毕设日记（三）">
+                        <span class="hidden-mobile">毕设日记（三）</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
