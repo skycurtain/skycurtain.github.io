@@ -18,21 +18,22 @@
   <meta name="author" content="Skycurtain">
   <meta name="keywords" content="">
   
-    <meta name="description" content="自小米自研系统的消息放出以来，就有小米将禁止解锁bootloader的传言，而当小米“坦白”了HyperOS仍基于Android深度定制、且隔壁小白测评的视频里直接用上了《淦！MIUI温控》时，机友们对小米14系列的热情又高涨了起来，而在新机到手后却发现BL解锁服务器始终处于维护阶段。事情发酵多日，懒酱和小小白都发出了可信消息表示解锁政策会修改但不会彻底禁止，算是让习惯了root的机友们心情稍有平">
+    <meta name="description" content="二〇二三：大约不会再常怀念学生时代。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="当我们在讨论bootloader&amp;root时，我们在讨论什么？">
-<meta property="og:url" content="https://skycurtain.github.io/2023/11/05/talk-about-bootloader-and-root/index.html">
+<meta property="og:title" content="2023年终总结">
+<meta property="og:url" content="https://skycurtain.github.io/2024/01/14/2023-year-end-review/index.html">
 <meta property="og:site_name" content="Skycurtain.Dreamland">
-<meta property="og:description" content="自小米自研系统的消息放出以来，就有小米将禁止解锁bootloader的传言，而当小米“坦白”了HyperOS仍基于Android深度定制、且隔壁小白测评的视频里直接用上了《淦！MIUI温控》时，机友们对小米14系列的热情又高涨了起来，而在新机到手后却发现BL解锁服务器始终处于维护阶段。事情发酵多日，懒酱和小小白都发出了可信消息表示解锁政策会修改但不会彻底禁止，算是让习惯了root的机友们心情稍有平">
+<meta property="og:description" content="二〇二三：大约不会再常怀念学生时代。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-11-05T00:34:45.000Z">
-<meta property="article:modified_time" content="2023-11-05T05:42:41.426Z">
+<meta property="article:published_time" content="2024-01-13T18:00:38.000Z">
+<meta property="article:modified_time" content="2024-02-05T13:58:25.219Z">
 <meta property="article:author" content="Skycurtain">
+<meta property="article:tag" content="年终总结">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>当我们在讨论bootloader&amp;root时，我们在讨论什么？ - Skycurtain.Dreamland</title>
+  <title>2023年终总结 - Skycurtain.Dreamland</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -226,7 +227,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle">当我们在讨论bootloader&root时，我们在讨论什么？</span>
+            <span id="subtitle">2023年终总结</span>
           
         </div>
 
@@ -242,8 +243,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-11-05 08:34" pubdate>
-          2023年11月5日 早上
+        <time datetime="2024-01-14 02:00" pubdate>
+          2024年1月14日 凌晨
         </time>
       </span>
     
@@ -254,7 +255,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.4k 字
+          1.6k 字
         
       </span>
     
@@ -265,7 +266,7 @@
         
         
         
-          21 分钟
+          13 分钟
         
       </span>
     
@@ -320,25 +321,43 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">当我们在讨论bootloader&amp;root时，我们在讨论什么？</h1>
+            <h1 style="display: none">2023年终总结</h1>
             
             
               <div class="markdown-body">
                 
-                <p>自小米自研系统的消息放出以来，就有小米将禁止解锁bootloader的传言，而当小米“坦白”了HyperOS仍基于Android深度定制、且隔壁小白测评的视频里直接用上了《淦！MIUI温控》时，机友们对小米14系列的热情又高涨了起来，而在新机到手后却发现BL解锁服务器始终处于维护阶段。事情发酵多日，懒酱和小小白都发出了可信消息表示解锁政策会修改但不会彻底禁止，算是让习惯了root的机友们心情稍有平复。</p>
-<p>如今国产手机品牌中系统开放性略好的也只剩下小米&amp;一加（小米在秋大离开之后对内核开源的消极态度也受到开发者的诟病），在等待小米公布BL解锁新政策的这几天，我想从一个对Linux&amp;Android系统感兴趣的用户角度来聊聊，当我们在讨论BL与root时，我们究竟在讨论什么？</p>
-<p>当今的手机市场早已不是十年前那样的“百花齐放春满园”，HMOV四大巨头及其子品牌已经在市场上立足生根，且随着Google在Android安全技术上的发力，获取root再也不会回到当年的所谓“一键root”工具（一些老旧机型和非手机的小众产品除外），各大基于Android的定制系统不约而同地添加了bootloader锁，且或是出于安全，或是出于垄断，或是防止技术逆向，不少系统都不对用户开放解锁权限，或是需要付出一些永久性的代价。从这个角度来说，小米与一加无疑是对“极客”用户宽容度最高的两个品牌，而其中因更早涉足Android系统并以开放刷机广受用户欢迎的小米拥有更大的用户量，而这些天小米对于解锁政策迟迟未能放出公告，仅靠圈内的数码博主在打探消息，也难怪会被不少用户大骂“忘记了自己是靠什么起家的”。这里没有踩一捧一的意思，但相比之下一加在重回OPPO大爹的怀抱后直接继承了OPPO在系统开放性上的所有建设，相当于站在更大的平台上获得了更多的的资源。</p>
-<p>所以root权限对于Android系统用户而言究竟意味着什么？现在认为不再需要root的用户和博主对root目的的定义主要可以分为这样两类：</p>
-<ol>
-<li>root的存在是作为完善和增强系统功能、提升系统体验的一种手段，而整个Android系统生态发展到了今天这个程度，各大基于Android的定制系统已经将功能做得足够完善，因此不少用户也自然“退了烧”，不再追求解锁BL与root。同时，在国内尤其热闹的官改与移植圈子里，远程解锁、刷机等服务引发的欺诈、格机等行为不仅伤害了用户，也间接影响了厂商的声誉，特别是前不久震惊刷机圈的“后门下发格机”事件更是将“是否应该允许用户解锁bootloader”的话题彻底引爆，加之付费秒解已然发展为一条完整的产业链，或许这是迫使小米重新思考BL解锁政策的原因之一吧。</li>
-<li>root生态从<code>supersu+xposed</code>发展到<code>magisk+lsposed</code>，hook框架的存在让root的作用范围从系统层提升到了应用层，抛开跳广告工具等这类主要为了用户体着想的模块，游戏开挂、会员破解、脚本格机等模块层出不穷，这些同样也损害了应用厂商的利益，同样导致了用户对root的印象不佳。</li>
-</ol>
-<p>我个人其实不敢苟同因此而支持“应当禁止解锁BL”的观点，很多用户其实并不清楚所谓的“root风险”到底意味着什么，对Android系统架构、分区、BL本质、root原理等内容完全没有概念，就请别人远程刷机、刷了别人做的包，也不知道哪些开发者的口碑是好的，结果变砖了之后却去责怪厂商，这本身就无法形成逻辑闭环。获取root权限绝不是以“玩”为目的的行为，而是要确定自己能够应对解锁root后出现的任何突发情况、承担数据丢失的代价后才能继续进行的操作。系统开放当然是好事，但是很多用户并没有这一层觉悟，工作&#x2F;学习用机也拿来不假思索地瞎折腾，完全是不负责任的行为。归根到底，问题的根本在用户的认知水平上，而非厂商。当然，换个角度来说厂商如果既不希望承担莫须有的骂名也不愿辜负我们这些就是看中了系统开放性的用户，那我们能做的也只有期待小米的新解锁政策是否能真正筛选出有能力承担意外状况所带来风险的用户了。</p>
-<p>我们能说root本身它就是坏的吗？很显然不能。root权限作为一种技术实现，本身无所谓好坏，Android底层包含Linux内核，开发者和程序员朋友们对Linux应该不会陌生，作为全世界规模最大的开源软件之一，在Linux中获取root权限并非难事。当然，如果说Linux距离普通用户比较遥远，那么Windows和macOS呢？很幸运，Windows中存在超级管理员的概念，而对待iOS异常封闭的Apple在macOS上则留存了相当程度的自由性质，同样存在root用户权限。关注科技数码的朋友们应该都知道极客湾的手机SoC性能&#x2F;能效测评，每一代新SoC的评测都需要在root环境下才能开展，在root这个话题上他们甚至还出过一期视频专门来教用户如何解锁BL并获取root。作为至少从Android2.2开始见证Android每一代变化的用户，我们看到了Android设备被用来折腾了太多内容，包括但不限于装Windows、装Linux、跑虚拟机、跑模拟器、超频降压、内核调教，还有上半年有大佬将OpenHarmony移植到小米6，基于magisk的二次开发从未停止……所以归根到底，root本身没有好坏，系统开放也值得赞扬，坏的是那些破坏了这一份和谐的人。</p>
-<p>当厂商把系统打磨地越来越完善了，root或许对你来说不会再对系统体验带来更大的提升，但却能够让你看到更多的可能性，比如把旧手机改造成一台简陋的服务器，比如去体验一下大佬们移植的其他品牌系统，比如哪怕只是享受一下打开MT管理器后能够看到密密麻麻的系统文件，</p>
-<p>或者，比如像我一样，</p>
-<p>只是纯粹的希望一台手机从硬件到软件的整个体系都是真正属于自己的，而不是仅仅拥有“使用权”，</p>
-<p>甚至随时会受到来自厂商的“云控”和所谓的“远程施法”。</p>
+                <p>二〇二三：大约不会再常怀念学生时代。</p>
+<span id="more"></span>
+
+<hr>
+<p>2023年翻篇了。</p>
+<p>对于每一个接受了普遍意义上“高等教育”的人来说，毕业季应该都是很难一笔带过的一段时光，而在实际经历过之后再来回望，不禁感慨确实如此。</p>
+<p>有段时间，我始终对高考不理想这件事耿耿于怀。然而日子还是要过的，但在日复一日往返在教学楼、食堂与宿舍的日子里，很容易让人淡忘掉一些最初埋在内心的种子，比如“四年之后我要去更好的平台”，比如“争取卷进前5%”，比如“爱情会如约而至”……</p>
+<p>在躺了一学期没躺平、卷了一学期又没卷赢之后，我成为了所谓的“45°青年”之一，因为实在说服不了自己对所有的专业课都感兴趣，便把自己控制在一个能够拿奖学金但不求保研的心态和绩点，这让我挤在那个所谓的“卓越工程师”群体中有一点格格不入。但事实上在同学们争取保研名额期间，套用毛不易老师的歌词来说，多少还是会有一些“怎么二十多年到头来，还在人海里浮沉”的感觉。“如果当时能够再卷一卷，会不会就可以拥有定下心来再苟两年不用工作的日子呢？”</p>
+<blockquote>
+<p>卷又卷不动，躺又躺不平</p>
+</blockquote>
+<p>不过还好，我可以选择考研。其实“研究生”这三个字对我来说没有太多功利上的价值，毕竟CS专业找个班上还不至于卷到百分百卡研究生学历，但所谓“更好的平台”却是我在某个时刻尤其向往过的五个字。不管怎么说，这总是一个重大的决定，我甚至调整好了状态，打算不再去关心后续的课程。但在两年前，上海经历过一段“至暗时刻”，也就是在那段时间里，在日复一日的抢菜等菜取菜中耗光了我所有的雄心壮志，以至于在夏天来临时，耗尽了意志的我正在找同学和朋友打听工作相关的事情，但由于手上没有能拿得出手的项目，我着实没有底气去面试。从另一方面来说，当时的我还没有正式确认岗位方向，在如今看来那个时候还在摇摆不定绝对是不明智的选择，但那时候我的技术栈并不全面，所以经过思考后我做出了一个似乎更加“不明智”的选择，我选择再学一学，去找一些有可能实现的项目亲自做一做。</p>
+<blockquote>
+<p>其实我可以给出解释，比如我的学习目标与就业市场并不匹配，但归根结底还是我没认清形势，只能用更多的时间来“还债”了。</p>
+</blockquote>
+<p>所以我很敬佩能够在那段日子里坚持每天的复习并最终参加考试的同志们，你们是真正的战士！</p>
+<p>这看起来好像是一个很失败的案例，甚至在去年4月我还在三个招聘app中投了上百份简历，不停地关注学校或其他关注的公众号中的招聘信息。但无心插柳柳成荫，再毕业前不久我找到了一份实习，离家不算远，待遇虽然够不上那些大厂，但我这水平也进不去大厂，所以还是十分开心的。</p>
+<p>时间回到去年年初，我很怀念那几个月心无旁骛专攻毕业设计的时光，我知道现在想来那段本该是春招的时间却没有去找工作其实风险非常大，但也正是那段时光里把毕设认真完善了才能够在后来的面试中完整地展示项目。</p>
+<blockquote>
+<p>在这里我不得不说毕设选题确实是重要的。对于烂大街的项目，哪怕你吃透了所有的技术难点，面试官也很难不先入为主认为你的项目含金量不高，而对于有创新的项目，面试官可能从简历上就能看到连Ta也好奇的技术。</p>
+</blockquote>
+<p>进入工作岗位后，尽管有些事情比较令人难绷，但想想还是觉得比上学考试要好一些，相比于绩效，可能对我来说绩点带来的压力更大吧。</p>
+<hr>
+<p>最后来聊聊技术上的事儿。</p>
+<p>毕设完成之后，因为距离我心中“产品”的样子还有不小的差距，所以一直想找个机会重新构想和实现它，这半年来着实有些忙碌，下一个阶段要抽些时间来学学自己感兴趣的东西了。</p>
+<p>我还记得以前画下的大饼，而且也确实认为移动端设备不失为一个学习编程的工具，不过为此我还需要积累大量的技术和经验，就慢慢来吧。</p>
+<blockquote>
+<p>我知道你很急，但你先别急。</p>
+</blockquote>
+<hr>
+<p>年终的工作还是不少，这篇文章建于1月中旬，却直到年关将至才完成。春节在中国是一个最为特殊的节日，敲下这段话，春节前算是对过去这一年做了一个交代，接下来面对新的一年吧。</p>
+<p>好好活着，祝大家早安，午安，晚安！</p>
 
                 
               </div>
@@ -347,6 +366,34 @@
             <div>
               <div class="post-metas my-3">
   
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E9%9A%8F%E7%AC%94/" class="category-chain-item">随笔</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/">#年终总结</a>
+      
+    </div>
   
 </div>
 
@@ -356,8 +403,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>当我们在讨论bootloader&amp;root时，我们在讨论什么？</div>
-      <div>https://skycurtain.github.io/2023/11/05/talk-about-bootloader-and-root/</div>
+      <div>2023年终总结</div>
+      <div>https://skycurtain.github.io/2024/01/14/2023-year-end-review/</div>
     </div>
     <div class="license-meta">
       
@@ -369,7 +416,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年11月5日</div>
+          <div>2024年1月14日</div>
         </div>
       
       
@@ -401,18 +448,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/01/14/2023-year-end-review/" title="2023年终总结">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">2023年终总结</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/05/23/capstone-project-diary-episode-4/" title="毕设日记（四）">
-                        <span class="hidden-mobile">毕设日记（四）</span>
+                      <a href="/2023/11/05/talk-about-bootloader-and-root/" title="当我们在讨论bootloader&amp;root时，我们在讨论什么？">
+                        <span class="hidden-mobile">当我们在讨论bootloader&amp;root时，我们在讨论什么？</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
