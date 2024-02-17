@@ -727,22 +727,22 @@
   
   
   <entry>
-    <title>knowledge</title>
+    <title>关于</title>
     <link href="/"/>
     <url>/</url>
     
-    <content type="html"><![CDATA[]]></content>
+    <content type="html"><![CDATA[<p align="center">一个想在移动端编程领域开拓全新体验的前端混子</p>]]></content>
     
   </entry>
   
   
   
   <entry>
-    <title>关于</title>
+    <title>knowledge</title>
     <link href="/"/>
     <url>/</url>
     
-    <content type="html"><![CDATA[<p align="center">一个想在移动端编程领域开拓全新体验的前端混子</p>]]></content>
+    <content type="html"><![CDATA[]]></content>
     
   </entry>
   
